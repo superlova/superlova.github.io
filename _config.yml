@@ -1,7 +1,0 @@
-theme: jekyll-theme-midnight
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy: 
-  type: git
-  repository: git@github.com:superlova/superlova.github.io.git
-  branch: master
