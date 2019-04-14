@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-    about | Smile :)
+    Smile :)
   </title>
   <meta name="description" content>
   
@@ -77,7 +77,9 @@
 </nav>
 
 <div class="main-container">
-  <div class="container-lg">
+  
+
+<div class="container-lg">
   
 
 <div class="blog-intro">
@@ -120,12 +122,12 @@
     
 <nav class="blog-detail-nav desktop-only">
   <ul class="clearfix">
-    <li class="selected">
+    <li class>
       <a href="/">Overview</a></li>
     <li class>
       <a href="/archives">Posts <span class="counter">4</span></a>
     </li>
-    <li class>
+    <li class="selected">
       <a href="/categories">Categories <span class="counter">1</span></a></li>
     <li class>
       <a href="/tags">Tags <span class="counter">2</span></a></li>
@@ -133,12 +135,43 @@
 </nav>
 
     <div class="body-secondary">
-
-      
-      
+      <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/04/14/Coreutils重新编译方法/">Coreutils重新编译方法</a></h2>
+          <p>
+               Coreutils重新编译方法  
+  下载coreutils，在Linux系统下解压   
+ 
+  运行指令  ./configure    
+ 
+  运行  make  
+ 
+  进入src文件夹，挑选您要修改的文件，我以pwd.c为例，将其复制到我的个人文件夹 
+ 
+  修改pwd.c，...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/编译/">编译</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/编译/"><i class="fa fa-folder-open"></i> 编译</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 1 </span>
+            <span>Published {{moment(1555208310000).fromNow()}}</span>
+          </div>
+        </li>
+        
+      </ul>
     </div>
   </div>
 </div>
+
 </div>
 
 <div class="footer-wrapper container">

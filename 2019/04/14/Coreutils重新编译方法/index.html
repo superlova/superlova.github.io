@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-    我的第一篇博文嗷兄弟盟 | Smile :)
+    Coreutils重新编译方法 | Smile :)
   </title>
   <meta name="description" content>
   
   <meta name="keywords" content="
-  
+  编译
   ">
   
   <meta name="author" content="Superlova">
@@ -122,19 +122,36 @@
     <i class="fa fa-user-o"></i>
     Superlova
 
-    <span class="post-date float-right" title="{{moment(1555136714000).format('MMM DD, YYYY, h:mm:ss A')}}">
+    <span class="post-date float-right" title="{{moment(1555208310000).format('MMM DD, YYYY, h:mm:ss A')}}">
       <i class="fa fa-pencil-square-o"></i>
-      {{moment(1555136714000).fromNow()}}
+      {{moment(1555208310000).fromNow()}}
     </span>
   </h3>
 
   <article class="post-content">
-    <h1>我的第一篇博文嗷兄弟盟</h1>
-    <p>第一次写博客，还有点小紧张。不知道写啥好。就先Hello GitHub吧！<br>我滴目标是每周写一篇。内容不限。Flag已经高高立起来了！<br>本周计划：</p>
-<ol>
-<li>看完论文并翻译，实现论文的方法；</li>
-<li>搞定吴恩达机器学习作业1；</li>
-<li>将在GitHub上面部署blog的过程整理发布。</li>
+    <h1>Coreutils重新编译方法</h1>
+    <h1 id="Coreutils重新编译方法"><a href="#Coreutils重新编译方法" class="headerlink" title="Coreutils重新编译方法"></a>Coreutils重新编译方法</h1><ol>
+<li><p>下载coreutils，在Linux系统下解压<br><img src=".\Coreutils重新编译方法\下载coreutils解压.png" alt="下载coreutils解压"></p>
+</li>
+<li><p>运行指令 <code>./configure</code><br><img src=".\Coreutils重新编译方法\运行指令.png" alt="运行指令"></p>
+</li>
+<li><p>运行 <code>make</code></p>
+</li>
+<li><p>进入src文件夹，挑选您要修改的文件，我以pwd.c为例，将其复制到我的个人文件夹</p>
+</li>
+<li><p>修改pwd.c，将其内部所有带“VERSION”的行全部注释掉</p>
+</li>
+<li><p>运行指令1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -E -I ~/MyCode/coreutils-8.30/lib/ -I ~/MyCode/coreutils-8.30/ -I ~/MyCode/coreutils-8.30/src pwd.c -o pwd.i</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行指令2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -c pwd.i -o pwd.o</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行指令3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -L ~/MyCode/coreutils-8.30/lib/ -L /usr/lib/ pwd.o -o pwd -lcoreutils -lcrypt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行<code>./pwd</code><br>其他文件同理</p>
+</li>
 </ol>
 
   </article>
