@@ -12,7 +12,7 @@
   <meta name="description" content>
   
   <meta name="keywords" content="
-  GitHub Pages
+  GitHub Pages,hexo
   ">
   
   <meta name="author" content="Superlova">
@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
 
   <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/superlova/css/main.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
 
@@ -39,7 +39,7 @@
 <nav class="navbar-wrapper">
   <div class="navbar">
     <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+      <a href="/superlova/" class="navbar-logo"><i class="fa fa-github"></i></a>
 
       <div class="navbar-search float-left desktop-only">
         <div class="navbar-search-form">
@@ -52,16 +52,16 @@
 
       <ul class="navbar-nav float-left">
         
-        <li><a href="/archives">Archives</a></li>
+        <li><a href="/superlova/archives">Archives</a></li>
         
         
-        <li><a href="/categories">Categories</a></li>
+        <li><a href="/superlova/categories">Categories</a></li>
         
         
-        <li><a href="/tags">Tags</a></li>
+        <li><a href="/superlova/tags">Tags</a></li>
         
         
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        <li class="desktop-only"><a href="/superlova/atom.xml" target="_blank">RSS</a></li>
         
       </ul>
 
@@ -85,21 +85,21 @@
   <div class="container header-site-detail">
     <ul class="header-toolbar">
       <li class="clearfix">
-        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 6 </a>
+        <a href="/superlova/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/superlova/archives" class="header-toolbar-right"> 6 </a>
       </li>
       <li>
-        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
-        <a href="/tags" class="header-toolbar-right"> 3 </a>
+        <a href="/superlova/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/superlova/tags" class="header-toolbar-right"> 4 </a>
       </li>
       <li>
-        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories" class="header-toolbar-right"> 2 </a>
+        <a href="/superlova/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/superlova/categories" class="header-toolbar-right"> 1 </a>
       </li>
     </ul>
     <h2 class="header-title">
       <i class="fa fa-book text-muted"></i>
-      <a href="/">Smile :)</a>
+      <a href="/superlova/">Smile :)</a>
       
       
     </h2>
@@ -173,11 +173,11 @@
 <li>重新生成静态文件</li>
 </ol>
 <p>安装好后，执行 <code>hexo g</code> 命令应该就可以正常生成完整博客了。</p>
-<h2 id="hexo-deploy不上去，明明本地能看但是联网后死活404"><a href="#hexo-deploy不上去，明明本地能看但是联网后死活404" class="headerlink" title="hexo deploy不上去，明明本地能看但是联网后死活404"></a>hexo deploy不上去，明明本地能看但是联网后死活404</h2><p><img src="/配置hexo+GitHub Pages纪实/github-page-404.png" alt="github-page-404"></p>
+<h2 id="hexo-deploy不上去，明明本地能看但是联网后死活404"><a href="#hexo-deploy不上去，明明本地能看但是联网后死活404" class="headerlink" title="hexo deploy不上去，明明本地能看但是联网后死活404"></a>hexo deploy不上去，明明本地能看但是联网后死活404</h2><p><img src="/superlova/2019/04/14/配置hexo+GitHub Pages纪实/github-page-404.png" alt="github-page-404"></p>
 <ol>
 <li><p>首先有可能是环境没安装完全。</p>
 </li>
-<li><p>其次，可能是config.yml中deploy不完全，应为https链接，此时删除根目录下.deploy_git文件夹后重新hexo deploy即可<br><img src="/配置hexo+GitHub Pages纪实/config-yml-deploy-not-ready.png" alt="config-yml-deploy-not-ready"><br><img src="/配置hexo+GitHub Pages纪实/config-yml-deploy-ready.png" alt="config-yml-deploy-ready"></p>
+<li><p>其次，可能是config.yml中deploy不完全，应为https链接，此时删除根目录下.deploy_git文件夹后重新hexo deploy即可<br><img src="/superlova/2019/04/14/配置hexo+GitHub Pages纪实/config-yml-deploy-not-ready.png" alt="config-yml-deploy-not-ready"><br><img src="/superlova/2019/04/14/配置hexo+GitHub Pages纪实/config-yml-deploy-ready.png" alt="config-yml-deploy-ready"></p>
 </li>
 <li><p>再次，未使用git的bash，会提示权限不够</p>
 </li>
@@ -188,7 +188,7 @@
 <h2 id="登录自己的域名，发现优先以文本方式显示README-md"><a href="#登录自己的域名，发现优先以文本方式显示README-md" class="headerlink" title="登录自己的域名，发现优先以文本方式显示README.md"></a>登录自己的域名，发现优先以文本方式显示README.md</h2><p>README.md应该位于source内，并且根目录config.yml中skip_render为README.md</p>
 </li>
 </ol>
-<p><img src="/配置hexo+GitHub Pages纪实/list-of-hexo-on-github.png" alt="list-of-hexo-on-github"></p>
+<p><img src="/superlova/2019/04/14/配置hexo+GitHub Pages纪实/list-of-hexo-on-github.png" alt="list-of-hexo-on-github"></p>
 <h1 id="需要的环境："><a href="#需要的环境：" class="headerlink" title="需要的环境："></a>需要的环境：</h1><ol>
 <li>GitHub账号</li>
 <li>安装nodejs环境</li>
@@ -210,12 +210,12 @@
 <div class="footer-wrapper container">
   <footer class="footer clearfix">
     <div class="clearfix">
-    <a href="https://github.com/superlova" class="footer-logo">
+    <a href="https://superlova.github.io" class="footer-logo">
       <i class="fa fa-github"></i>
     </a>
     <ul class="footer-social-link">
       <li>© 2019 Superlova</li>
-      <li><a href="https://github.com/superlova">Home</a></li>
+      <li><a href="https://superlova.github.io">Home</a></li>
       
     </ul>
     <div class="footer-theme-info">
@@ -230,7 +230,7 @@
 
 
 
-<script src="/js/main.js"></script>
+<script src="/superlova/js/main.js"></script>
 
 </body>
 </html>
