@@ -3,7 +3,7 @@
 
 
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
@@ -27,12 +27,12 @@
   
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body id="replica-app">
 
-<nav class="navbar-wrapper">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar-wrapper">
   <div class="navbar">
     <div class="container clearfix">
       <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
@@ -125,12 +125,12 @@
     <li class>
       <a href="/">Overview</a></li>
     <li class>
-      <a href="/archives">Posts <span class="counter">6</span></a>
+      <a href="/archives">Posts <span class="counter">8</span></a>
     </li>
-    <li class>
-      <a href="/categories">Categories <span class="counter">1</span></a></li>
     <li class="selected">
-      <a href="/tags">Tags <span class="counter">4</span></a></li>
+      <a href="/categories">Categories <span class="counter">2</span></a></li>
+    <li class>
+      <a href="/tags">Tags <span class="counter">6</span></a></li>
   </ul>
 </nav>
 
@@ -138,36 +138,75 @@
       <ul class="archive-list">
         
         <li class="archive-list-item">
-          <h2><a href="/2019/04/14/Coreutils重新编译方法/">Coreutils重新编译方法</a></h2>
+          <h2><a href="/2019/04/26/CS229-note-3-广义线性模型/">CS229-note-3-广义线性模型</a></h2>
           <p>
-               Coreutils重新编译方法  
- 下载coreutils，在Linux系统下解压 
- 
-   
- 
- 运行指令  ./configure  
- 
-   
- 
-  运行  make  
- 
-  进入src文件夹，挑选您要修改的文件，我以pwd.c为例，将其复制到我的个人文件夹 
- 
-  修改...
+             在前面的学习中，我们主要讨论回归和分类的问题，在回归问题中我们默认的分布模型为正态分布$y | x ; \theta \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$，在分类问题中的模型为伯努利二项分布$y | x ; \theta \sim$ Berno...
           </p>
           <ul class="tag-list clearfix">
             
-            <li class="tag-list-item"><a href="/tags/开发纪实、踩坑实录/">开发纪实、踩坑实录</a></li>
+            <li class="tag-list-item"><a href="/tags/机器学习/">机器学习</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/笔记/">笔记</a></li>
             
           </ul>
           <div class="post-info">
             <span>
               
-              <a class="category-link" href="/categories/开发纪实、踩坑实录/"><i class="fa fa-folder-open"></i> 开发纪实、踩坑实录</a>
+              <a class="category-link" href="/categories/CS229/"><i class="fa fa-folder-open"></i> CS229</a>
               
             </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1555208310000).fromNow()}}</span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1556284090000).fromNow()}}</span>
+          </div>
+        </li>
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/04/26/CS229-note-2-分类问题与逻辑回归/">CS229-note-2-分类问题与逻辑回归</a></h2>
+          <p>
+               1. 分类问题  区别于 CS229 note 1: Introduction 提到的回归问题，我们这里要研究的问题是分类，即输出变量是离散的，非黑即白、非一即二，取值范围不再是实数。 
+ 对于2-分类问题，我们倾向于找到一个函数h(x)，输入特征x后，给出0或者1的结果。看起来就是一个简化版...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/机器学习/">机器学习</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/笔记/">笔记</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/CS229/"><i class="fa fa-folder-open"></i> CS229</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1556279484000).fromNow()}}</span>
+          </div>
+        </li>
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/04/26/CS229-note-1-Introduction/">CS229 note 1: Introduction</a></h2>
+          <p>
+               1. Supervised learning  机器学习，机器从数据中学习固定的问题-答案模式，形成固定的问答模型的过程。 
+ 机器学习的过程可用下图表示： 
+   
+ 机器通过特定的学习方法Learning Algorithm学习已知的问题-答案数据集Training Set，Learnin...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/机器学习/">机器学习</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/笔记/">笔记</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/CS229/"><i class="fa fa-folder-open"></i> CS229</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1556245005000).fromNow()}}</span>
           </div>
         </li>
         
@@ -203,5 +242,21 @@
 
 <script src="/js/main.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

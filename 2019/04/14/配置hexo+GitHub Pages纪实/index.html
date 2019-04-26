@@ -86,15 +86,15 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 5 </a>
+        <a href="/archives" class="header-toolbar-right"> 8 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
-        <a href="/tags" class="header-toolbar-right"> 4 </a>
+        <a href="/tags" class="header-toolbar-right"> 6 </a>
       </li>
       <li>
         <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories" class="header-toolbar-right"> 1 </a>
+        <a href="/categories" class="header-toolbar-right"> 2 </a>
       </li>
     </ul>
     <h2 class="header-title">
@@ -162,14 +162,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm ls --depth 0</span><br></pre></td></tr></table></figure>
 <p>这时一般会提醒你有插件没有装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm ERROR! missing xxx</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol>
 <li>安装缺失插件</li>
 </ol>
 <p>如果你的插件都在 <code>packages.json</code> 里， 可以简单通过如下命令安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save</span><br></pre></td></tr></table></figure>
 <p>要是没有， 就依次将所有缺失的插件安装上</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save jquery jsdom [xxx ...]</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>重新生成静态文件</li>
 </ol>
 <p>安装好后，执行 <code>hexo g</code> 命令应该就可以正常生成完整博客了。</p>
@@ -230,7 +230,23 @@
 
 
 
-<script src="/js/main.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/main.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

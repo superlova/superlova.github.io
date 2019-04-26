@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-    hexo图片加载失败解决方案 | Smile :)
+    CS229-note-3-广义线性模型 | Smile :)
   </title>
   <meta name="description" content>
   
   <meta name="keywords" content="
-  GitHub Pages,hexo
+  机器学习,笔记
   ">
   
   <meta name="author" content="Superlova">
@@ -122,33 +122,33 @@
     <i class="fa fa-user-o"></i>
     Superlova
 
-    <span class="post-date float-right" title="{{moment(1556180160000).format('MMM DD, YYYY, h:mm:ss A')}}">
+    <span class="post-date float-right" title="{{moment(1556284090000).format('MMM DD, YYYY, h:mm:ss A')}}">
       <i class="fa fa-pencil-square-o"></i>
-      {{moment(1556180160000).fromNow()}}
+      {{moment(1556284090000).fromNow()}}
     </span>
   </h3>
 
   <article class="post-content">
-    <h1>hexo图片加载失败解决方案</h1>
-    <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>我平时写blog使用的编辑器是Typora，采用hexo部署。某篇文章编辑的时候需要插入图片，在Typora上面，插入图片的语法是</p>
-<p><code>![图片标题](图片地址)</code><br>比如<code>![](C:\Folder\picture.png)</code></p>
-<p>其中图片地址是绝对路径，即盘符开头的那个路径。但是如果要上传到GitHub Pages上面，路径毫无疑问会发生变化，所以这里只能用相对路径。假设你的图片和当前的博客文件在同一目录下，则直接这样：</p>
-<p><code>![](picture.png)</code><br><code>![](.\picture.png)</code><br><code>![](./picture.png)</code></p>
-<p>用过unix文件系统的人都知道，其实那个<code>.</code>的作用就是指明“当前文件夹下”。但如果图片和博客文件放在一个文件夹下，肯定会导致文件夹越来越乱。所以我们有其他方式插入图片。</p>
-<ol>
-<li>在你的博客根目录下，打开git bash，输入以下命令：</li>
-</ol>
-<p><code>npm install hexo-asset-image --save</code></p>
-<p><img src="/2019/04/25/hexo图片加载失败解决方案/npm安装图片插件.png" alt="npm安装图片插件"></p>
-<ol>
-<li><p>打开博客根目录下的_config.yml<br>添加一行 <code>post_asset_folder: true</code> 或者将该项设成true</p>
-</li>
-<li><p>以后插图片就这么插：<br><code>![随便写写](picture.png)</code></p>
-</li>
-</ol>
-<p>但是你看！我还是失败了，这是搞毛呢？</p>
-<p><img src="/2019/04/25/hexo图片加载失败解决方案/插入图片失败示例.png" alt="插入图片失败示例"></p>
-<p>经查，很多人有我这样的问题，出错方法却千奇百怪。<br>有的人是生成目录出错的：<br><img src="/2019/04/25/hexo图片加载失败解决方案/生成绝对路径不完整.png" alt="生成绝对路径不完整"><br>有人生成目录日期格式不对的<br><img src="/2019/04/25/hexo图片加载失败解决方案/有生成目录日期格式不对的.png" alt="生成目录日期格式不对"><br>还有人回退版本妥协~<br><img src="/2019/04/25/hexo图片加载失败解决方案/还有回退版本的.png" alt="还有回退版本的"><br>我还是从这位老哥的回答受到了启发<br><img src="/2019/04/25/hexo图片加载失败解决方案/这位老哥还解决了问题.png" alt="这位老哥还解决了问题"><br>其实答案就在其中<br><img src="/2019/04/25/hexo图片加载失败解决方案/但是其实人家答案已经很清楚了.png" alt="但是其实人家答案已经很清楚了"><br>那就是打开_config.yml（我发现我的所有错误都可以从该文件中得到解决），按下图修改。<br><img src="/2019/04/25/hexo图片加载失败解决方案/不作死就不会死.png" alt="不作死就不会死"><br>我如此疯狂地插入图片就是为了练习插入图片的方法，怕是有生之年不会忘记了。</p>
+    <h1>CS229-note-3-广义线性模型</h1>
+    <p>在前面的学习中，我们主要讨论回归和分类的问题，在回归问题中我们默认的分布模型为正态分布$y | x ; \theta \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$，在分类问题中的模型为伯努利二项分布$y | x ; \theta \sim$ Bernoulli $(\phi)$。这里的$\mu$与$\phi$是$x$与$\theta$的函数</p>
+<p>我们接下来要介绍广义线性模型（generalized linear models，简称 GLM），之前的两种模型都是广义线性模型的特例，除此之外广义线性模型还可以导出其他不同的模型，适用于其他类型的分类或回归问题。</p>
+<h2 id="1-指数族（The-Exponential-Family）"><a href="#1-指数族（The-Exponential-Family）" class="headerlink" title="1. 指数族（The Exponential Family）"></a>1. 指数族（The Exponential Family）</h2><p>在介绍广义线性模型之前，要先介绍指数族分布。如果一个分布的概率密度函数可以写成：</p>
+<script type="math/tex; mode=display">
+p(y ; \eta)=b(y) \exp \left(\eta^{T} T(y)-a(\eta)\right)</script><p>则称该分布属于指数族。这里的$\eta$称为该分部的natural parameter。T(y)称之为充分统计量(sufficient statistic)，在我们讨论的例子中，T(y)=y。$a(\eta)$是一个log partition函数。$e^{-a(\eta)}$是一个用来让整个函数正规化（normalization）的常数，也就是让整个$p(y;\eta)$函数对y积分或加和之后等于一。</p>
+<p>选定T、a、b之后，就会得到一个参数为$\eta$的分布族，当我们改变$\eta$的值，就可以得到该分布族的一个分布。</p>
+<p>接下来将证明Bernoulli 与 Gaussian（正态）分布其实也都是指数族分布的一种，也就是说上面的T、a、b经过适当的选择之后，就可以得到这两个分布的概率密度函数。</p>
+<p>Bernoulli(φ)的概率密度函数为</p>
+<script type="math/tex; mode=display">
+p(y ; \phi)=\left\{\begin{array}{ll}{\phi,} & {\text { if } \mathrm{y}=1} \\ {1-\phi,} & {\text { if } \mathrm{y}=0}\end{array}\right.</script><p>当我们改变φ的时候，就可以得到不同的Bernoulli分布。上面这个式子可以改写成：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} p(y, \phi) &=\phi^{y}(1-\phi)^{1-y} \\ &=\exp (y \log \phi+(1-y) \log (1-\phi)) \\ &=\exp \left(\left(\log \left(\frac{\phi}{1-\phi}\right)\right) y+\log (1-\phi)\right) \end{aligned}</script><p>这样就可以看出来，natural parameter为$\eta=\log{\frac{\phi}{1-\phi}}$，此时</p>
+<script type="math/tex; mode=display">
+\begin{aligned} T(y) &=y \\ a(\eta) &=-\log (1-\phi) \\ &=\log \left(1+e^{\eta}\right) \\ b(y) &=1 \end{aligned}</script><p>同理，如果设置正态分布的方差为1，则正态分布的概率密度函数也可以写成：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} p(y ; \mu) &=\frac{1}{\sqrt{2 \pi}} \exp \left(-\frac{1}{2}(y-\mu)^{2}\right) \\ &=\frac{1}{\sqrt{2 \pi}} \exp \left(-\frac{1}{2} y^{2}\right) \cdot \exp \left(\mu y-\frac{1}{2} \mu^{2}\right) \end{aligned}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \eta &=\mu \\ T(y) &=y \\ a(\eta) &=\mu^{2} / 2 \\ &=\eta^{2} / 2 \\ b(y) &=(1 / \sqrt{2 \pi}) \exp \left(-y^{2} / 2\right) \end{aligned}</script><p>事实上，很多分布都属于指数组分布，包括多项式分布、泊松分布、指数分布、gamma分布、beta分布、狄利克雷分布等等</p>
+<h2 id="2-构造广义线性模型（GLMs）"><a href="#2-构造广义线性模型（GLMs）" class="headerlink" title="2. 构造广义线性模型（GLMs）"></a>2. 构造广义线性模型（GLMs）</h2><p>未完待续……</p>
 
   </article>
 </div>

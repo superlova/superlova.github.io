@@ -123,12 +123,12 @@
     <li class="selected">
       <a href="/">Overview</a></li>
     <li class>
-      <a href="/archives">Posts <span class="counter">5</span></a>
+      <a href="/archives">Posts <span class="counter">8</span></a>
     </li>
     <li class>
-      <a href="/categories">Categories <span class="counter">1</span></a></li>
+      <a href="/categories">Categories <span class="counter">2</span></a></li>
     <li class>
-      <a href="/tags">Tags <span class="counter">4</span></a></li>
+      <a href="/tags">Tags <span class="counter">6</span></a></li>
   </ul>
 </nav>
 
@@ -164,7 +164,23 @@
 
 
 
-<script src="/js/main.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/main.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
