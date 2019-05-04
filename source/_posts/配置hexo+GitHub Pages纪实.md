@@ -1,7 +1,9 @@
 ---
 title: 配置hexo+GitHub Pages纪实
 date: 2019-04-14 09:32:13
-tags: "GitHub Pages"
+tags: ["GitHub Pages", "hexo"]
+categories:
+- 开发纪实、踩坑实录
 ---
 
 # 配置hexo+GitHub Pages纪实
@@ -14,7 +16,7 @@ tags: "GitHub Pages"
 
 # 获得个人网站域名方法
 
-注册github即可，官网www.github.com，之后新建repository，名字为“你的用户名.github.io”。所以说用户名很重要，你要起个qq号做github名字那我估计没人能记住你的博客名，毕竟个人域名只能和用户名一样。记住项目一定要设置成公有public啊，博客是给大家看的嘛，孤芳自赏就不好玩了。
+注册github即可，官网`www.github.com`，之后新建repository，名字为“你的用户名.github.io”。所以说用户名很重要，你要起个qq号做github名字那我估计没人能记住你的博客名，毕竟个人域名只能和用户名一样。记住项目一定要设置成公有public啊，博客是给大家看的嘛，孤芳自赏就不好玩了。
 
 刚开始你的项目（repository）里面除了README.md都没有，但是不用怕。
 
@@ -87,7 +89,7 @@ $ hexo d -g     # 等同输入 hexo g 和 hexo d 指令
 再来就可以上 ``https://yourname.github.io/`` 查看 Blog 了。
 
 
-## 常用 Hexo 指令 
+## 常用 Hexo 指令
 写新文章
 ```
 $ hexo new "postName" 		# 产生新的文章
@@ -143,13 +145,14 @@ $ npm install --save jquery jsdom [xxx ...]
 
 ## hexo deploy不上去，明明本地能看但是联网后死活404
 
-   ![github-page-404](..\配置hexo+GitHub Pages纪实\github-page-404.png)
+
+![github-page-404](github-page-404.png)
 
    1. 首先有可能是环境没安装完全。
 
    2. 其次，可能是config.yml中deploy不完全，应为https链接，此时删除根目录下.deploy_git文件夹后重新hexo deploy即可
-![config-yml-deploy-not-ready](..\配置hexo+GitHub Pages纪实\config-yml-deploy-not-ready.png)
-![config-yml-deploy-ready](..\配置hexo+GitHub Pages纪实\config-yml-deploy-ready.png)
+![config-yml-deploy-not-ready](config-yml-deploy-not-ready.png)
+![config-yml-deploy-ready](config-yml-deploy-ready.png)
 
    3. 再次，未使用git的bash，会提示权限不够
 
@@ -165,7 +168,9 @@ $ npm install --save jquery jsdom [xxx ...]
 
    README.md应该位于source内，并且根目录config.yml中skip_render为README.md
 
-   ![list-of-hexo-on-github](..\配置hexo+GitHub Pages纪实\list-of-hexo-on-github.png)
+
+
+![list-of-hexo-on-github](list-of-hexo-on-github.png)
 
 # 需要的环境：
 
