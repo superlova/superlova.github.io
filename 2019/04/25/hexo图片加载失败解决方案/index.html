@@ -13,11 +13,9 @@
     
 
     
-        <meta name="description" content="第一次写博客，还有点小紧张。不知道写啥好。就先Hello GitHub吧！我滴目标是每周写一篇。内容不限。Flag已经高高立起来了！本周计划：
-
-看完论文并翻译，实现论文的方法；
-搞定吴恩达机器学习作业1；
-将在GitHub上面部署blog的过程整理发布。">
+        <meta name="description" content="问题描述：我平时写blog使用的编辑器是Typora，采用hexo部署。某篇文章编辑的时候需要插入图片，在Typora上面，插入图片的语法是
+![图片标题](图片地址)比如![](C:\Folder\picture.png)
+其中图片地址是绝对路径，即盘符开头的那个路径。但是如果要上传到GitHub">
     
 
     <!--Author-->
@@ -27,16 +25,14 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="我的第一篇博文嗷兄弟盟">
+        <meta property="og:title" content="hexo图片加载失败解决方案">
     
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="第一次写博客，还有点小紧张。不知道写啥好。就先Hello GitHub吧！我滴目标是每周写一篇。内容不限。Flag已经高高立起来了！本周计划：
-
-看完论文并翻译，实现论文的方法；
-搞定吴恩达机器学习作业1；
-将在GitHub上面部署blog的过程整理发布。">
+        <meta property="og:description" content="问题描述：我平时写blog使用的编辑器是Typora，采用hexo部署。某篇文章编辑的时候需要插入图片，在Typora上面，插入图片的语法是
+![图片标题](图片地址)比如![](C:\Folder\picture.png)
+其中图片地址是绝对路径，即盘符开头的那个路径。但是如果要上传到GitHub">
     
 
     <!--Open Graph Site Name-->
@@ -63,7 +59,7 @@
 
     <!-- Title -->
     
-    <title>我的第一篇博文嗷兄弟盟 - Smile :)</title>
+    <title>hexo图片加载失败解决方案 - Smile :)</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -173,13 +169,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>我的第一篇博文嗷兄弟盟</h1>
+                    <h1>hexo图片加载失败解决方案</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
                         
                         
-                            2019-04-13
+                            2019-04-25
                         
                     </span>
                 </div>
@@ -200,7 +196,7 @@
                         
 
 
-<a href="/tags/GitHub-Pages/">#GitHub Pages</a>
+<a href="/tags/GitHub-Pages/">#GitHub Pages</a> <a href="/tags/hexo/">#hexo</a>
 
 
                     
@@ -220,12 +216,25 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>第一次写博客，还有点小紧张。不知道写啥好。就先Hello GitHub吧！<br>我滴目标是每周写一篇。内容不限。Flag已经高高立起来了！<br>本周计划：</p>
+                <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>我平时写blog使用的编辑器是Typora，采用hexo部署。某篇文章编辑的时候需要插入图片，在Typora上面，插入图片的语法是</p>
+<p><code>![图片标题](图片地址)</code><br>比如<code>![](C:\Folder\picture.png)</code></p>
+<p>其中图片地址是绝对路径，即盘符开头的那个路径。但是如果要上传到GitHub Pages上面，路径毫无疑问会发生变化，所以这里只能用相对路径。假设你的图片和当前的博客文件在同一目录下，则直接这样：</p>
+<p><code>![](picture.png)</code><br><code>![](.\picture.png)</code><br><code>![](./picture.png)</code></p>
+<p>用过unix文件系统的人都知道，其实那个<code>.</code>的作用就是指明“当前文件夹下”。但如果图片和博客文件放在一个文件夹下，肯定会导致文件夹越来越乱。所以我们有其他方式插入图片。</p>
 <ol>
-<li>看完论文并翻译，实现论文的方法；</li>
-<li>搞定吴恩达机器学习作业1；</li>
-<li>将在GitHub上面部署blog的过程整理发布。</li>
+<li>在你的博客根目录下，打开git bash，输入以下命令：</li>
 </ol>
+<p><code>npm install hexo-asset-image --save</code></p>
+<p><img src="/2019/04/25/hexo图片加载失败解决方案/npm安装图片插件.png" alt="npm安装图片插件"></p>
+<ol>
+<li><p>打开博客根目录下的_config.yml<br>添加一行 <code>post_asset_folder: true</code> 或者将该项设成true</p>
+</li>
+<li><p>以后插图片就这么插：<br><code>![随便写写](picture.png)</code></p>
+</li>
+</ol>
+<p>但是你看！我还是失败了，这是搞毛呢？</p>
+<p><img src="/2019/04/25/hexo图片加载失败解决方案/插入图片失败示例.png" alt="插入图片失败示例"></p>
+<p>经查，很多人有我这样的问题，出错方法却千奇百怪。<br>有的人是生成目录出错的：<br><img src="/2019/04/25/hexo图片加载失败解决方案/生成绝对路径不完整.png" alt="生成绝对路径不完整"><br>有人生成目录日期格式不对的<br><img src="/2019/04/25/hexo图片加载失败解决方案/有生成目录日期格式不对的.png" alt="生成目录日期格式不对"><br>还有人回退版本妥协~<br><img src="/2019/04/25/hexo图片加载失败解决方案/还有回退版本的.png" alt="还有回退版本的"><br>我还是从这位老哥的回答受到了启发<br><img src="/2019/04/25/hexo图片加载失败解决方案/这位老哥还解决了问题.png" alt="这位老哥还解决了问题"><br>其实答案就在其中<br><img src="/2019/04/25/hexo图片加载失败解决方案/但是其实人家答案已经很清楚了.png" alt="但是其实人家答案已经很清楚了"><br>那就是打开_config.yml（我发现我的所有错误都可以从该文件中得到解决），按下图修改。<br><img src="/2019/04/25/hexo图片加载失败解决方案/不作死就不会死.png" alt="不作死就不会死"><br>我如此疯狂地插入图片就是为了练习插入图片的方法，怕是有生之年不会忘记了。</p>
 
 
                 
