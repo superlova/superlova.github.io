@@ -3,7 +3,7 @@ title: 配置hexo+GitHub Pages纪实
 date: 2019-04-14 09:32:13
 tags: ["GitHub Pages", "hexo"]
 categories:
-- 开发纪实、踩坑实录
+- 经验教训
 ---
 
 # 配置hexo+GitHub Pages纪实

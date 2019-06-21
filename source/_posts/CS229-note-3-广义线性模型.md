@@ -1,9 +1,11 @@
 ---
 title: CS229-note-3-广义线性模型
 date: 2019-04-26 21:08:10
-tags: ["机器学习", "笔记"]
+tags: ["机器学习", "广义线性模型"]
 categories:
-  - CS229
+  - 机器学习
+  - 学习笔记
+  - 转载
 mathjax: true
 ---
 在前面的学习中，我们主要讨论回归和分类的问题，在回归问题中我们默认的分布模型为正态分布$y | x ; \theta \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$，在分类问题中的模型为伯努利二项分布$y | x ; \theta \sim$ Bernoulli $(\phi)$。这里的$\mu$与$\phi$是$x$与$\theta$的函数

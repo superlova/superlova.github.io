@@ -1,9 +1,11 @@
 ---
 title: CS229-note-4-生成学习算法
 date: 2019-05-06 16:56:23
-tags: ["机器学习", "笔记"]
+tags: ["机器学习", "生成学习算法"]
 categories:
-  - CS229
+  - 机器学习
+  - 学习笔记
+  - 转载
 mathjax: true
 ---
 [转载自@飞龙](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/Markdown/cs229-notes2.md)

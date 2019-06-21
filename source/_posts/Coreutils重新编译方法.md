@@ -1,9 +1,9 @@
 ---
 title: Coreutils重新编译方法
 date: 2019-04-14 10:18:30
-tags: [linux]
+tags: ['linux','编译']
 categories:
-- 开发纪实、踩坑实录
+- 经验教训
 ---
 
 # Coreutils重新编译方法
