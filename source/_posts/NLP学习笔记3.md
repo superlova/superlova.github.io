@@ -11,21 +11,21 @@ tf-idf（英语：term frequency–inverse document frequency）是一种用于�
 
 ### 原理
 
-在一份给定的文件里，词频（term frequency，tf）指的是某一个给定的词语在该文件中出现的频率。这个数字是对词数（term count）的归一化，以防止它偏向长的文件。（同一个词语在长文件里可能会比短文件有更高的词数，而不管该词语重要与否。）对于在某一特定文件里的词语 {\displaystyle t_{i}} t_{{i}}来说，它的重要性可表示为：
+在一份给定的文件里，词频（term frequency，tf）指的是某一个给定的词语在该文件中出现的频率。这个数字是对词数（term count）的归一化，以防止它偏向长的文件。（同一个词语在长文件里可能会比短文件有更高的词数，而不管该词语重要与否。）对于在某一特定文件里的词语 ${\displaystyle t_{i}\!}$来说，它的重要性可表示为：
 
-$${\displaystyle \mathrm {tf_{i,j}} ={\frac {n_{i,j}}{\sum _{k}n_{k,j}}}}$$
-以上式子中 ${\displaystyle n_{i,j}} n_{{i,j}}$是该词在文件 ${\displaystyle d_{j}} d_{{j}}$中的出现次数，而分母则是在文件 ${\displaystyle d_{j}} d_{{j}}$中所有字词的出现次数之和。
+$${\displaystyle \mathrm {tf_{i,j}\!} ={\frac {n_{i,j}\!}{\sum _{k}n_{k,j}\!}\!}\!}$$
+以上式子中 ${\displaystyle n_{i,j}\!} n_{i,j}$是该词在文件 ${\displaystyle d_{j}\!} d_{j}$中的出现次数，而分母则是在文件 ${\displaystyle d_{j}\!} d_{j}$中所有字词的出现次数之和。
 
 逆向文件频率（inverse document frequency，idf）是一个词语普遍重要性的度量。某一特定词语的idf，可以由总文件数目除以包含该词语之文件的数目，再将得到的商取以10为底的对数得到：
 
-$${\displaystyle \mathrm {idf_{i}} =\lg {\frac {|D|}{|\{j:t_{i}\in d_{j}\}|}}} $$
+$${\displaystyle \mathrm {idf_{i}\!} =\lg {\frac {|D|}{|\{j:t_{i}\in d_{j}\}|}\!}\!} $$
 其中
 
 $|D|$：语料库中的文件总数
-$${\displaystyle |\{j:t_{i}\in d_{j}\}|} $$：包含词语 ${\displaystyle t_{i}} t_{{i}}$的文件数目（即 ${\displaystyle n_{i,j}\neq 0} n_{{i,j}}\neq 0$的文件数目）如果词语不在数据中，就导致分母为零，因此一般情况下使用 $${\displaystyle 1+|\{j:t_{i}\in d_{j}\}|} $$
+$${\displaystyle |\{j:t_{i}\in d_{j}\}|} $$：包含词语 ${\displaystyle t_{i}\!} t_{i}$的文件数目（即 ${\displaystyle n_{i,j}\neq 0} n_{i,j}\neq 0$的文件数目）如果词语不在数据中，就导致分母为零，因此一般情况下使用 $${\displaystyle 1+|\{j:t_{i}\in d_{j}\}|} $$
 然后
 
-$${\displaystyle \mathrm {tf{}idf_{i,j}} =\mathrm {tf_{i,j}} \times \mathrm {idf_{i}} } $$
+$${\displaystyle \mathrm {tf{}idf_{i,j}\!} =\mathrm {tf_{i,j}\!} \times \mathrm {idf_{i}\!} } $$
 某一特定文件内的高词语频率，以及该词语在整个文件集合中的低文件频率，可以产生出高权重的tf-idf。因此，tf-idf倾向于过滤掉常见的词语，保留重要的词语。
 
 ### 1.2 例子
@@ -96,26 +96,29 @@ token_pattern这个参数使用正则表达式来分词，其默认参数为r"(?
 
 一般地，两个离散随机变量$ X $和$ Y $的互信息可以定义为：
 
-$${\displaystyle I(X;Y)=\sum _{y\in Y}\sum _{x\in X}p(x,y)\log {\left({\frac {p(x,y)}{p(x)\,p(y)}}\right)},\,\!} $$
+$${\displaystyle I(X;Y)=\sum _{y\in Y}\sum _{x\in X}p(x,y)\log {\left({\frac {p(x,y)}{p(x)\,p(y)}\!}\right)},\,\!} $$
+
 其中$ p(x,y) $是 $X $和 $Y $的联合概率分布函数，而 ${\displaystyle p(x)} $和$ {\displaystyle p(y)}  $分别是 X 和 Y 的边缘概率分布函数。
 
 在连续随机变量的情形下，求和被替换成了二重定积分：
 
-$${\displaystyle I(X;Y)=\int _{Y}\int _{X}p(x,y)\log {\left({\frac {p(x,y)}{p(x)\,p(y)}}\right)}\;dx\,dy,} $$,
+$${\displaystyle I(X;Y)=\int _{Y}\int _{X}p(x,y)\log {\left({\frac {p(x,y)}{p(x)\,p(y)}\!}\right)}\;dx\,dy,} $$,
+
 其中 $p(x,y)$ 当前是 X 和 Y 的联合概率密度函数，而 ${\displaystyle p(x)} $和$ {\displaystyle p(y)}$分别是$ X $和$ Y $的边缘概率密度函数。
 
 如果对数以 2 为基底，互信息的单位是bit。
 
 直观上，互信息度量 X 和 Y 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。例如，如果 X 和 Y 相互独立，则知道 X 不对 Y 提供任何信息，反之亦然，所以它们的互信息为零。在另一个极端，如果 X 是 Y 的一个确定性函数，且 Y 也是 X 的一个确定性函数，那么传递的所有信息被 X 和 Y 共享：知道 X 决定 Y 的值，反之亦然。因此，在此情形互信息与 Y（或 X）单独包含的不确定度相同，称作 Y（或 X）的熵。而且，这个互信息与 X 的熵和 Y 的熵相同。（这种情形的一个非常特殊的情况是当 X 和 Y 为相同随机变量时。）
 
-互信息是 X 和 Y 的联合分布相对于假定 X 和 Y 独立情况下的联合分布之间的内在依赖性。 于是互信息以下面方式度量依赖性：I(X; Y) = 0 当且仅当 X 和 Y 为独立随机变量。从一个方向很容易看出：当 X 和 Y 独立时，p(x,y) = p(x) p(y)，因此：
+互信息是 X 和 Y 的联合分布相对于假定 X 和 Y 独立情况下的联合分布之间的内在依赖性。 于是互信息以下面方式度量依赖性：$I(X; Y) = 0$ 当且仅当 X 和 Y 为独立随机变量。从一个方向很容易看出：当 X 和 Y 独立时，$p(x,y) = p(x) p(y)$，因此：
 
-$${\displaystyle \log {\left({\frac {p(x,y)}{p(x)\,p(y)}}\right)}=\log 1=0.\,\!} $$
+$${\displaystyle \log {\left({\frac {p(x,y)}{p(x)\,p(y)} \!}\right)}=\log 1=0.\,\!} $$
 此外，互信息是非负的（即 $I(X;Y) ≥ 0$; 见下文），而且是对称的（即 $I(X;Y) = I(Y;X)$）。
 
 互信息又可以等价地表示成
 
-$${\displaystyle {\begin{aligned}I(X;Y)&{}=H(X)-H(X|Y)\\&{}=H(Y)-H(Y|X)\\&{}=H(X)+H(Y)-H(X,Y)\\&{}=H(X,Y)-H(X|Y)-H(Y|X)\end{aligned}}} $$
+$${\displaystyle {\begin{aligned}I(X;Y)&{}=H(X)-H(X|Y)\\&{}=H(Y)-H(Y|X)\\&{}=H(X)+H(Y)-H(X,Y)\\&{}=H(X,Y)-H(X|Y)-H(Y|X)\end{aligned}\!}\!} $$
+
 其中$ {\displaystyle \ H(X)} $ 和$ {\displaystyle \ H(Y)}  $是边缘熵，$H(X|Y) $和$ H(Y|X) $是条件熵，而 $H(X,Y) $是 X 和 Y 的联合熵。
 
 **互信息越小，两个来自不同事件空间的随机变量彼此之间的关系性越低; 互信息越高，关系性则越高。**
