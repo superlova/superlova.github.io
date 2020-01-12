@@ -178,3 +178,24 @@ $ npm install --save jquery jsdom [xxx ...]
 2. 安装nodejs环境
 3. 安装Git环境
 4. windows10 or 7
+
+# 2020年1月11日更新：
+
+许久不写博客，今日发现重装系统后的新电脑无法正常发布和更新博客内容。事实上我的内容都上传到我的repository上了，我只需要调整好下载的分支就可以了。具体请看[参考文献](https://www.zhihu.com/question/21193762)。具体流程如下：
+
+首先确认你的哪个分支是最全的。我的是hexo分支保存所有博文，master分支只适用于网页渲染。因此我迁移电脑需要下载hexo分支。
+
+调整到hexo分支的本地目录，在git bash下执行
+`npm install hexo`
+`npm install` # 下载和更新需要的库
+`npm install hexo-deployer-git`
+不需要执行hexo init。
+
+然后下载，输入
+`git pull origin hexo`
+
+如果提示报错，显示你本地已经有修改，则输入下列命令放弃修改：
+`git reset --hard`
+`git pull origin hexo`
+
+现在你的本地hexo分支内应该下载了已经上传过的所有博客。
