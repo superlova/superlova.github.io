@@ -8,7 +8,7 @@ subtitle:
 description:
 keywords:
 author: Superlova
-language:
+language: zh-CN
 timezone:
 
 # URL
@@ -75,7 +75,8 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 #theme: landscape
 #theme: replica
-theme: clean-blog
+#theme: clean-blog
+theme: fluid
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
