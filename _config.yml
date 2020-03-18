@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 每天进步一点点...
-subtitle: We should owe success to 99% perspiration and 1% inspiration.
+title: Superlova
+subtitle: Be a better man...
 description:
 keywords:
 author: Superlova
@@ -96,4 +96,4 @@ mathjax:
   enable: true
   per_page: true
   #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML
