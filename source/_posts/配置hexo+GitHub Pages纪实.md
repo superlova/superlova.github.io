@@ -1,9 +1,9 @@
 ---
 title: 配置hexo+GitHub Pages纪实
 date: 2019-04-14 09:32:13
-tags: ["GitHub Pages", "hexo"]
+tags: ["github pages", "hexo"]
 categories:
-- 经验教训
+- record
 ---
 
 # 配置hexo+GitHub Pages纪实

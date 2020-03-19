@@ -1,9 +1,9 @@
 ---
 title: 用于科学计算的GPU选购参考
 date: 2019-07-01 18:11:15
-tags: ['GPU','深度学习','采购','Tesla','1080Ti','Titan']
+tags: ['GPU','deep learning']
 categories:
-- 经验教训
+- record
 ---
 实验室最近要采购一批显卡，需要调研显卡的型号和价格。
 

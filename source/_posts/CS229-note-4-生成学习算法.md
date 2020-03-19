@@ -1,10 +1,9 @@
 ---
 title: CS229-note-4-生成学习算法
 date: 2019-05-06 16:56:23
-tags: ["机器学习", "生成学习算法"]
+tags: ['machine learning']
 categories:
-  - 机器学习
-  - 学习笔记
+  - notes
   - 转载
 mathjax: true
 ---

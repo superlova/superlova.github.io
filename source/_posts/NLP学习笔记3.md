@@ -1,9 +1,9 @@
 ---
 title: NLP学习笔记3
 date: 2019-06-27 20:51:24
-tags: ['NLP','深度学习','自然语言处理']
+tags: ['NLP','deep learning']
 categories: 
-- 学习笔记
+- notes
 ---
 ## 1. TF-IDF原理。
 

@@ -1,9 +1,9 @@
 ---
 title: 总结论文中常用的Matplotlib和Seaborn绘图技术
 date: 2020-01-11 21:47:26
-tags: ["matplotlib", "seaborn", "论文"]
+tags: ["matplotlib", "seaborn"]
 categories:
- - 学习笔记
+ - notes
 ---
 
 # 一、使用matplotlib绘制图像

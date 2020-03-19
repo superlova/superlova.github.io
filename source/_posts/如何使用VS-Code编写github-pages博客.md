@@ -1,9 +1,9 @@
 ---
 title: 如何使用VS Code编写github pages博客
 date: 2020-01-11 21:55:17
-tags: ["GitHub Pages", "hexo", "Visual Studio Code", "markdown"]
+tags: ["github pages", "hexo"]
 categories: 
-  - 经验教训
+  - record
 ---
 
 使用VS Code写博客，需要你按照我之前写的两篇博客，将github pages平台搭建起来。

@@ -1,16 +1,16 @@
 ---
 title: Coreutils重新编译方法
 date: 2019-04-14 10:18:30
-tags: ['linux','编译']
+tags: ['compiler']
 categories:
-- 经验教训
+- record
 ---
 
 # Coreutils重新编译方法
 
 1. 下载coreutils，在Linux系统下解压
 
-![下载coreutils解压](下载coreutils解压.png)
+![下载coreutils解压](Coreutils重新编译方法\下载coreutils解压.png)
 
 2. 运行指令 ` ./configure `
 

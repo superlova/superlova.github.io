@@ -1,10 +1,9 @@
 ---
 title: CS229-note-3-广义线性模型
 date: 2019-04-26 21:08:10
-tags: ["机器学习", "广义线性模型"]
+tags: ['machine learning']
 categories:
-  - 机器学习
-  - 学习笔记
+  - notes
   - 转载
 mathjax: true
 ---

@@ -1,11 +1,9 @@
 ---
 title: 神经网络学习笔记note1
 date: 2019-06-06 21:38:03
-tags: ["机器学习", "神经网络","深度学习"]
+tags: ["machcine learning", "deep learning"]
 categories:
-  - 机器学习
-  - 深度学习
-  - 学习笔记
+  - notes
   - 转载
 ---
 

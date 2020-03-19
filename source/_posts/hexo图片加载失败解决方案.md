@@ -2,9 +2,9 @@
 layout: 'n'
 title: hexo图片加载失败解决方案
 date: 2019-04-25 16:16:00
-tags: ["GitHub Pages", "hexo"]
+tags: ["github pages", "hexo"]
 categories:
-  - 经验教训
+  - record
 ---
 ## 问题描述：
 我平时写blog使用的编辑器是Typora，采用hexo部署。某篇文章编辑的时候需要插入图片，在Typora上面，插入图片的语法是

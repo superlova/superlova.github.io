@@ -1,10 +1,9 @@
 ---
 title: CS229-note-2-分类问题与逻辑回归
 date: 2019-04-26 19:51:24
-tags: ["机器学习", "回归和分类","逻辑回归"]
+tags: ['machine learning']
 categories:
-  - 机器学习
-  - 学习笔记
+  - notes
 mathjax: true
 ---
 ## 1. 分类问题

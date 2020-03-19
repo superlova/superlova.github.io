@@ -1,9 +1,9 @@
 ---
 title: Python3中enumerate/zip等函数使用方法
 date: 2019-05-18 15:24:47
-tags: ['Python']
+tags: ['python']
 categories:
- - 编程语言
+ - notes
 ---
 最近正在研读《Python机器学习基础教程》（Introduction to Machine Learning with Python）这本书。书中的Python3代码、对于numpy、pandas、matplotlib以及scikit-learn库的使用都让人叹为观止。作为Python初学者，这本书不仅可以让人入门机器学习，更可以让人的Python技巧得到提升。
 

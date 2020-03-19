@@ -1,9 +1,9 @@
 ---
 title: NLP学习笔记2
 date: 2019-06-24 20:19:24
-tags: ['NLP','深度学习','IMDB']
+tags: ['NLP','deep learning']
 categories: 
-- 学习笔记
+- notes
 ---
 
 ## 1. 分词的概念和实现细节

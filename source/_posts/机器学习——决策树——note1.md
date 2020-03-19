@@ -1,10 +1,9 @@
 ---
 title: 机器学习——决策树——note1
 date: 2019-05-22 15:16:55
-tags: ["机器学习", "决策树", "西瓜书"]
+tags: ['machine learning', 'decision tree']
 categories:
-  - 机器学习
-  - 学习笔记
+  - notes
 mathjax: true
 ---
 

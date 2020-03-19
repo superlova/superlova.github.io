@@ -1,10 +1,9 @@
 ---
 title: 牛奶可乐经济学note2
 date: 2019-06-08 15:49:56
-tags: ['经济学', '学习方法']
+tags: ['economics', 'study method']
 categories:
- - 人文社科
- - 学习笔记
+ - notes
 ---
 
 回顾一下上一节的概念：

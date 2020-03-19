@@ -1,9 +1,9 @@
 ---
 title: NLP学习笔记1
 date: 2019-06-21 21:02:07
-tags: ['NLP','深度学习','IMDB']
+tags: ['NLP','deep learning']
 categories: 
-- 学习笔记
+- notes
 ---
 # IMDB数据集探索
 

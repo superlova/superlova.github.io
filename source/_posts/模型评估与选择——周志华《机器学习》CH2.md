@@ -1,10 +1,9 @@
 ---
 title: 模型评估与选择——周志华《机器学习》CH2
 date: 2019-06-21 11:26:15
-tags: ['西瓜书','机器学习','模型评估与选择']
+tags: ['machine learning','model evaluation']
 categories: 
-- 机器学习
-- 学习笔记
+- notes
 mathjax: true
 ---
 模型如何评估，选择标准是什么？

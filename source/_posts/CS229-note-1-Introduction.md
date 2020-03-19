@@ -1,10 +1,9 @@
 ---
 title: 'CS229 note 1: Introduction'
 date: 2019-04-26 10:16:45
-tags: ["机器学习"]
+tags: ['machine learning']
 categories:
-  - 机器学习
-  - 学习笔记
+  - notes
 mathjax: true
 ---
 ## 1. Supervised learning
