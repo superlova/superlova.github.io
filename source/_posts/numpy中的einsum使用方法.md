@@ -1,6 +1,7 @@
 ---
 title: numpy中的einsum使用方法
 date: 2020-05-19 14:52:52
+math: true
 index_img: /img/Einstein.jpg
 tags: ['numpy', 'Python', 'einsum']
 categories: 
