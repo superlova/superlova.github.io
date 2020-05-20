@@ -1,6 +1,7 @@
 ---
 title: Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解
 date: 2020-05-20 16:38:22
+math: false
 index_img: /img/datawhale.jpg
 tags: ['datawhale', 'Python']
 categories: 
@@ -36,13 +37,13 @@ categories:
 
 所有的数据（训练集、验证集和测试集）的标注使用JSON格式，并使用文件名进行索引。
  
- Field  | Description|
---------- | --------|
-top	| 左上角坐标X |
-height	| 字符高度 |
-left   | 左上角最表Y |
-width  | 字符宽度 |
-label  | 字符编码 |
+| Field  | Description|
+| --------- | --------|
+| top	| 左上角坐标X |
+| height | 字符高度 |
+| left   | 左上角最表Y |
+| width  | 字符宽度 |
+| label  | 字符编码 |
 
 字符的坐标具体如下所示：
 ![坐标](Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解/字符坐标.png)  
@@ -140,14 +141,7 @@ for idx in range(arr.shape[1]):
 
 ## 4. Baseline思路：将不定长字符转换为定长字符的识别问题，并使用CNN完成训练和验证
 
-### 4.1 步骤
-
-- 赛题数据读取（封装为Pytorch的Dataset和DataLoder）
-- 构建CNN模型（使用Pytorch搭建）
-- 模型训练与验证
-- 模型结果预测
-
-###  4.2 运行环境及安装示例   
+###  4.1 运行环境及安装示例   
 
 - 运行环境要求：Python2/3，Pytorch1.x，内存4G，有无GPU都可以。         
                         
@@ -166,7 +160,8 @@ for idx in range(arr.shape[1]):
 - 启动notebook，即可开始baseline代码的学习                  
 >$jupyter-notebook   
     
-- 假设所有的赛题输入文件放在../input/目录下，首先导入常用的包：            
+- 假设所有的赛题输入文件放在../input/目录下，首先导入常用的包：
+
 ```python
 import os, sys, glob, shutil, json
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
@@ -190,9 +185,17 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data.dataset import Dataset
-```    
+```
 
-- #### 步骤1：定义好读取图像的Dataset     
+### 4.2 步骤
+
+- 赛题数据读取（封装为Pytorch的Dataset和DataLoder）
+- 构建CNN模型（使用Pytorch搭建）
+- 模型训练与验证
+- 模型结果预测
+
+#### 步骤1：定义好读取图像的Dataset
+
 ```python
 class SVHNDataset(Dataset):
     def __init__(self, img_path, img_label, transform=None):
@@ -218,7 +221,8 @@ class SVHNDataset(Dataset):
         return len(self.img_path)
 ```
      
-- #### 步骤2：定义好训练数据和验证数据的Dataset     
+#### 步骤2：定义好训练数据和验证数据的Dataset
+
 ```python
 train_path = glob.glob('../input/train/*.png')
 train_path.sort()
@@ -260,10 +264,10 @@ val_loader = torch.utils.data.DataLoader(
     shuffle=False, 
     num_workers=10,
 )
-```
-     
+``` 
 
-- #### 步骤3：定义好字符分类模型，使用renset18的模型作为特征提取模块     
+#### 步骤3：定义好字符分类模型，使用renset18的模型作为特征提取模块
+
 ```python
 class SVHN_Model1(nn.Module):
     def __init__(self):
@@ -292,7 +296,8 @@ class SVHN_Model1(nn.Module):
         return c1, c2, c3, c4, c5
 ```
        
-- #### 步骤4：定义好训练、验证和预测模块     
+#### 步骤4：定义好训练、验证和预测模块
+
 ```python
 def train(train_loader, model, criterion, optimizer):
     # 切换模型为训练模式
@@ -375,7 +380,8 @@ def predict(test_loader, model, tta=10):
     return test_pred_tta
 ```
                  
-- #### 步骤5：迭代训练和验证模型     
+#### 步骤5：迭代训练和验证模型
+
 ```python
 model = SVHN_Model1()
 criterion = nn.CrossEntropyLoss()
@@ -418,7 +424,8 @@ for epoch in range(2):
 Epoch: 0, Train loss: 3.1 	 Val loss: 3.4 验证集精度：0.3439       
 Epoch: 1, Train loss: 2.1 	 Val loss: 2.9 验证集精度：0.4346     
 
-- #### 步骤6：对测试集样本进行预测，生成提交文件          
+#### 步骤6：对测试集样本进行预测，生成提交文件      
+
 ```python
 test_path = glob.glob('../input/test_a/*.png')
 test_path.sort()
@@ -461,4 +468,4 @@ df_submit['file_code'] = test_label_pred
 df_submit.to_csv('renset18.csv', index=None)
 ```
 
-- ##### 在训练完成2个Epoch后，模型在测试集上的成绩应该在0.33左右。    
+**在训练完成2个Epoch后，模型在测试集上的成绩应该在0.33左右。**    
