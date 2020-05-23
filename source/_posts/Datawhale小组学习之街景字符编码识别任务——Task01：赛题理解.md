@@ -1,5 +1,5 @@
 ---
-title: Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解
+title: Datawhale——SVHN——Task01：赛题理解
 date: 2020-05-20 16:38:22
 math: false
 index_img: /img/datawhale.jpg
