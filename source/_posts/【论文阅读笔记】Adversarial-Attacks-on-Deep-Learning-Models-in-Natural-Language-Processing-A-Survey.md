@@ -4,7 +4,7 @@ title: >-
   Processing: A Survey
 date: 2020-06-02 14:16:03
 math: true
-index_img: 【论文阅读笔记】Adversarial-Attacks-on-Deep-Learning-Models-in-Natural-Language-Processing-A-Survey/2020-06-02-14-19-42.png
+index_img: /img/anime/3.jpg
 tags: ['NLP', 'Adversarial Attacks', 'Robustness', 'Deep Neural Networks', 'survey']
 categories: 
 - paper

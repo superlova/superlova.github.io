@@ -4,7 +4,7 @@ title: >-
   Text Classification Tasks
 date: 2020-06-02 14:01:54
 math: true
-index_img: 【论文阅读笔记】EDA-Easy-Data-Augmentation-Techniques-for-Boosting-Performance-on-Text-Classification-Tasks/2020-06-02-14-25-14.png
+index_img: /img/anime/4.jpg
 tags: ['NLP', 'Data Augmentation', 'Text Classification', 'Deep Neural Networks']
 categories: 
 - paper

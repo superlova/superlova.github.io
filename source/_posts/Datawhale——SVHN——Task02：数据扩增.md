@@ -56,9 +56,13 @@ categories:
 算法一开始是由Patrice等人在2003年的ICDAR上发表的《Best Practices for Convolutional Neural Networks Applied to Visual Document Analysis》提出的，最开始应用在mnist手写体数字识别数据集中。当前也有很多人把该方法应用到手写体汉字的识别问题中。
 
 首先对于图像中的每个像素点，产生对应的随机数对$(\Delta x, \Delta y)$，大小介于-1~1之间，分别表示该像素点的x方向和y方向的移动距离；
-然后生成一个以0为均值，以σ为标准差的高斯核k_nn，并用前面的随机数与之做卷积，并将结果作用于原图像。
+然后生成一个以0为均值，以σ为标准差的高斯核$k_{nn}$，并用前面的随机数与之做卷积，并将结果作用于原图像。
 
-参考：https://blog.csdn.net/lhanchao/article/details/54234490
+![](https://www.kaggleusercontent.com/kf/1181488/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..JOqe3f7Joxv4qWUFbLMQew.CgYzaNwIIFF7jVY1bX0NSs1-ti8NMrPcp61few_93xUuYBRF6ug3wh2awESp_gDWx1BvlZAI45TF3uJ5vNqVLNPS4sIjHMM1oX721fmldeIQAnh84dOKzvTaIK-J0HFhapl_dyBAcV7yOQY_GQYR2MJi3SrPLxvekt-t1hEL0pSdWIl3wbeghVLpgUBg1VmFUFvkti7XL0GltuXOPuQMylsbdbz4GpKX-4gIWyVr301jLLOH-woNbaJuPN0DI4346ok8sJIoG2k7ZdBLq9xRunhHHe4UvmWx2Dj0OK9g8vjKZGA2pRQcxd6_-vWj1KLYyFEWzBWK67rMSFLsQ3zi287T1NK8VJ9C0fLm6FdrQSA4v3BrgbHMwWijkcvG0MdMIdRdZxWbhmxYQ_eKLGntll-2k_1UMFID03h4qjFU-1p2HWv8VktUcpHhvUtu-N26j0vOuWXI484Ttwm2kBkiPZxD0jAfIUVIpSP6pVOTd-E6drxGbr_bqcycOJP2BSzOb5fMqCuP7f_c0B3fnVgVU7-SCb5ngcW6M4ayyy9SNfpobLc2pYj47aTlMmz0iXRrofaEcXiVzhlKz_r8EUUXAkPw5F_X5heFp2S_0hJpKpQJPsssty6FG_PwzN7b5BoSa2mxcNpqiX4ADy-J1dwXzgQesePXPj3rVyQAjxcQmQfXNKVKCo6ASCMBkJsnSQb3.npeRt-2aWHuMiEMkWLKuxA/__results___files/__results___5_1.png)
+
+参考：
+https://www.kaggle.com/jiqiujia/elastic-transform-for-data-augmentation  
+https://blog.csdn.net/lhanchao/article/details/54234490
 
 
 还有诸如透视变换（Perspective Transform）、分段仿射变换（Piecewise Affine transforms）、枕形畸变（Pincushion Distortion）等不同的图像变换操作。
