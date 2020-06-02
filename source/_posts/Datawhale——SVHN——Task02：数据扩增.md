@@ -1,7 +1,7 @@
 ---
 title: Datawhale——SVHN——Task02：数据扩增
 date: 2020-05-23 21:15:18
-math: false
+math: true
 index_img: /img/datawhale.jpg
 tags: ['datawhale', 'Python', 'Data Augmentation']
 categories: 
@@ -14,13 +14,13 @@ categories:
 
 图像领域的数据读取方法，使用Pillow或者OpenCV内置的函数即可。
 
+## 数据扩增
+
 在读取图像时，还可以对原始图像添加扰动等，这就启发我们一件事：是不是对原数据增加一些扰动，就可以使其变成新的数据呢？
 
 下面介绍利用该思想的数据扩增环节。
 
-## 数据扩增
-
-### 数据扩增为什么会有用
+### 1. 数据扩增为什么会有用
 
 数据扩增的最常见作用，是增加数据集，用以缓解样本量不足导致的模型过拟合现象，从而提升模型的泛化性能。
 
@@ -40,7 +40,42 @@ categories:
 
 可以参考这篇论文：[Do CNNs Encode Data Augmentations?](https://arxiv.org/abs/2003.08773)
 
-### 数据扩增方法
+### 2. 常见的数据扩增
+
+#### 2.1 图像数据扩增
+
+* 色彩抖动（Color Jittering）  
+调整图片的亮度、饱和度、对比度，针对图像的颜色进行的数据增强。
+对比度受限自适应直方图均衡化算法（Clahe），锐化（Sharpen），凸点（Emboss）
+
+* 主成分噪声（PCA  Jittering）  
+首先按照RGB三个颜色通道计算均值和标准差，对网络的输入数据进行规范化；再在整个训练集上计算协方差矩阵，进行特征分解，得到特征向量和特征值，最后做PCA Jittering；最后对RGB空间做PCA，然后对主成分做一个(0, 0.1)的高斯扰动。
+
+* 弹性变换（Elastic Transform）
+
+算法一开始是由Patrice等人在2003年的ICDAR上发表的《Best Practices for Convolutional Neural Networks Applied to Visual Document Analysis》提出的，最开始应用在mnist手写体数字识别数据集中。当前也有很多人把该方法应用到手写体汉字的识别问题中。
+
+首先对于图像中的每个像素点，产生对应的随机数对$(\Delta x, \Delta y)$，大小介于-1~1之间，分别表示该像素点的x方向和y方向的移动距离；
+然后生成一个以0为均值，以σ为标准差的高斯核k_nn，并用前面的随机数与之做卷积，并将结果作用于原图像。
+
+参考：https://blog.csdn.net/lhanchao/article/details/54234490
+
+
+还有诸如透视变换（Perspective Transform）、分段仿射变换（Piecewise Affine transforms）、枕形畸变（Pincushion Distortion）等不同的图像变换操作。
+
+根据Datawhale大佬分享，对于本次题目（SVHN街道彩色数字识别），最常见的、最有效的数据扩增方法是：
+* 随机改变大小（resize）
+* 随机切割（randomcrop），即从原始图像中，随机的crop出一些图像。
+
+鉴于本次数据集中的图片大小不一，一般一开始我们都需要resize到指定大小。但也有的文章中提到了，先对图片resize会使得图片长宽比发生变化，造成失真。所以我们要具体问题具体分析。
+
+我在博客中也有分享过一篇讲述图像数据增强的[相关论文]()，大家可以看一下。
+
+#### 2.2 文本数据增强
+
+此部分参考我的[文本数据增强]()，而且由于本次赛题并不必进行文本数据增强，因此就不在这里赘述了。
+
+### 3.. 数据扩增实战——使用tensorflow
 
 大家都用的Pytorch吗？不会只有我自己用tensorflow吧。我来给大家介绍一下tensorflow是怎么做数据扩增的。
 
@@ -296,3 +331,4 @@ plt.ylim([0,1])
 这里看的就更明显了，橙色线在训练时的loss很快就下降到趋近0，这说明模型已经很难从未经增强的数据中学到东西了，产生了严重的过拟合。
 
 而蓝色线直到最后也在逐步地学习之中，我们可以得出结论，数据增强的确有助于避免过拟合、增强模型的泛化性能。
+

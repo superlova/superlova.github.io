@@ -11,12 +11,6 @@ categories:
 <!--more--->
 # Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解
 
-## 0. 学习目标
-
-* 理解赛题背景和赛题数据
-* 完成赛题报名和数据下载，理解赛题的解题思路
-* 了解赛题
-
 ## 1. 大赛简介
 
 本次新人赛是Datawhale与天池联合发起的0基础入门系列赛事第二场 —— 零基础入门CV之街景字符识别比赛。
@@ -52,6 +46,41 @@ categories:
 |原始图片|图片JSON标注|
 |----|-----|
 ![19](Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解/原始图片.png)    | ![标注](Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解/原始图片标注.png)  |
+
+在[SVHN官网](http://ufldl.stanford.edu/housenumbers/)上下载数据集的话，有两种格式可供选择：
+
+#### 第一种格式
+
+第一种格式的数据集，除了原始图像之外还包括边界框信息。每个tar.gz文件都包含png格式的原始图像，以及一个digitStruct.mat文件。边界框信息存储在digitStruct.mat文件中，而不是直接绘制在数据集中的图像上。以`.mat`结尾的文件是matlab专用文件，可以使用python的scipy库打开，内部装的是类似json的字典。
+
+digitStruct中的每个元素都有以下字段：
+* name是一个字符串，其中包含相应图像的文件名。
+* bbox是一个结构数组，包含图像中每个数字边界框的位置，大小和标签。
+
+例如：digitStruct（300）.bbox（2）.height则是第300张图片中第二个数字边界框的高度。
+
+#### 第二种格式
+
+为了降低难度，将上述第一种格式的图片都被剪切到只剩下有效字符，并被缩放至32*32像素的标准大小，以方便识别。图片的边界框经过适当的选择，避免出现扭曲等状况。尽管如此，这种处理还是可能导致引入一些错误信息。
+
+train_32x32.mat和test_32x32.mat，`.mat`文件中包含两个变量,X是一个4D的矩阵，维度是(32,32,3,n),n是数据个数,y是label变量。看一下前十张图：
+
+```python
+import scipy.io as sio
+import matplotlib.pyplot as plt
+
+print ('Loading Matlab data.')
+mat = sio.loadmat('train_32x32.mat')
+data = mat['X']
+label = mat['y']
+for i in range(10):
+    plt.subplot(2,5,i+1)
+    plt.title(label[i][0])
+    plt.imshow(data[...,i])
+    plt.axis('off')
+plt.show()
+```
+![](Datawhale小组学习之街景字符编码识别任务——Task01：赛题理解/2020-05-30-22-17-20.png)
 
 ### 1.4 成绩评定方式
 
