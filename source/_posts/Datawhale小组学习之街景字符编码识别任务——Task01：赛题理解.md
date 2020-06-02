@@ -105,7 +105,7 @@ file_name, file_code
 
 JSON中标签的读取方式：  
  
- ```python
+```python
 import json
 train_json = json.load(open('../input/train.json'))
 
