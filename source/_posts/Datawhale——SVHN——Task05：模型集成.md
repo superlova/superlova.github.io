@@ -7,7 +7,7 @@ tags: ['datawhale', 'Python', 'Ensemble', 'Boosting', 'Bagging']
 categories: 
 - notes
 ---
-模型的训练和验证过程，基本到了最后咯。
+三个臭皮匠，顶个诸葛亮。
 <!--more--->
 
 ## 1. 集成学习

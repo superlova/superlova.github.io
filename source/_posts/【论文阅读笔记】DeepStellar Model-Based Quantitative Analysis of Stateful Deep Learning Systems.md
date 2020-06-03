@@ -1,5 +1,5 @@
 ---
-title: DeepStellar--Model-Based Quantitative Analysis of Stateful Deep Learning Systems 论文阅读笔记
+title: 【论文阅读笔记】DeepStellar Model-Based Quantitative Analysis of Stateful Deep Learning Systems
 date: 2020-03-19 15:38:00
 math: true
 index_img: /img/xiexiaofei.jpg
