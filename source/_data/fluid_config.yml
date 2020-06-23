@@ -26,7 +26,7 @@ highlight: # 代码高亮
 fun_features: # 一些好玩的功能
   typing: # 为 subtitle 添加打字机效果
     enable: true
-    typeSpeed: 70 # 打印速度
+    typeSpeed: 90 # 打印速度
     cursorChar: "_" # 游标字符
     loop: false # 是否循环播放效果
   anchorjs: # 为文章内容中的标题添加锚图标
@@ -54,8 +54,8 @@ custom_html: ''  # 自定义底部 HTML 内容（位于 footer 上方），也�
 
 web_analytics:  # 网页访问统计
   enable: true
-  baidu:  # 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串
-  google: UA-160806707-1 # Google统计的Tracking ID，参见 https://analytics.google.com/analytics/web/
+  baidu:  1040bcc5d25d5f4a9cb5e9855eb2c6db # 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串
+  google:  # Google统计的Tracking ID，参见 https://analytics.google.com/analytics/web/
   tencent:  # 腾讯统计的H5 App id，参见 https://mta.qq.com/h5/manage/ctr_app_manage
   woyaola:  # 51.la站点统计ID，参见 https://www.51.la/user/site/index
   cnzz:  # 友盟/cnzz站点统计web_id，参见 https://web.umeng.com/main.php?c=site&a=show
@@ -116,7 +116,7 @@ banner_parallax: true  # 头图滚动视差
 #---------------------------
 footer:
   statistics:  # 统计网站 PV、UV，使用的是不蒜子，显示在页脚  *不蒜子近期连接不稳定，谨慎开启
-    enable: false
+    enable: true
     pv_format: "总访问量 {} 次"  # 显示的文本，{}是数字的占位符（必须包含)，下同
     uv_format: "总访客数 {} 人"
 
@@ -136,7 +136,7 @@ scroll_top_arrow:  # 向顶部滚动的箭头
 # Index Page
 #---------------------------
 index:
-  banner_img: /img/default.png  # 首页 Banner 头图，以下相同
+  banner_img: /img/cover_1.jpg  # 首页 Banner 头图，以下相同
   banner_img_height: 100  # 头图高度，屏幕百分比，available: 0 - 100
   post_default_img: '' # 默认的文章封面图，当没有指定 index_img 时会使用该图片，若都为空则不显示任何图片
   slogan:  # 首页副标题的独立设置
@@ -144,7 +144,7 @@ index:
     text:  # 为空则按 hexo config.subtitle 显示
   auto_excerpt:
     enable: true
-  post_url_target: _blank  # available: _blank | _self
+  post_url_target: _self  # available: _blank | _self
   post_meta: # 是否显示文章信息（时间、分类、标签）
     date: true
     category: true
@@ -153,7 +153,7 @@ index:
 # 通过 hexo new page 命令创建的页面
 # Custom Page
 page:
-  banner_img: /img/default.png
+  banner_img: /img/cover_2.jpg
   banner_img_height: 70  # available: 0 - 100
 
 #---------------------------
@@ -161,7 +161,7 @@ page:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  banner_img: /img/cover_2.jpg
   banner_img_height: 70  # available: 0 - 100
   meta:  # 文章标题下方的信息
     date:  # 文章日期
@@ -174,10 +174,10 @@ post:
       enable: true
       format: "{} 分钟"
     views:  # 阅读次数，统计基于不蒜子  *不蒜子近期连接不稳定，谨慎开启
-      enable: false
+      enable: true
       format: "{} 次"
   updated:
-    enable: false
+    enable: true
     content: 本文最后更新于：
   toc:  # 文章右侧目录
     enable: true
@@ -189,15 +189,14 @@ post:
     enable: false
     content: '<img src="https://octodex.github.com/images/jetpacktocat.png" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">' # 自定义区域，支持 HTML，可自行插入赞赏码、公众号二维码等内容
   comments:  # 评论
-    enable: false  # 开启评论
+    enable: true  # 开启评论
     type: utterances  # 指定使用的评论模块  available: disqus | valine | gitalk | utterances | changyan | livere  推荐 utterances
   image_zoom:  # 文章图片可点击放大
     enable: true
   math:  # 数学公式，开启之前需要更换 Markdown 渲染器，否则复杂公式会有兼容问题，具体请见 https://hexo.fluid-dev.com/docs/guide/#数学公式
-    enable: true
-    specific: true  # 开启后，只有在文章 Front-matter 里指定 `math: true` 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度
+    enable: false
+    specific: false  # 开启后，只有在文章 Front-matter 里指定 `math: true` 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度
     engine: mathjax  # 公式引擎  available: mathjax | katex
-    cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 #---------------------------
 # 评论
@@ -209,8 +208,8 @@ post:
 # utterances
 # You can install utterances with https://utteranc.es/ and generate your configuration
 utterances:
-  repo:
-  issue_term:
+  repo: superlova / superlova.github.io
+  issue_term: pathname
   label: utterances
   theme: github-light
   crossorigin: anonymous
@@ -281,7 +280,7 @@ livere:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  banner_img: /img/cover_3.jpg
   banner_img_height: 80  # available: 0 - 100
   subtitle:  # 打字机内容
 
@@ -290,7 +289,7 @@ archive:
 # Categories Page
 #---------------------------
 category:
-  banner_img: /img/default.png
+  banner_img: /img/cover_4.jpg
   banner_img_height: 80  # available: 0 - 100
   subtitle:  # 打字机内容
 
@@ -299,7 +298,7 @@ category:
 # Tags Page
 #---------------------------
 tag:
-  banner_img: /img/default.png
+  banner_img: /img/cover_5.jpg
   banner_img_height: 80  # available: 0 - 100
   subtitle:  # 打字机内容
   tagcloud: # 标签云
@@ -315,14 +314,14 @@ tag:
 # About Page
 #---------------------------
 about:  # 以下仅为页面顶部的基本信息，更多内容请在 ./pages/about.md 中编辑，支持 markdown 和 HTML
-  banner_img: /img/default.png
+  banner_img: /img/cover_6.jpg
   banner_img_height: 80  # available: 0 - 100
   subtitle:  # 打字机内容
-  avatar: /img/avatar.png # 头像
-  name: myname
-  introduce: info / info / info # 支持 HTML
+  avatar: /img/my.png # 头像
+  name: superlova
+  introduce: Boy / BJUT / Deep Learning Testing # 支持 HTML
   icons: # 更多图标可从 https://fontawesome.com/v5.10.0/icons?d=gallery 查找，并以 "图标名: url" 的格式添加在下方
-    "fab fa-github": https://github.com
+    "fab fa-github": https://github.com/superlova
     "fab fa-twitter": https://twitter.com
     "fab fa-weixin qrcode":  # 添加 qrcode 后，点击不再跳转，而是悬浮二维码，因此值需要是二维码图片地址
 
@@ -332,7 +331,7 @@ about:  # 以下仅为页面顶部的基本信息，更多内容请在 ./pages/a
 # 404 Page
 #---------------------------
 page404:
-  banner_img: /img/default.png
+  banner_img: /img/mute.jpg
   banner_img_height: 100  # available: 0 - 100
   subtitle: 'Page not found'  # 打字机内容
 
