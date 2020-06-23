@@ -6,7 +6,7 @@
     "version": "3.9.0"
   },
   "dependencies": {
-    "acorn": "^6.4.0",
+    "acorn": "^6.4.1",
     "eslint": "^5.16.0",
     "hexo": "^3.9.0",
     "hexo-admin-qiniu": "^2.2.0",
