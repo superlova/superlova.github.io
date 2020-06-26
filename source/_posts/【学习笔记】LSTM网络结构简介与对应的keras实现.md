@@ -10,7 +10,7 @@ categories:
 从理论和代码两个层面介绍了LSTM网络。
 <!--more--->
 
-## 理论来一波
+## 一、理论来一波
 
 循环神经网络（Recurrent Neural Network，RNN）是一类有短期记忆能力的神经网络。在循环神经网络中，神经元不但可以接受其他神经元的信息，也可以接受自身的信息，形成具有环路的网络结构。
 
@@ -55,7 +55,7 @@ $$\begin{aligned}
 
 其中$\sigma(\cdot)$ 为 Logistic 函数，其输出区间为 (0, 1)；$\boldsymbol{x}_{t}$为当前时刻的输入。
 
-## 还是得看代码
+## 二、还是得看代码
 
 下面是我定义的一个专用于IMDb影评情感分析的二分类模型，包装在一个函数中。输入训练集、测试集及其标签，设定好参数就可以运行、训练。可以选择是否保存模型到本地。最后函数返回训练好的模型。
 
@@ -70,9 +70,6 @@ $$\begin{aligned}
 注意，每个单词（在这里是每个整数）都会变成固定维度（embedding_dim=128）的向量，因此每条影评从Embedding层输出后，都会变成80*128的矩阵。
 
 第二层是LSTM层。如果你看了理论部分的叙述，就知道LSTM层中无论是隐状态$\boldsymbol{c}$、$\boldsymbol{h}$还是三个门$\boldsymbol{f}$、$\boldsymbol{i}$、$\boldsymbol{o}$，他们的维度都是$\boldsymbol{D}$。这个$\boldsymbol{D}$的大小就需要我们用参数`lstm_dim=32`来定义。这个参数越大，代表LSTM层的参数越多、泛化能力越强，也更难训练、更容易过拟合。
-
-数据经过LSTM层，输出的是最后一个时间步得到的output向量（即$\boldsymbol{h}_{finally}$），维度为$\boldsymbol{D}$。其实LSTM能够在每个时间步都输出output（即$\boldsymbol{h}_{t}$），只不过我们把这些没到时间的半成品output选择性忽略了。如果你想要堆叠LSTM层，也就是LSTM层下面还有LSTM，或者你需要所有时间步的$\boldsymbol{h}_{t}$，那么你可以在训练的时候把`return_sequences=True`写进LSTM参数之中。
-
 
 第三层是单个神经元的sigmoid层，在这里就直接转换成概率并分类了。
 
@@ -116,3 +113,176 @@ def train_lstm(x_train, y_train, x_test, y_test,
     # model.save("lstm_imdb.h5")
     return model
 ```
+
+## 三、LSTM返回所有时间步的hidden state向量
+
+
+数据经过LSTM层，输出的是最后一个时间步得到的output向量（即$\boldsymbol{h}_{finally}$），维度为$\boldsymbol{D}$。
+
+其实LSTM能够在每个时间步都输出output（即$\boldsymbol{h}_{t}$），只不过我们把这些没到时间的半成品output选择性忽略了。
+
+如果你想要堆叠LSTM层，也就是LSTM层下面还有LSTM，或者你**需要所有时间步的**$\boldsymbol{h}_{t}$，那么你可以在训练的时候把`return_sequences=True`写进LSTM参数之中。
+
+![](【学习笔记】LSTM网络结构简介与对应的keras实现/堆叠rnn.png)
+
+下面让我们来比较一下`return_sequences`参数开启之后输出值的变化。
+
+### return_sequences=False
+
+首先固定随机数种子。
+```python
+np.random.seed(0)
+tf.random.set_seed(0)
+```
+
+然后构建输入Input向量和LSTM层，此时LSTM层使用默认参数`return_sequences=False`。
+
+```python
+input1 = Input(shape=(3,1)) # 输入是三维向量
+lstm1 = LSTM(1)(input1) # 内部hidden和cell的维度为1
+model = Model(inputs=input1, outputs=lstm1)
+```
+
+构造一批输入，包括6个句子，每个句子三个单词，然后输入LSTM，查看LSTM层的输出。
+
+```python
+data = np.array([[0.1, 0.2, 0.3],
+                    [0.3, 0.2, 0.1],
+                    [0.2, 0.6, 0.3],
+                    [0.8, 0.2, 0.3],
+                    [0.3, 0.5, 0.1],
+                    [0.2, 0.6, 0.2]])
+print(model.predict(data))
+```
+此时输出为：
+```python
+[[0.00844267]
+ [0.00617958]
+ [0.01279002]
+ [0.01231858]
+ [0.009055  ]
+ [0.01108878]]
+
+Process finished with exit code 0
+```
+
+### return_sequences=True
+
+然后打开`return_sequences`的开关
+
+```python
+lstm1 = LSTM(1, return_sequences=True)(input1)
+```
+
+此时的输出为：
+```
+[[[0.00190693]
+  [0.00490441]
+  [0.00844267]] # 
+
+ [[0.0055262 ]
+  [0.00704476]
+  [0.00617958]] #
+
+ [[0.00374958]
+  [0.01259477]
+  [0.01279002]] #
+
+ [[0.01337298]
+  [0.01142679]
+  [0.01231858]] #
+
+ [[0.0055262 ]
+  [0.01206062]
+  [0.009055  ]] #
+
+ [[0.00374958]
+  [0.01259477]
+  [0.01108878]]] #
+
+Process finished with exit code 0
+
+```
+
+此为输出所有时间步的hidden state。鉴于一共6个测试输入，每个输入有3个feature，所以时间步也就三步。LSTM的输出结果从6个hidden state变成了6*3个hidden state。
+
+### return_state=True
+
+我们再来看另一个参数，这个参数能够控制LSTM输出cell state。
+
+```python
+lstm1 = LSTM(1, return_state=True)(input1)
+```
+
+```
+[array([[0.00844267],
+       [0.00617958],
+       [0.01279002],
+       [0.01231858],
+       [0.009055  ],
+       [0.01108878]], dtype=float32), 
+array([[0.00844267],
+       [0.00617958],
+       [0.01279002],
+       [0.01231858],
+       [0.009055  ],
+       [0.01108878]], dtype=float32), 
+array([[0.01655067],
+       [0.01227413],
+       [0.02506882],
+       [0.02414548],
+       [0.01798305],
+       [0.02187706]], dtype=float32)]
+
+Process finished with exit code 0
+
+```
+开启`return_state=True`之后，LSTM返回3个array，第一个array和第二个array一样，都是hidden state，和默认返回的一样。第三个array就是最后一个时间步的cell state。
+
+### return_state=True, return_sequences=True
+如果两个开关都打开，则结果变成
+```python
+lstm1 = LSTM(1, return_state=True, return_sequences=True)(input1)
+```
+```
+[array([[[0.00190693],
+        [0.00490441],
+        [0.00844267]],
+
+       [[0.0055262 ],
+        [0.00704476],
+        [0.00617958]],
+
+       [[0.00374958],
+        [0.01259477],
+        [0.01279002]],
+
+       [[0.01337298],
+        [0.01142679],
+        [0.01231858]],
+
+       [[0.0055262 ],
+        [0.01206062],
+        [0.009055  ]],
+
+       [[0.00374958],
+        [0.01259477],
+        [0.01108878]]], dtype=float32), 
+array([[0.00844267],
+       [0.00617958],
+       [0.01279002],
+       [0.01231858],
+       [0.009055  ],
+       [0.01108878]], dtype=float32), 
+array([[0.01655067],
+       [0.01227413],
+       [0.02506882],
+       [0.02414548],
+       [0.01798305],
+       [0.02187706]], dtype=float32)]
+
+Process finished with exit code 0
+
+```
+
+还是返回三个array，第一个是所有时间步的hidden state，这是开启`return_sequences=True`的效果；第二个则是原本LSTM的输出hidden state；第三个是开启`return_state=True`的效果，返回最后一个时间步的cell state
