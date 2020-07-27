@@ -194,11 +194,62 @@ trans_data, lam = scipy.stats.boxcox(len_dist+1)
 scipy.stats.normaltest(trans_data)
 NormaltestResult(statistic=1347.793358118494, pvalue=2.1398873511704724e-293)
 ```
-e后面跟了那么多负数，我佛了。
+e后面跟了那么多负数，我佛了。这说明我们的假设不成立。
 
 但总归是要猜一个截断值的。看log图上8.5的位置比较靠谱。np.exp(8.5)=4914约等于5000，因此我初步决定把截断长度定为5000。
 
-## 类别分布
+## 类别信息
+
+### 简单查看类别信息表
+
+先改造一下df_train，多加几个字段，分别是
+- text-split，将text字段分词
+- len，每条新闻长度
+- first_char，新闻第一个字符
+- last_char，新闻最后一个字符
+- most_freq，新闻最常出现的字符
+
+```python
+df_train['text_split'] = df_train['text'].apply(lambda x:x.split())
+df_train['len'] = df_train['text'].apply(lambda x:len(x.split()))
+df_train['first_char'] = df_train['text_split'].apply(lambda x:x[0])
+df_train['last_char'] = df_train['text_split'].apply(lambda x:x[-1])
+df_train['most_freq'] = df_train['text_split'].apply(lambda x:np.argmax(np.bincount(x)))
+df_train.head()
+
+```
+
+![](【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析/2020-07-25-12-22-01.png)
+
+构建一个类别信息表。
+
+- count，该类别新闻个数
+- len_mean，该类别新闻平均长度
+- len_std，该类别新闻长度标准差
+- len_min，该类别新闻长度最小值
+- len_max，该类别新闻长度最大值
+- freq_fc，该类别新闻最常出现的第一个字符
+- freq_lc，该类别新闻最常出现的最后一个字符
+- freq_freq，该类别新闻最常出现的字符
+
+```python
+df_train_info = pd.DataFrame(columns=['count','len_mean','len_std','len_min','len_max','freq_fc','freq_lc','freq_freq'])
+for name, group in df_train.groupby('label'):
+    count = len(group) # 该类别新闻数
+    len_mean = np.mean(group['len']) # 该类别长度平均值
+    len_std = np.std(group['len']) # 长度标准差
+    len_min = np.min(group['len']) # 最短的新闻长度
+    len_max = np.max(group['len']) # 最长的新闻长度
+    freq_fc = np.argmax(np.bincount(group['first_char'])) # 最频繁出现的首词
+    freq_lc = np.argmax(np.bincount(group['last_char'])) # 最频繁出现的末词
+    freq_freq = np.argmax(np.bincount(group['most_freq'])) # 该类别最频繁出现的词
+    df_train_info.loc[name] = [count,len_mean,len_std,len_min,len_max,freq_fc,freq_lc,freq_freq]
+df_train_info
+```
+![](【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析/2020-07-25-12-30-24.png)
+
+
+### 类别分布
 
 之前的讨论是从数据集总体验证同分布的，我们还需要验证训练集的类别足够均匀。
 
@@ -222,12 +273,9 @@ plt.show()
 
 科技类新闻最多，星座类新闻最少。这个国家的人大部分是唯物主义者哈，神秘学受众比较少（啊这，我在分析什么？）。
 
-由于类别不均衡，会严重影响模型的精度。但是我们也是有办法应对的。由于篇幅受限，我就不在这里写了
+由于类别不均衡，会严重影响模型的精度。但是我们也是有办法应对的。
 
-> 关于此，我确信已发现了一种美妙的证法 ，可惜这里空白的地方太小，写不下。——费马  
-> Cuius rei demonstrationem mirabilem sane detexi. Hanc marginis exiguitas non caperet.
-
-## 类别长度
+### 类别长度
 ```python
 df_train['len'] = df_train['text'].apply(lambda x: len(x.split()))
 plt.figure()
@@ -236,7 +284,7 @@ plt.xticks(range(14), list(index_2_label_dict.values()), fontproperties=zhfont, 
 ```
 ![](【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析/7.png)
 
-在散点图中，股票类新闻的长度都飘到天上去了，可以看出股票分析类文章真的很容易写得又臭又长啊！
+在散点图中，股票类新闻的长度都飘到天上去了，可以看出股票分析类文章真的很容易写得又臭又长啊（发现：不同类别的文章长度不同，可以把长度作为一个Feature，以供机器学习模型训练）！
 
 ## 字符分布
 
@@ -300,7 +348,9 @@ for i in range(10):
 2265在新闻末尾出现了1389次
 ```
 
-因此我们有理由认为900是句号。值域3750应该是逗号吧？猜的，我也不知道，因为3750不太容易在新闻末尾出现。但是除了句号之外，感叹号和问号照样能划分句子，我们试着将2662当作感叹号，将885当作问号。
+因此我们有理由认为900是句号。至于3750应该是逗号吧？猜的，理由是3750不太容易在新闻末尾出现。
+
+但是除了句号之外，感叹号和问号照样能划分句子，我们试着将2662当作感叹号，将885当作问号。什么理由？猜的。
 
 下面开始计算每篇新闻所含标点符号（900、2662、885）的个数，
 
@@ -325,19 +375,29 @@ dtype: float64
 ```
 平均长度为19，其实这是把那些股票文章也算上了，拉高了平均值。75%的新闻长度都在24个句子以下。
 
-看看分布：
+给df_train_info新加一列sent_num，计算分词后的句子个数；sent_len为句子长度。
 
 ```python
-plt.figure()
-plt.hist(sum_sep, bins=100)
-plt.xlim([0,max(sum_sep)])
-plt.xlabel("num of sentence")
-plt.ylabel("num of sample")
-plt.show()
+list_num_sentence = []
+for name, group in df_train.groupby('label'):
+    sum_sep_label = np.vectorize(sum_of_sep)(group['text'])
+    num_sentence = np.mean(sum_sep_label)
+    list_num_sentence.append(num_sentence)
+df_train_info['sent_num'] = list_num_sentence
+df_train_info['sent_len'] = df_train_info['len_mean'] / df_train_info['sent_num']
+df_train_info
 ```
-![](【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析/8.png)
 
-**每类新闻中出现次数最多的字符**
+不同类别的新闻，其句子长度和个数也是不同的。
+
+之前我们分析，股票类文章往往很长，而社会（label=5）和教育（label=6）类文章的句子最多。家居（label=8）和时尚（label=11）类新闻的句子最少。游戏类（label=9）句子是最长的，社会（label=5）句子是最短的（发现：句子和个数长度也可以作为特征）。
+
+![](【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析/2020-07-25-13-00-28.png)
+
+**每类新闻中出现次数前10**
+
+在每类新闻中出现频率最高的词汇，就是df_train_info表中的freq_freq列。可以看到，清一色的3750，这个字符我们在后期处理时可以拿掉。
+
 ```python
 word_count_dict = {}
 for name, df in df_train.groupby('label'):
@@ -347,30 +407,9 @@ for name, df in df_train.groupby('label'):
     word_count_single_class = sorted(word_count_single_class.items(), key=lambda d:int(d[1]), reverse = True)
     word_count_dict[name] = word_count_single_class
 
-# 查看每个类别出现最多的词汇
-for label in range(14):
-    print(index_2_label_dict[label], word_count_dict[label][0])
-```
-科技 ('3750', 1267331)
-股票 ('3750', 1200686)
-体育 ('3750', 1458331)
-娱乐 ('3750', 774668)
-时政 ('3750', 360839)
-社会 ('3750', 715740)
-教育 ('3750', 469540)
-财经 ('3750', 428638)
-家居 ('3750', 242367)
-游戏 ('3750', 178783)
-房产 ('3750', 180259)
-时尚 ('3750', 83834)
-彩票 ('3750', 87412)
-星座 ('3750', 33796)
-
-**每类新闻中出现次数前10**
-```python
 for label in range(14):
     print(index_2_label_dict[label], [x for x,_ in word_count_dict[label][:10]])
-```
+
 科技 ['3750', '648', '900', '3370', '4464', '2465', '6122', '3659', '7399', '4939']
 股票 ['3750', '648', '3370', '900', '4464', '3659', '5036', '6250', '1633', '6065']
 体育 ['3750', '648', '900', '7399', '6122', '4939', '4704', '1667', '5598', '669']
@@ -385,6 +424,8 @@ for label in range(14):
 时尚 ['3750', '648', '900', '4939', '6122', '5560', '669', '4811', '7539', '4893']
 彩票 ['3750', '4464', '3370', '648', '2465', '900', '3659', '6065', '1667', '2614']
 星座 ['3750', '648', '900', '4939', '669', '6122', '4893', '3864', '4811', '1465']
+```
+
 
 # 分析结果
 
@@ -396,8 +437,10 @@ for label in range(14):
 
 3. 把截断长度定为5000？
 
-4. 赛题的数据集类别分布存在较为不均匀的情况。在训练集中科技类新闻最多，其次是股票类新闻，最少的新闻是星座新闻。需要用采样方法解决。文章最长的是股票类新闻。
+4. 赛题的数据集类别分布存在较为不均匀的情况。在训练集中科技类新闻最多，其次是股票类新闻，最少的新闻是星座新闻。需要用采样方法解决。文章最长的是股票类新闻。不同类别的文章长度不同，可以把长度和句子个数作为一个Feature，以供机器学习模型训练。
 
 5. 训练集中总共包括6869个字，最大数字为7549，最小数字为0，其中编号3750的字出现的次数最多，编号3133的字出现的次数最少，仅出现一次，其中字符3750、字符900和字符648在20w新闻的覆盖率接近99%，很有可能是标点符号。
 
 6. 900很有可能是句号，2662和885则很有可能为感叹号和问号，3750出现频率很高但是基本不在新闻最后出现，因此初步判断为逗号。按照这种划分，训练集中每条新闻平均句子个数约为19。
+
+7. 在训练集中，不同类别新闻出现词汇有特色。但是需要把共有的常用词停用。自然想到利用TF-IDF编码方式。
