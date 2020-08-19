@@ -56,6 +56,7 @@ public:
 ```
 
 上面的代码在循环的过程中将二进制位为 1 时对应的幂累乘到答案中。
+> https://oi-wiki.org/
 
 ## leetcode 53 最大子序和
 
@@ -109,6 +110,8 @@ public:
 而跨越中心mid的计算方法，则是通过两个for循环，从mid开始一个往前遍历得到最大值`ml`，一个往后遍历得到`mr`，最后得到`ml + mr + nums[mid]`即可。
 
 结果为三者的最大值。
+
+> https://www.bilibili.com/video/BV19t411k7jR
 
 ## leetcode 169 多数元素
 
@@ -177,3 +180,5 @@ private:
     }
 };
 ```
+
+> https://leetcode-cn.com/problems/majority-element/solution/duo-shu-yuan-su-by-leetcode-solution/
