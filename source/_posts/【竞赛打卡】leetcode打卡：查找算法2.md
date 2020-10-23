@@ -1,9 +1,14 @@
 ---
 title: 【竞赛打卡】leetcode打卡：查找算法2
 date: 2020-08-27 19:32:22
-tags:
+index_img: /img/datawhale.jpg
+math: true
+tags: ['Datawhale', 'leetcode', 'algorithm', 'search']
+categories: 
+- notes
 ---
-
+见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
+<!--more--->
 ## 1 两数之和
 
 ```cpp
