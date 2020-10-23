@@ -199,3 +199,9 @@ $ npm install --save jquery jsdom [xxx ...]
 `git pull origin hexo`
 
 现在你的本地hexo分支内应该下载了已经上传过的所有博客。
+
+# 2020年10月23日更新：
+
+npm下载慢的话，可以先
+`npm install cnpm`
+然后将所有npm指令替代为cnpm
