@@ -130,7 +130,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    1.1k 字
+                    1.2k 字
                   </span>
                 
 
@@ -138,7 +138,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      3 分钟
+                      4 分钟
                   </span>
                 
 
@@ -173,7 +173,7 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期二, 十二月 29日 2020, 9:29 晚上</p>
+                class="note note-warning">本文最后更新于：星期二, 十二月 29日 2020, 9:33 晚上</p>
             
             <div class="markdown-body">
               <p>什么是SVM？SVM是如何用于分类的？为什么求解对偶问题？核函数的原理是什么？<br><a id="more"></a></p>
@@ -205,6 +205,15 @@
 <p>2）无需知道非线性变换函数$\phi$的形式和参数.</p>
 <p>3）核函数的形式和参数的变化会隐式地改变从输入空间到特征空间的映射，进而对特征空间的性质产生影响，最终改变各种核函数方法的性能。</p>
 <p>4）核函数方法可以和不同的算法相结合，形成多种不同的基于核函数技术的方法，且这两部分的设计可以单独进行，并可以为不同的应用选择不同的核函数和算法。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>《机器学习》周志华</p>
+<p>《统计学习方法》李航</p>
+<p>《机器学习基础》梅尔亚·莫里等</p>
+<p>SVM入门（七）为何需要核函数：<a href="http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html" target="_blank" rel="noopener">http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html</a></p>
+<p>如何通俗地讲解对偶问题？尤其是拉格朗日对偶lagrangian duality？知乎回答：<a href="https://www.zhihu.com/question/58584814" target="_blank" rel="noopener">https://www.zhihu.com/question/58584814</a></p>
+<p>为什么支持向量机要用拉格朗日对偶算法来解最大化间隔问题？知乎回答：<a href="https://www.zhihu.com/question/36694952" target="_blank" rel="noopener">https://www.zhihu.com/question/36694952</a></p>
+<p>简易解说拉格朗日对偶（Lagrange duality）：<a href="https://www.cnblogs.com/90zeng/p/Lagrange_duality.html" target="_blank" rel="noopener">https://www.cnblogs.com/90zeng/p/Lagrange_duality.html</a></p>
+<p>拉格朗日对偶性：<a href="https://www.cnblogs.com/nxf-rabbit75/p/11453355.html" target="_blank" rel="noopener">https://www.cnblogs.com/nxf-rabbit75/p/11453355.html</a></p>
+<p>机器学习白板推导：<a href="https://www.bilibili.com/video/BV1aE411o7qd" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1aE411o7qd</a></p>
 
             </div>
             <hr>
@@ -581,34 +590,7 @@
 
     </script>
 
-    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
-
-  
-
-
-
-
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
@@ -626,5 +608,17 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
