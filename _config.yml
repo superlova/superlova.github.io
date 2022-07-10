@@ -83,7 +83,8 @@ theme: fluid
 deploy:
   type: git
   #repository: https://github.com/superlova/superlova.github.io.git
-  repository: git@github.com:superlova/superlova.github.io.git
+  #repository: git@github.com:superlova/superlova.github.io.git
+  repository: git@github_superlova:superlova/superlova.github.io.git
   #repository: git@github.com:superlova/superlova.github.io.git
   branch: master 
 
