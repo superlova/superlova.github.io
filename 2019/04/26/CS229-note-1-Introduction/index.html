@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>CS229 note 1: Introduction - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期五, 四月 26日 2019, 10:16 上午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    3.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      13 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <h2 id="1-Supervised-learning"><a href="#1-Supervised-learning" class="headerlink" title="1. Supervised learning"></a>1. Supervised learning</h2><p>机器学习，机器从数据中学习固定的问题-答案模式，形成固定的问答模型的过程。</p>
+<p>机器学习的过程可用下图表示：</p>
+<p><img src="/2019/04/26/CS229-note-1-Introduction/2019-04-26-12-57-21.png" srcset="/img/loading.gif" alt></p>
+<p>机器通过特定的学习方法Learning Algorithm学习已知的问题-答案数据集Training Set，Learning Algorithm最终会得到一个与真实模型相差无几的假说模型hypothesis。得到该模型之后，我们就可以利用它，对全新的问题的答案作出预测。</p>
+<p>机器通过问题-答案训练模型的过程，称之为监督学习过程。问题是由一组已知数据构成的输入，比如房屋的面积、照射率、卧室数目等等；答案则是一个确切的结论，比如房屋的价格。刚才举的例子就是依照房屋的面积和其他信息来预测房屋的价格，输出值是一个实数（连续变量）。这在统计学上称之为回归问题。假设房屋的价格和面积成正比，则称上个问题为线性回归问题。</p>
+<p>好了，那么机器怎么实现学习的呢？我们可以以预测房屋价格为例，构建一个学习模型。</p>
+<p>首先，回归问题的本质就是通过给定一系列的参数，拟合出一个函数h(x)，这个函数应该与真实函数y(x)越接近越好。h(x)大概长成这样：</p>
+<script type="math/tex; mode=display">h_{\vec\theta}(\vec x)=\theta_0+\theta_1x_1+\theta_2x_2+\cdots\\=\vec\theta^T\vec x</script><p>今后为了方便起见，$\vec x$和$\vec \theta$等等就不加上箭头了，他们都表示由许多分量的向量。</p>
+<p>可以看到，学习效果的好坏，取决于$\theta$选择的好坏，选择的好了$h_{\theta}(x)$就更逼近真实的y。学习的过程，就是不断修改$\theta$的过程。</p>
+<p>那我们怎么改$\theta$呢？回想我们的数学建模过程，我们可以构造一个函数，自变量为$\theta$，检验y(x)与h(x)的距离（即差值），距离越小则说明$\theta$越完美。这不就转化成了一个最优化问题了吗？如果构造出来的函数还能够求导的话，求一次导，找到最低点，岂不是美滋滋？因此我们构造出来了以下函数：</p>
+<script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\Sigma_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})</script><p>其中m是样本个数，以上就是<strong>线性回归</strong>问题的<strong>损失函数</strong>，损失函数越小，训练得越好。</p>
+<h2 id="2-求解损失函数最小值的迭代思路"><a href="#2-求解损失函数最小值的迭代思路" class="headerlink" title="2. 求解损失函数最小值的迭代思路"></a>2. 求解损失函数最小值的迭代思路</h2><p>按理说，我们直接对损失函数求导，马上就知道二次函数的最低点了。求这个函数的导数可不太容易，首先我们以非解析方法来迭代求解该函数。我们采用梯度下降法，逐步逼近全局最优点：</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)</script><p>$\theta$维度太多，求导是个困难的事情。如果对$\theta$求梯度，得到某一点处下降速度最快的方向，即可逐步实现优化。下面是对$J(\theta)$求偏导数的过程：</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(\theta)}{\partial \theta_j}=\frac{1}{2}\Sigma_{i=i}^{m}\frac{\partial(\theta^Tx^{(i)}-y^{(i)})^2}{\partial\theta_j}\\=\Sigma_{i=i}^{m}(\theta^Tx^{(i)}-y^{(i)})\cdot x_j^{(i)}</script><p>因此我们得到了以下学习算法：</p>
+<p><img src="/2019/04/26/CS229-note-1-Introduction/2019-04-26-14-57-21.png" srcset="/img/loading.gif" alt></p>
+<p>该算法具有“离终点越近，收敛速度越慢”的特点。该算法还有一个特点，即每计算一个$\theta$的分量$\theta_j$，算法都需要遍历一遍整个数据集。效率是O(n*n*m*k),n是维度，m是数据集大小，k是直到收敛为止循环的次数。</p>
+<p>因为每判断一次，都需要整批数据的支持，因此这种梯度下降方式又称之为<strong>批梯度下降</strong>(batch gradient descent)。</p>
+<p>做一个不恰当的比喻：批梯度下降好比每做一次选择，总是要询问周边所有的人的意见，之后给出一个让所有人都比较满意的方向。</p>
+<p>与之相对应，如果我只问一个人的意见，就给出结论，这不就节约了遍历整个数据集的时间了吗？这种方法叫做<strong>随机梯度下降</strong>(stochastic gradient descent)。</p>
+<p>算法表示如下：</p>
+<p><img src="/2019/04/26/CS229-note-1-Introduction/2019-04-26-15-17-07.png" srcset="/img/loading.gif" alt></p>
+<p>该算法的效率是O(n<em>\n\</em>k)。虽然性能得到了提升，但是牺牲了一部分准确性。事实证明随机梯度下降能在一定程度上代替批梯度下降，我们更多地使用小批量梯度下降法，即结合二者的优势，做决定之前问问一部分人的意见即可。</p>
+<h2 id="3-求解损失函数最小值的代数证明"><a href="#3-求解损失函数最小值的代数证明" class="headerlink" title="3. 求解损失函数最小值的代数证明"></a>3. 求解损失函数最小值的代数证明</h2><p>前文说过，对$J(\theta)$求导不是不行，而是因为如果$\theta$维度变高，求导相对困难。下面我们就来硬肛这个方法。</p>
+<p>先要做一些数学知识铺垫，即矩阵的求导运算：</p>
+<ol>
+<li>函数对矩阵求导<br>对于一个函数$f:\mathbb{R}^{m\times n}\mapsto\mathbb{R}$，即输入一个矩阵，输出一个值的此类函数，定义f对矩阵A求导(the derivative of f with respect to A)为：<script type="math/tex; mode=display">
+\nabla_{A} f(A)=\left[ \begin{array}{ccc}{\frac{\partial f}{\partial A_{11}}} & {\cdots} & {\frac{\partial f}{\partial A_{1 n}}} \\ {\vdots} & {\ddots} & {\vdots} \\ {\frac{\partial f}{\partial A_{m 1}}} & {\cdots} & {\frac{\partial f}{\partial A_{m n}}}\end{array}\right]</script></li>
+</ol>
+<p>举个例子，若定义$A=\left[ \begin{array}{ll}{A<em>{11}} &amp; {A</em>{12}} \ {A<em>{21}} &amp; {A</em>{22}}\end{array}\right]$，$f(A)=\frac{3}{2} A<em>{11}+5 A</em>{12}^{2}+A<em>{21} A</em>{22}$，那么有$\nabla<em>{A} f(A)=\left[ \begin{array}{cc}{\frac{3}{2}} &amp; {10 A</em>{12}} \ {A<em>{22}} &amp; {A</em>{21}}\end{array}\right]$。</p>
+<ol>
+<li>矩阵的迹(trace, tr)<br>矩阵的迹特指方阵的迹。矩阵的迹就是上文所定义的函数f的一个代表。定义如下：</li>
+</ol>
+<script type="math/tex; mode=display">\operatorname{tr} A=\sum_{i=1}^{n} A_{i i}</script><p>矩阵的迹有以下性质：</p>
+<p>$tr(AB)=tr(BA)\<br>tr(ABC)=tr(CAB)=tr(BCA)\<br>tr(ABCD)=tr(DABC)=tr(CDAB)=tr(BCDA)\<br>trA=trA^T\<br>tr(A+B)=trA+trB\<br>traA=atrA$</p>
+<p>矩阵的转置的性质：</p>
+<p>$(AB)^T= B^TA^T \<br>(A+B)^T=A^T+B^T$</p>
+<p>对迹求导的几个结论：<br>$\begin{aligned} \nabla<em>{A} \operatorname{tr} A B &amp;=B^{T} \ \nabla</em>{A^{T}} f(A) &amp;=\left(\nabla<em>{A} f(A)\right)^{T} \ \nabla</em>{A} \operatorname{tr} A B A^{T} C &amp;=C A B+C^{T} A B^{T} \ \nabla_{A}|A| &amp;=|A|\left(A^{-1}\right)^{T} \end{aligned}$</p>
+<ol>
+<li>一些符号的定义<br>如果X是由样本构成的矩阵，<script type="math/tex; mode=display">
+X=\left[ \begin{array}{c}{-\left(x^{(1)}\right)^{T}-} \\ {-\left(x^{(2)}\right)^{T}-} \\ {\vdots} \\ {-\left(x^{(m)}\right)^{T}-}\end{array}\right]</script>y是由真实结果组成的向量，<script type="math/tex; mode=display">
+\vec{y}=\left[ \begin{array}{c}{y^{(1)}} \\ {y^{(2)}} \\ {\vdots} \\ {y^{(m)}}\end{array}\right]</script></li>
+</ol>
+<p>由于$h_{\theta}\left(x^{(i)}\right)=\left(x^{(i)}\right)^{T} \theta$，所以我们可以得到下式：</p>
+<script type="math/tex; mode=display">
+X \theta-\vec{y}=\left[ \begin{array}{c}{\left(x^{(1)}\right)^{T} \theta} \\ {\vdots} \\ {\left(x^{(m)}\right)^{T} \theta}\end{array}\right]-\left[ \begin{array}{c}{y^{(1)}} \\ {\vdots} \\ {y^{(m)}}\end{array}\right]
+$$</script><p>=\left[ \begin{array}{c}{h<em>{\theta}\left(x^{(1)}\right)-y^{(1)}} \ {\vdots} \ {h</em>{\theta}\left(x^{(m)}\right)-y^{(m)}}\end{array}\right]</p>
+<script type="math/tex; mode=display">
+则我们的损失函数可以化成：</script><p>\begin{aligned} \frac{1}{2}(X \theta-\vec{y})^{T}(X \theta-\vec{y}) &amp;=\frac{1}{2} \sum<em>{i=1}^{m}\left(h</em>{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2} \ &amp;=J(\theta) \end{aligned}</p>
+<script type="math/tex; mode=display">
+
+4. 开始推导
+根据上面的结论，让损失函数对$\theta$求导，得到：</script><p>\begin{aligned} \nabla<em>{\theta} J(\theta) &amp;=\nabla</em>{\theta} \frac{1}{2}(X \theta-\vec{y})^{T}(X \theta-\vec{y}) \ &amp;=\frac{1}{2} \nabla<em>{\theta}\left(\theta^{T} X^{T} X \theta-\theta^{T} X^{T} \vec{y}-\vec{y}^{T} X \theta+\vec{y}^{T} \vec{y}\right) \ &amp;=\frac{1}{2} \nabla</em>{\theta} \operatorname{tr}\left(\theta^{T} X^{T} X \theta-\theta^{T} X^{T} \vec{y}-\vec{y}^{T} X \theta+\vec{y}^{T} \vec{y}\right) \ &amp;=\frac{1}{2} \nabla_{\theta}\left(\operatorname{tr} \theta^{T} X^{T} X \theta-2 \operatorname{tr} \vec{y}^{T} X \theta\right) \ &amp;=\frac{1}{2}\left(X^{T} X \theta+X^{T} X \theta-2 X^{T} \vec{y}\right) \ &amp;=X^{T} X \theta-X^{T} \vec{y} \end{aligned}</p>
+<script type="math/tex; mode=display">
+
+令导数为零，求得零点的$\theta$值为：</script><p>\theta=\left(X^{T} X\right)^{-1} X^{T} \vec{y}</p>
+<script type="math/tex; mode=display">
+
+# 4. 为什么使用最小二乘作为损失函数？
+
+除了易于数学处理之外，还有更深刻的道理。我们将从概率的角度解释为什么使用最小二乘法作为损失函数。
+
+我们说，现实生活中的大多数模型，甚至是全部模型，其输入都含有一定的误差$\epsilon$。这些误差各自符合不同的分布。</script><p>y^{(i)}=\theta^{T} x^{(i)}+\epsilon^{(i)}</p>
+<script type="math/tex; mode=display">
+
+根据大数定律，多个随机变量的结果趋近于高斯分布（正态分布），即$\epsilon^{(i)}\sim\mathcal{N}\left(0, \sigma^{2}\right)$。则$\epsilon^{(i)}$的概率是：</script><p>p\left(\epsilon^{(i)}\right)=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(\epsilon^{(i)}\right)^{2}}{2 \sigma^{2}}\right)</p>
+<script type="math/tex; mode=display">
+
+将$y^{(i)}=\theta^{T} x^{(i)}+\epsilon^{(i)}$带入得：</script><p>p\left(y^{(i)} | x^{(i)} ; \theta\right)=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)</p>
+<script type="math/tex; mode=display">
+
+上式左边是在第i个样本为x、参数为θ的条件下，得到y的概率。上式完全是一个与θ有关的函数，因为样本x和y都是固定的。别忘了，我们需要求的是θ。问题转化成了**我们已知事件发生的概率，想要反推具有最大可能性时，θ的值**。
+
+这边就要稍微插一句了，机器学习学术界有两种学派，一派是*频率学派*，另一派是*贝叶斯学派*。二者各自有用武之地，都能解决上面提出的问题。下面我们利用频率学派的方法：**最大似然估计**解决这个问题。首先构造下面的函数：</script><p>L(\theta)=L(\theta ; X, \vec{y})=p(\vec{y} | X ; \theta)</p>
+<script type="math/tex; mode=display">
+
+我们的样本扩大到整个样本集，则整体的概率分布就如上面的公式。因为我们假设每个样本集中的样本独立同分布（IID），所以根据概率的乘法定理，我们可以把每个事件概率相乘，得到整体的概率。</script><p>\begin{aligned} L(\theta) &amp;=\prod<em>{i=1}^{m} p\left(y^{(i)} | x^{(i)} ; \theta\right) \ &amp;=\prod</em>{i=1}^{m} \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right) \end{aligned}</p>
+<script type="math/tex; mode=display">
+
+又回到了最优化问题的思路来了，这是一个关于θ的函数，那我们对它求导，就有希望得到极值。连乘$\prod$不好求导的话，我们不妨对整个似然函数L(θ)取对数，因为对数在其定义域上是单调增的，所以不改变函数的单调性，我们可以利用对数函数的性质。</script><p>\begin{aligned} \ell(\theta) &amp;=\log L(\theta) \ &amp;=\log \prod<em>{i=1}^{m} \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right) \ &amp;=\sum</em>{i=1}^{m} \log \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right) \ &amp;=m \log \frac{1}{\sqrt{2 \pi} \sigma}-\frac{1}{\sigma^{2}} \cdot \frac{1}{2} \sum_{i=1}^{m}\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2} \end{aligned}</p>
+<script type="math/tex; mode=display">
+
+看到了吗？式子最右端，出现了，我们的最小二乘优化项：</script><p>\frac{1}{2} \sum_{i=1}^{m}\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}</p>
+<script type="math/tex; mode=display">
+
+## 5. 局部加权回归
+
+局部加权回归的思想很简单，它可以解决欠拟合(underfitting)与过拟合(overfitting)问题。
+
+![](CS229-note-1-Introduction/2019-04-26-18-52-01.png)
+
+左图对数据的预测效果不是很好，数据明显的趋势被忽略了；右图好的过分了，模型考虑了过多的噪音和误差，导致拟合产生的函数不能良好的预测未知数据。对于现实世界的复杂模型，很难说一定能找到一个完美的函数，恰好拟合所有的数据，同时对未知数据又具有良好的预测能力。
+
+局部加权回归的思想就是，在咨询别人意见时，对于我周围的意见着重考虑，对于离我很远的意见我略微考虑，即根据离自己的距离，来决定权值大小。则优化目标就从$\sum_{i}\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}$变成了$\sum_{i} w^{(i)}\left(y^{(i)}-\theta^{T} x^{(i)}\right)^{2}$。其中$\omega$定义为
+$$w^{(i)}=\exp \left(-\frac{\left(x^{(i)}-x\right)^{2}}{2 \tau^{2}}\right)</script><p>其中$\tau$定义为带宽，我将会于近期更新文章解释局部加权回归。</p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p>我们介绍了机器学习中监督学习的概念，并引入了回归问题的解决方案，使用了最小二乘法对回归问题进行机器学习。对于最小二乘项，有两种方法可以对其优化，一种是逐步求精的梯度下降法，另一种则是一步到位的数学推导法。梯度下降适用于工程实现，而数学推导则是归纳总结背后的原理。</p>
+<p>我们还从概率角度讨论了为什么回归问题要采用最小二乘法，并引入了欠拟合与过拟合的概念，最后采用局部加权回归方法尽可能避免拟合不良的问题。</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "CS229 note 1: Introduction&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

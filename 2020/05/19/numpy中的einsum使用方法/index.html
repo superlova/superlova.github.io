@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>numpy中的einsum使用方法 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期二, 五月 19日 2020, 2:52 下午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <p>本文将介绍爱因斯坦求和约定，以及在numpy中的使用<br><!--more---></p>
+<p>numpy里面有很多奇技淫巧，爱因斯坦求和约定就是其中之一。</p>
+<p>爱因斯坦求和约定能够很方便和简介地表示点积、外积、转置、矩阵-向量乘法、矩阵-矩阵乘法等，这在深度学习公式推导中的用处很大。</p>
+<p>其实我不认为einsum在numpy中用处很大，我认为其顶多就是一种统一的矩阵运算写法罢了。这种技巧，是在牺牲可读性基础上，对代码的简化。而且由于numpy对其他运算也有进行优化，所以仅凭借爱因斯坦乘数法还不一定能提升代码执行效率。</p>
+<p>可能是我还没有体会到高维张量相互计算时的痛苦吧。</p>
+<p>先看一下einsum的api：</p>
+<pre><code class="lang-python">np.einsum(equation, *arr)
+</code></pre>
+<p>最开始需要一个字符串，用以描述想要完成的计算。后面是计算需要的操作数，也就是你的矩阵等。</p>
+<p>来看具体的例子：</p>
+<h3 id="对于向量"><a href="#对于向量" class="headerlink" title="对于向量"></a>对于向量</h3><pre><code class="lang-python">arr1 = np.arange(5) # 0,1,2,3,4
+arr2 = np.arange(5) # 0,1,2,3,4
+</code></pre>
+<ol>
+<li>计算向量所有分量的和，即<code>np.sum(arr)</code>。如何利用einsum完成？</li>
+</ol>
+<pre><code class="lang-python">np.einsum(&quot;i-&gt;&quot;, arr) # 10
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c = \sum_{i} a_i,\quad i = 1, 2, \dots</script><ol>
+<li>计算两向量内积，即<code>np.dot(arr1, arr2)</code>或<code>np.inner(arr1, arr2)</code></li>
+</ol>
+<pre><code class="lang-python"># 0*0 + 1*1 + 2*2 + 3*3 + 4*4
+np.einsum(&quot;i,i-&gt;&quot;, arr1, arr2) # 30
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c = \sum_{i} a_i \times b_i,\quad i = 1, 2, \dots</script><ol>
+<li>计算两向量逐元素乘积，即<code>arr1 * arr2</code></li>
+</ol>
+<pre><code class="lang-python">np.einsum(&quot;i,i-&gt;i&quot;, arr1, arr2) # 0,1,4,9,16
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_i = a_i \times b_i,\quad i = 1, 2, \dots</script><ol>
+<li>计算两向量外积，即<code>np.outer(arr1, arr2)</code></li>
+</ol>
+<pre><code class="lang-python">[[ 0  0  0  0  0]
+ [ 0  1  2  3  4]
+ [ 0  2  4  6  8]
+ [ 0  3  6  9 12]
+ [ 0  4  8 12 16]]
+
+np.einsum(&quot;i,j-&gt;ij&quot;, arr1, arr2)
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i,j} = a_i \times b_j,\quad i,j = 1, 2, \dots</script><h3 id="对于矩阵"><a href="#对于矩阵" class="headerlink" title="对于矩阵"></a>对于矩阵</h3><pre><code class="lang-python">A = np.arange(4).reshape(2,2)
+B = np.arange(4,8).reshape(2,2)
+
+[[0 1]
+ [2 3]]
+
+[[4 5]
+ [6 7]]
+</code></pre>
+<ol>
+<li>计算矩阵转置，即<code>A.T</code></li>
+</ol>
+<pre><code class="lang-python">[[0 2]
+ [1 3]]
+
+print(np.einsum(&quot;ij-&gt;ji&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i,j} = a_{j,i},\quad i,j = 1, 2, \dots</script><ol>
+<li>计算矩阵各元素求和，即<code>np.sum(A)</code></li>
+</ol>
+<pre><code class="lang-python">6
+
+print(np.einsum(&quot;ij-&gt;&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c = \sum_{i}\sum_{j}a_{i,j},\quad i,j = 1, 2, \dots</script><ol>
+<li>计算矩阵按列求和，即<code>np.sum(A, axis=0)</code></li>
+</ol>
+<pre><code class="lang-python">[2 4]
+
+print(np.einsum(&quot;ij-&gt;j&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{j} = \sum_{i}a_{i,j},\quad i,j = 1, 2, \dots</script><ol>
+<li>计算矩阵按行求和，即<code>np.sum(A, axis=1)</code></li>
+</ol>
+<pre><code class="lang-python">[1 5]
+
+print(np.einsum(&quot;ij-&gt;i&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i} = \sum_{j}a_{i,j},\quad i,j = 1, 2, \dots</script><ol>
+<li>求矩阵对角线元素，即<code>np.diag(A)</code></li>
+</ol>
+<pre><code class="lang-python">[0 3]
+
+print(np.einsum(&quot;ii-&gt;i&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i} = a_{i,i},\quad i = 1, 2, \dots</script><ol>
+<li>计算矩阵的迹，即对角线元素和，即<code>np.trace(A)</code></li>
+</ol>
+<pre><code class="lang-python">3
+
+print(np.einsum(&quot;ii-&gt;&quot;, A))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c = \sum_{i}a_{i,i},\quad i = 1, 2, \dots</script><ol>
+<li>计算两矩逐元素乘积，即<code>A*B</code></li>
+</ol>
+<pre><code class="lang-python">[[ 0  5]
+ [12 21]]
+
+ print(np.einsum(&quot;ij,ij-&gt;ij&quot;, A, B))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i,j} = a_{i,j} \times b_{i,j}, i,j = 1, 2, \dots</script><ol>
+<li>计算<code>A*B.T</code></li>
+</ol>
+<pre><code class="lang-python">[[ 0  6]
+ [10 21]]
+
+print(np.einsum(&quot;ij,ji-&gt;ij&quot;, A, B))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i,j} = a_{i,j} \times b_{j,i}, i,j = 1, 2, \dots</script><ol>
+<li>计算两矩阵乘积<code>np.dot(A, B)</code></li>
+</ol>
+<pre><code class="lang-python">[[ 6  7]
+ [26 31]]
+
+print(np.einsum(&quot;ij,jk-&gt;ik&quot;, A, B))
+</code></pre>
+<p>在数学上相当于：</p>
+<script type="math/tex; mode=display">
+c_{i,k} = a_{i,j} \times b_{j,k}, i,j = 1, 2, \dots</script><p>停一下，停一下。</p>
+<p><img src="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/2020-05-20-09-45-48.png" srcset="/img/loading.gif" alt></p>
+<p>你们懂了吗？反正我没有。网上的文章指望着我们光看例子就能学会，这是把我们都当成模型训练了吗？</p>
+<p>仔细看一下上面的两个例子，其实每个equation都拥有一个箭头<code>-&gt;</code>。对应数学公式不难得出，箭头左边对应数学公式右边，箭头右边对应数学公式左边。</p>
+<p>比如这个式子：</p>
+<pre><code class="lang-python">np.einsum(&quot;ij,ji-&gt;i&quot;, A, B)
+</code></pre>
+<p><code>&quot;ij,ji-&gt;i&quot;</code>解释成自然语言：将A中第<code>&#123;i,j&#125;</code>个元素与B中第<code>&#123;j,i&#125;</code>个元素相乘（逗号理解成相乘），结果中没有j分量，只有i分量，所以所有j分量求和。</p>
+<p>就是对应这个数学公式：</p>
+<script type="math/tex; mode=display">
+c_i = \sum_{j}a_{i,j}\times b_{j,i}</script><p>实际含义代表：<code>np.sum(A*B.T, axis=1)</code></p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/numpy/">numpy</a>
+                    
+                      <a class="hover-with-bg" href="/tags/einsum/">einsum</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "numpy中的einsum使用方法&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

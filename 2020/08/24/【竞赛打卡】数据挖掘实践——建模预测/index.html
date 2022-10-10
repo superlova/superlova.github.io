@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【竞赛打卡】数据挖掘实践——建模预测 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 八月 24日 2020, 11:05 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    863 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <p>我也是加把劲骑士！<br><!--more---></p>
+<pre><code class="lang-py">import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from tensorflow.keras.layers import Input, Conv1D, MaxPooling1D, Dense, Add, Dropout, Flatten, TimeDistributed
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras import activations, optimizers, regularizers
+from tensorflow.keras.callbacks import EarlyStopping
+import tensorflow.keras.backend as kb
+from tensorflow import keras
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from time import *
+user_balance = pd.read_csv(&#39;Purchase Redemption Data/user_balance_table.csv&#39;)
+
+df_tmp = user_balance.groupby([&#39;report_date&#39;])[&#39;total_purchase_amt&#39;, &#39;total_redeem_amt&#39;].sum()
+df_tmp.index = pd.to_datetime(df_tmp.index, format=&#39;%Y%m%d&#39;)
+
+holidays = (&#39;20130813&#39;, &#39;20130902&#39;, &#39;20131001&#39;, &#39;20131111&#39;, &#39;20130919&#39;, &#39;20131225&#39;, &#39;20140101&#39;, &#39;20140130&#39;, &#39;20140131&#39;,
+           &#39;20140214&#39;, &#39;20140405&#39;, &#39;20140501&#39;, &#39;20140602&#39;, &#39;20140802&#39;, &#39;20140901&#39;, &#39;20140908&#39;)
+def create_features(timeindex):
+    n = len(timeindex)
+    features = np.zeros((n, 4))
+    features[:, 0] = timeindex.day.values/31
+    features[:, 1] = timeindex.month.values/12
+    features[:, 2] = timeindex.weekday.values/6
+    for i in range(n):
+        if timeindex[i].strftime(&#39;%Y%m%d&#39;) in holidays:
+            features[i, 3] = 1
+    return features
+
+features = create_features(df_tmp.index)
+september = pd.to_datetime([&#39;201409%02d&#39; % i for i in range(1, 31)])
+features_sep = create_features(september)
+
+scaler_pur = MinMaxScaler()
+scaler_red = MinMaxScaler()
+data_pur = scaler_pur.fit_transform(df_tmp.values[:, 0:1])
+data_red = scaler_red.fit_transform(df_tmp.values[:, 1:2])
+
+def create_dataset(data, back, forward=30):
+    n_samples = len(data) - back - forward + 1
+    X, Y = np.zeros((n_samples, back, data.shape[-1])), np.zeros((n_samples, forward, data.shape[-1]))
+    for i in range(n_samples):
+        X[i, ...] = data[i:i+back, :]
+        Y[i, ...] = data[i+back:i+back+forward, :]
+    return X, Y
+
+def build_cnn(X_trn, lr, n_outputs, dropout_rate):
+    inputs = Input(X_trn.shape[1:])
+    z = Conv1D(64, 14, padding=&#39;valid&#39;, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(inputs)
+#     z = MaxPooling1D(2)(z)
+    z = Conv1D(128, 7, padding=&#39;valid&#39;, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(z)
+    z = MaxPooling1D(2)(z)
+    z = Conv1D(256, 3, padding=&#39;valid&#39;, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(z)
+    z = Conv1D(256, 3, padding=&#39;valid&#39;, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(z)
+    z = MaxPooling1D(2)(z)
+    z = Flatten()(z)
+    z = Dropout(dropout_rate)(z)
+    z = Dense(128, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(z)
+    z = Dropout(dropout_rate)(z)
+    z = Dense(84, activation=&#39;relu&#39;, kernel_initializer=&#39;he_uniform&#39;)(z)
+    outputs = Dense(n_outputs)(z)
+    model = Model(inputs=inputs, outputs=outputs)
+    adam = optimizers.Adam(lr=lr)
+    model.compile(loss=&#39;mse&#39;, optimizer=adam, metrics=[&#39;mae&#39;])
+    model.summary()
+    return model
+
+back = 60
+forward = 30
+X_pur_data, Y_pur_data = create_dataset(data_pur, back, forward)
+X_red_data, Y_red_data = create_dataset(data_red, back, forward)
+X_features, Y_features = create_dataset(features, back, forward)
+Y_features = np.concatenate((Y_features, np.zeros((Y_features.shape[0], back-forward, Y_features.shape[-1]))), axis=1)
+# X_pur, X_red = np.concatenate((X_pur_data, X_features, Y_features), axis=-1), np.concatenate((X_red_data, X_features, Y_features), axis=-1)
+# X_pur_trn, X_pur_val, X_red_trn, X_red_val = X_pur[:-forward, ...], X_pur[-1:, ...], X_red[:-forward, ...], X_red[-1:, ...]
+# Y_pur_trn, Y_pur_val, Y_red_trn, Y_red_val = Y_pur_data[:-forward, ...], Y_pur_data[-1:, ...], Y_red_data[:-forward, ...], Y_red_data[-1:, ...]
+Y_fea_sep = np.concatenate((features_sep, np.zeros((back-forward, features_sep.shape[-1]))), axis=0)
+# X_pur_tst = np.concatenate((data_pur[-back:, :], features[-back:, :], Y_fea_sep), axis=-1)[None, ...]
+# X_red_tst = np.concatenate((data_red[-back:, :], features[-back:, :], Y_fea_sep), axis=-1)[None, ...]
+X = np.concatenate((X_pur_data, X_red_data, X_features, Y_features), axis=-1)
+Y = np.concatenate((Y_pur_data, Y_red_data), axis=1)
+X_trn, X_val, Y_trn, Y_val = X[:-forward, ...], X[-1:, ...], Y[:-forward, ...], Y[-1:, ...]
+X_tst = np.concatenate((data_pur[-back:, :], data_red[-back:, :], features[-back:, :], Y_fea_sep), axis=-1)[None, ...]
+
+cnn_pur = build_cnn(X_trn, lr=0.0008, n_outputs=2*forward, dropout_rate=0.5)
+history = cnn_pur.fit(X_trn, Y_trn, batch_size=32, epochs=1000, verbose=2, 
+                      validation_data=(X_val, Y_val),
+                     callbacks=[EarlyStopping(monitor=&#39;val_mae&#39;, patience=200, restore_best_weights=True)])
+
+plt.figure(figsize=(8, 5))
+plt.plot(history.history[&#39;mae&#39;], label=&#39;train mae&#39;)
+plt.plot(history.history[&#39;val_mae&#39;], label=&#39;validation mae&#39;)
+plt.ylim([0, 0.2])
+plt.legend()
+plt.show()
+
+def plot_prediction(y_pred, y_true):
+    plt.figure(figsize=(16,4))
+    plt.plot(np.squeeze(y_pred), label=&#39;prediction&#39;)
+    plt.plot(np.squeeze(y_true), label=&#39;true&#39;)
+    plt.legend()
+    plt.show()
+    print(&#39;MAE: %.3f&#39; % mean_absolute_error(np.squeeze(y_pred), np.squeeze(y_true)))
+
+pred = cnn.predict(X_val)
+plot_prediction(pred, Y_val)
+
+history = cnn.fit(X, Y, batch_size=32, epochs=500, verbose=2,
+                     callbacks=[EarlyStopping(monitor=&#39;mae&#39;, patience=30, restore_best_weights=True)])
+
+plt.figure(figsize=(8, 5))
+plt.plot(history.history[&#39;mae&#39;], label=&#39;train mae&#39;)
+plt.legend()
+plt.show()
+print(cnn.evaluate(X, Y, verbose=2))
+
+pred_tst = cnn.predict(X_tst)
+pur_sep = scaler_pur.inverse_transform(pred_tst[:, :forward].transpose())
+red_sep = scaler_red.inverse_transform(pred_tst[:, forward:].transpose())
+
+test_user = pd.DataFrame(&#123;&#39;report_date&#39;: [20140900 + i for i in range(1, 31)]&#125;)
+test_user[&#39;pur&#39;] = pur_sep.astype(&#39;int&#39;)
+test_user[&#39;red&#39;] = red_sep.astype(&#39;int&#39;)
+test_user.to_csv(&#39;submission.csv&#39;, encoding=&#39;utf-8&#39;, index=None, header=None)
+
+from google.colab import files
+files.download(&quot;submission.csv&quot;)
+</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Datawhale/">Datawhale</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Data-Mining/">Data Mining</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Time-Series-Analysis/">Time Series Analysis</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【竞赛打卡】数据挖掘实践——建模预测&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

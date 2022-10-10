@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【论文阅读笔记】实现 MapReduce 论文附录 A 的 Word Count 程序 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期五, 五月 7日 2021, 8:26 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      14 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <p>给出一个Map和Reduce的具体实现，去除了所有分布式的特性【可能今后会添加】</p>
+<!--more--->
+<p>MapReduce文章最后的附录A有一段C++代码，描述了Map和Reduce函数的编写和使用方法。但是仅靠看代码总是不能深入理解MapReduce的实现细节，阅读其他人的MapReduce学习曲线又太过陡峭。因此我决定自己实现Map函数和Reduce函数，并尽可能使用替代方法将那些没有给出的api实现。</p>
+<p>促使我写这篇文章的另一个原因是，网络上的大部分实现Word Count的文章都是依赖于某某框架的，比如依赖Hadoop。但我觉得过早依赖于某个平台不利于深入理解背后的原理，因此我决定自己实现各种api，体会程序设计者可能遇到的问题。今后在学习分布式系统、分布式框架时，便能够对症下药、有的放矢。</p>
+<p>不过还请各位原谅，这里的Map和Reduce只能运行在单机环境啦。</p>
+<p>下面给出原文中的C++代码：</p>
+<pre><code class="lang-cpp">
+#include &quot;mapreduce/mapreduce.h&quot;
+//用户map函数
+class WordCounter : public Mapper &#123;
+public:
+    virtual void Map(const MapInput&amp; input) &#123;
+        const string&amp; text = input.value();
+        const int n = text.size();
+        for (int i = 0; i &lt; n; ) &#123;
+            //跳过前导空格
+            while ((i &lt; n) &amp;&amp; isspace(text[i]))
+                i++;
+            // 查找单词的结束位置
+            int start = i;
+            while ((i &lt; n) &amp;&amp; !isspace(text[i]))
+                i++;
+            if (start &lt; i)
+                Emit(text.substr(start,i-start),&quot;1&quot;);
+        &#125;
+
+    &#125;
+
+&#125;;
+
+REGISTER_MAPPER(WordCounter);
+//用户的reduce函数
+class Adder : public Reducer &#123;
+    virtual void Reduce(ReduceInput* input) &#123;
+        //迭代具有相同key的所有条目,并且累加它们的value
+        int64 value = 0;
+        while (!input-&gt;done()) &#123;
+            value += StringToInt(input-&gt;value());
+            input-&gt;NextValue();
+        &#125;
+        //提交这个输入key的综合
+        Emit(IntToString(value));
+    &#125;
+
+&#125;;
+REGISTER_REDUCER(Adder);
+int main(int argc, char** argv) &#123;
+    ParseCommandLineFlags(argc, argv);
+    MapReduceSpecification spec;
+    // 把输入文件列表存入&quot;spec&quot;
+    for (int i = 1; i &lt; argc; i++) &#123;
+        MapReduceInput* input = spec.add_input();
+        input-&gt;set_format(&quot;text&quot;);
+        input-&gt;set_filepattern(argv[i]);
+        input-&gt;set_mapper_class(&quot;WordCounter&quot;);
+    &#125;
+    //指定输出文件:
+    // /gfs/test/freq-00000-of-00100
+    // /gfs/test/freq-00001-of-00100
+    // ...
+    MapReduceOutput* out = spec.output();
+    out-&gt;set_filebase(&quot;/gfs/test/freq&quot;);
+    out-&gt;set_num_tasks(100);
+    out-&gt;set_format(&quot;text&quot;);
+    out-&gt;set_reducer_class(&quot;Adder&quot;);
+    // 可选操作:在map任务中做部分累加工作,以便节省带宽
+    out-&gt;set_combiner_class(&quot;Adder&quot;);
+    // 调整参数: 使用2000台机器,每个任务100MB内存
+    spec.set_machines(2000);
+    spec.set_map_megabytes(100);
+    spec.set_reduce_megabytes(100);
+    // 运行
+    MapReduceResult result;
+    if (!MapReduce(spec, &amp;result)) abort();
+    // 完成: &#39;result&#39;结构包含计数,花费时间,和使用机器的信息
+    return 0;
+&#125;
+</code></pre>
+<h2 id="抽象基类-Mapper、Reducer"><a href="#抽象基类-Mapper、Reducer" class="headerlink" title="抽象基类 Mapper、Reducer"></a>抽象基类 Mapper、Reducer</h2><p>首先我打算实现<code>WordCounter</code>的父类<code>Mapper</code>和<code>Adder</code>的父类<code>Reducer</code>。</p>
+<pre><code class="lang-cpp">class Mapper &#123;
+public:
+    virtual void Map(const MapInput&amp; input) = 0;
+&#125;;
+
+class Reducer &#123;
+public:
+    virtual void Reduce(ReduceInput* input) = 0;
+&#125;;
+</code></pre>
+<p>简单实现Map和Reduce接口，并把它们设置成纯虚方法。</p>
+<h2 id="WordCounter类"><a href="#WordCounter类" class="headerlink" title="WordCounter类"></a>WordCounter类</h2><pre><code class="lang-cpp">class WordCounter : public Mapper &#123;
+public:
+    void Map(const MapInput&amp; input) override &#123;
+        const string&amp; text = input.value(); // 读取一行文本
+        const int n = text.size();
+        for (int i = 0; i &lt; n; ) &#123;
+            // 跳过行首空白
+            while ((i &lt; n) &amp;&amp; isspace(text[i])) i++;
+            // 确定单词的开头和结尾
+            int start = i;
+            while ((i &lt; n) &amp;&amp; !isspace(text[i])) i++;
+            if (start &lt; i)
+                Emit(text.substr(start, i-start), &quot;1&quot;);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>这一部分相较于原文没什么变化。其主要作用在于分词，然后每个单词组建成一个键值对，以(word, 1)的结构发射出去。发射到哪里呢？我就偷懒直接持久化到本地的消息存储装置了。</p>
+<pre><code class="lang-cpp">static void Emit(const string&amp; key, const string&amp; value) &#123;
+    mw.put(key, value);
+&#125;
+</code></pre>
+<p>mw 是 MiddleWare 的实例，是一个用于保存Emit输出的键值对的全局变量。后续会继续讲解。</p>
+<h2 id="用于保存-Mapper-得到的键值对的-MiddleWare-类"><a href="#用于保存-Mapper-得到的键值对的-MiddleWare-类" class="headerlink" title="用于保存 Mapper 得到的键值对的 MiddleWare 类"></a>用于保存 Mapper 得到的键值对的 MiddleWare 类</h2><pre><code class="lang-cpp">class MiddleWare &#123;
+private:
+    vector&lt;pair&lt;string, string&gt;&gt; kv_pairs;
+    static bool compare_pair(const pair&lt;string, string&gt;&amp; lhs, const pair&lt;string, string&gt;&amp; rhs) &#123;
+        return lhs.first &lt; rhs.first;
+    &#125;
+public:
+    MiddleWare() = default;
+    void put(const string&amp; key, const string&amp; value) &#123;
+        kv_pairs.emplace_back(key, value);
+    &#125;
+    vector&lt;pair&lt;string, string&gt;&gt; get() &#123;
+        std::sort(kv_pairs.begin(), kv_pairs.end(), compare_pair); // 将其按照key相同的一组来排序
+        return kv_pairs;
+    &#125;
+&#125;;
+
+MiddleWare mw; // 全局变量：消息队列
+</code></pre>
+<p>这是我为本地运行顺利而凭空构建出来的类，作用是储存(key, value)对。为了方便使用，内部有get和put方法。其中如果Reducer需要get数据了，那么首先会按照key对这些pair进行排序。这也是与MapReduce的流程相吻合的。</p>
+<p>既然是排序，那么就要定义比较器 compare_pair。我的比较器直接使用string的比较，确保相同key值的pair在相邻位置。</p>
+<h2 id="Adder类"><a href="#Adder类" class="headerlink" title="Adder类"></a>Adder类</h2><pre><code class="lang-cpp">// 用户自定义 Reduce 函数
+class Adder : public Reducer &#123;
+public:
+    void Reduce(ReduceInput* input) override &#123;
+        // 迭代所有拥有相同key的键值对，把它们的values加起来
+        int64_t value = 0;
+        string currentKey = input-&gt;key();
+        while (!input-&gt;end() &amp;&amp; currentKey == input-&gt;key()) &#123; // 直到下一个键值对的key与当前键值对的key不同为止
+            value += std::stoi(input-&gt;value());
+            input-&gt;NextValue(); // 找到下一个拥有相同key的键值对
+        &#125;
+        // Emit sum for input-&gt;key()
+        Emit(to_string(value));
+    &#125;
+&#125;;
+</code></pre>
+<p>与论文中的Adder有逻辑出入，主要变化在把同样key分成不同组的逻辑上，我直接保存了当前组的key。原来论文里是没有这种操作的。</p>
+<h2 id="Map-的输入-MapInput"><a href="#Map-的输入-MapInput" class="headerlink" title="Map 的输入 MapInput"></a>Map 的输入 MapInput</h2><p>观察一下Map的参数里有一个MapInput类型的对象，那么第二步就是新建一个MapInput类。要想跑通Map函数的代码，这个类必须实现value()方法。</p>
+<p>猜测一下，MapInput是Map的输入，而MapReduce框架的输入输出都应该是键值对的形式。因此每个MapInput都应该包含一个key和一个value成员。</p>
+<pre><code class="lang-cpp">class MapInput &#123;
+private:
+    string map_value;
+    string map_key;
+public:
+    explicit MapInput(string filename, string text) : map_key(std::move(filename)), map_value(std::move(text)) &#123; &#125;
+    [[nodiscard]] const string&amp; value() const &#123;
+        return map_value;
+    &#125;
+&#125;;
+</code></pre>
+<p>MapInput的构造函数接收两个参数，第一个参数是文本文件名，第二个参数是文件的内容。其实第一个参数在我们的程序中没啥作用，但是为了格式的统一，就写上吧。</p>
+<p>explicit修饰构造函数，代表该类的对象禁止发生隐式类型转换，要想转换必须以<strong>明确的(explicit)</strong>方式进行显式类型转换。</p>
+<p>冒号后面的初始化列表中，使用了move特性，避免了函数传参导致的变量复制。</p>
+<p>[[nodiscard]] 含义是该函数的返回值必须被使用，不能丢弃。C++ 17版本新增了几个中括号标识的提示符，当代码不符合要求的时候，编译器也会真的警告。相当于把以前的注释加强了。除[[nodiscard]]之外，还有表示switch语句中不必加break的[[fallthrough]]、变量定义之后没有使用也没关系的标识符[[maybe_unused]]。</p>
+<h2 id="Reduce-的输入-ReduceInput"><a href="#Reduce-的输入-ReduceInput" class="headerlink" title="Reduce 的输入 ReduceInput"></a>Reduce 的输入 ReduceInput</h2><p>ReduceInput的设计就比较麻烦了。首先Reduce函数的输入是ReduceInput的指针，使用到的接口有done()/value()/NextValue()/key()，然后根据Reduce函数的使用方法，感觉ReduceInput像是一个迭代器。</p>
+<pre><code class="lang-cpp">class ReduceInput &#123;
+private:
+    vector&lt;pair&lt;string, string&gt;&gt; data;
+    int currentKey = 0;
+public:
+    explicit ReduceInput(vector&lt;pair&lt;string, string&gt;&gt; _data) : data(std::move(_data)) &#123;  &#125;
+//    bool done() &#123;
+//        // 直到下一个键值对的key与当前键值对的key不同为止
+//        // 如果到了末尾，或者下一个key不一样，都是done
+//        if (currentKey == 0) return false;
+//        if (end() || data[currentKey].first != data[currentKey-1].first) return true;
+//        return false;
+//    &#125;
+    const string&amp; value() &#123;
+        return data[currentKey].second;
+    &#125;
+    const string&amp; key() &#123;
+        return data[currentKey].first;
+    &#125;
+    void NextValue() &#123;
+        currentKey++;
+    &#125;
+    bool end() &#123;
+        return currentKey &gt;= data.size();
+    &#125;
+&#125;;
+</code></pre>
+<p>上面是我实现的ReduceInput，偷个懒把所有数据存放到ReduceInput中方便遍历，在真实场景的设计中不会像我这样的。</p>
+<p>此外，Done函数的逻辑是有问题的。关键在于Reduce函数中的这句话：</p>
+<pre><code class="lang-cpp">while (!input-&gt;done()) &#123;
+    value += StringToInt(input-&gt;value());
+    input-&gt;NextValue();
+&#125;
+</code></pre>
+<p>表面上看起来是希望input作为一个迭代器，当它迭代到key与下一个key不同时，终止迭代（即done返回true表明迭代完成），然而下次迭代的开始还是从这个位置，其结果从程序逻辑上来讲，却又希望返回false。同一个位置，我们希望返回两个不同的值，这显然是说不通的。因此我在Reduce最终实现的主代码部分做了适当的逻辑修改。</p>
+<h2 id="输出结果的单参数Emit"><a href="#输出结果的单参数Emit" class="headerlink" title="输出结果的单参数Emit"></a>输出结果的单参数Emit</h2><p>为了输出方便，最终我定义了单参数的重载Emit，不保存Reducer的计算结果，直接输出：</p>
+<pre><code class="lang-cpp">static void Emit(const string&amp; key) &#123;
+    cout &lt;&lt; &quot;Sum of values:&quot; &lt;&lt; key &lt;&lt; endl;
+&#125;
+</code></pre>
+<h2 id="最后的main"><a href="#最后的main" class="headerlink" title="最后的main"></a>最后的main</h2><pre><code class="lang-cpp">int main(int argc, char* argv[]) &#123;
+    ifstream in(R&quot;(C:\Users\zyt\CLionProjects\leetcode_2021\lyrics.txt)&quot;);
+    string content((istreambuf_iterator&lt;char&gt;(in)), istreambuf_iterator&lt;char&gt;());
+    MapInput minput(&quot;lyrics.txt&quot;, content);
+    cout &lt;&lt; &quot;minput:\n&quot; &lt;&lt; minput.value() &lt;&lt; endl;
+
+    WordCounter wc;
+    wc.Map(minput);
+
+    auto *rinput = new ReduceInput(mw.get());
+
+    while (!rinput-&gt;end()) &#123;
+        cout &lt;&lt; &quot;Key: &quot; &lt;&lt; rinput-&gt;key() &lt;&lt; &quot;\t&quot;;
+        Adder adder; // 模拟很多 adder
+        adder.Reduce(rinput);
+        rinput-&gt;NextValue();
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<p>ifstream读入本地文本文档，注意ifstream的参数得是绝对路径（相对路径不知道为什么读取不出来东西）。</p>
+<p>然后WordCount把分词结果的键值对保存在全局变量mw中，使用mw构建ReduceInput，再把ReduceInput输入进Adder里面。</p>
+<p>注意一个Reducer处理一个Group（我把key相同的一组键值对称之为Group），那么我就以While循环来代替啦。</p>
+<p>这就是代码的所有内容了！</p>
+<p><img src="/2021/05/07/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E5%AE%9E%E7%8E%B0-MapReduce-%E8%AE%BA%E6%96%87%E9%99%84%E5%BD%95-A-%E7%9A%84-Word-Count-%E7%A8%8B%E5%BA%8F/result.png" srcset="/img/loading.gif" alt></p>
+<pre><code class="lang-cpp">#include &quot;stdafx.h&quot;
+using namespace std;
+
+class MiddleWare &#123;
+private:
+    vector&lt;pair&lt;string, string&gt;&gt; kv_pairs;
+    static bool compare_pair(const pair&lt;string, string&gt;&amp; lhs, const pair&lt;string, string&gt;&amp; rhs) &#123;
+        return lhs.first &lt; rhs.first;
+    &#125;
+public:
+    MiddleWare() = default;
+    void put(const string&amp; key, const string&amp; value) &#123;
+        kv_pairs.emplace_back(key, value);
+    &#125;
+    vector&lt;pair&lt;string, string&gt;&gt; get() &#123;
+        std::sort(kv_pairs.begin(), kv_pairs.end(), compare_pair); // 将其按照key相同的一组来排序
+        return kv_pairs;
+    &#125;
+&#125;;
+
+MiddleWare mw; // 全局变量：消息队列
+
+class MapInput &#123;
+private:
+    string map_value;
+    string map_key;
+public:
+    explicit MapInput(string filename, string text) : map_key(std::move(filename)), map_value(std::move(text)) &#123; &#125;
+    [[nodiscard]] const string&amp; value() const &#123;
+        return map_value;
+    &#125;
+&#125;;
+
+class ReduceInput &#123;
+private:
+    vector&lt;pair&lt;string, string&gt;&gt; data;
+    int currentKey = 0;
+public:
+    explicit ReduceInput(vector&lt;pair&lt;string, string&gt;&gt; _data) : data(std::move(_data)) &#123;  &#125;
+//    bool done() &#123;
+//        // 直到下一个键值对的key与当前键值对的key不同为止
+//        // 如果到了末尾，或者下一个key不一样，都是done
+//        if (currentKey == 0) return false;
+//        if (end() || data[currentKey].first != data[currentKey-1].first) return true;
+//        return false;
+//    &#125;
+    const string&amp; value() &#123;
+        return data[currentKey].second;
+    &#125;
+    const string&amp; key() &#123;
+        return data[currentKey].first;
+    &#125;
+    void NextValue() &#123;
+        currentKey++;
+    &#125;
+    bool end() &#123;
+        return currentKey &gt;= data.size();
+    &#125;
+&#125;;
+
+static void Emit(const string&amp; key, const string&amp; value) &#123;
+    mw.put(key, value);
+&#125;
+
+static void Emit(const string&amp; key) &#123;
+    cout &lt;&lt; &quot;Sum of values:&quot; &lt;&lt; key &lt;&lt; endl;
+&#125;
+
+class Mapper &#123;
+public:
+    virtual void Map(const MapInput&amp; input) = 0;
+&#125;;
+
+class Reducer &#123;
+public:
+    virtual void Reduce(ReduceInput* input) = 0;
+&#125;;
+
+class WordCounter : public Mapper &#123;
+public:
+    void Map(const MapInput&amp; input) override &#123;
+        const string&amp; text = input.value(); // 读取一行文本
+        const int n = text.size();
+        for (int i = 0; i &lt; n; ) &#123;
+            // 跳过行首空白
+            while ((i &lt; n) &amp;&amp; isspace(text[i])) i++;
+            // 确定单词的开头和结尾
+            int start = i;
+            while ((i &lt; n) &amp;&amp; !isspace(text[i])) i++;
+            if (start &lt; i)
+                Emit(text.substr(start, i-start), &quot;1&quot;);
+        &#125;
+    &#125;
+&#125;;
+
+// 用户自定义 Reduce 函数
+class Adder : public Reducer &#123;
+public:
+    void Reduce(ReduceInput* input) override &#123;
+        // 迭代所有拥有相同key的键值对，把它们的values加起来
+        int64_t value = 0;
+        string currentKey = input-&gt;key();
+        while (!input-&gt;end() &amp;&amp; currentKey == input-&gt;key()) &#123; // 直到下一个键值对的key与当前键值对的key不同为止
+            value += std::stoi(input-&gt;value());
+            input-&gt;NextValue(); // 找到下一个拥有相同key的键值对
+        &#125;
+        // Emit sum for input-&gt;key()
+        Emit(to_string(value));
+    &#125;
+&#125;;
+
+int main(int argc, char* argv[]) &#123;
+    ifstream in(R&quot;(C:\Users\zyt\CLionProjects\leetcode_2021\lyrics.txt)&quot;);
+    string content((istreambuf_iterator&lt;char&gt;(in)), istreambuf_iterator&lt;char&gt;());
+    MapInput minput(&quot;lyrics.txt&quot;, content);
+    cout &lt;&lt; &quot;minput:\n&quot; &lt;&lt; minput.value() &lt;&lt; endl;
+
+    WordCounter wc;
+    wc.Map(minput);
+
+    auto *rinput = new ReduceInput(mw.get());
+
+    while (!rinput-&gt;end()) &#123;
+        cout &lt;&lt; &quot;Key: &quot; &lt;&lt; rinput-&gt;key() &lt;&lt; &quot;\t&quot;;
+        Adder adder; // 模拟很多 adder
+        adder.Reduce(rinput);
+        rinput-&gt;NextValue();
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Word-Count/">Word Count</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MapReduce/">MapReduce</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【论文阅读笔记】实现 MapReduce 论文附录 A 的 Word Count 程序&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

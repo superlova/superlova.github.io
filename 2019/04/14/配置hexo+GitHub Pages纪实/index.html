@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>配置hexo+GitHub Pages纪实 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期日, 四月 14日 2019, 9:32 上午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.9k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      7 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <h1 id="配置hexo-GitHub-Pages纪实"><a href="#配置hexo-GitHub-Pages纪实" class="headerlink" title="配置hexo+GitHub Pages纪实"></a>配置hexo+GitHub Pages纪实</h1><p>想发博客不容易，折腾了大半天总算打通了一条路。</p>
+<p>我一直有将自己匮乏的知识付诸于纸面的冲动。首先我在与FTK同学交流的过程中了解到同性交友网站GitHub可以搭建个人博客，于是今天试着探索了一下子。怎么说呢，没想到坑这么多？？？</p>
+<p>本文旨在记录我从零开始建立个人博客的过程，还是有一定门槛的，如果对大家能有一点点帮助那就太好了。</p>
+<h1 id="获得个人网站域名方法"><a href="#获得个人网站域名方法" class="headerlink" title="获得个人网站域名方法"></a>获得个人网站域名方法</h1><p>注册github即可，官网<code>www.github.com</code>，之后新建repository，名字为“你的用户名.github.io”。所以说用户名很重要，你要起个qq号做github名字那我估计没人能记住你的博客名，毕竟个人域名只能和用户名一样。记住项目一定要设置成公有public啊，博客是给大家看的嘛，孤芳自赏就不好玩了。</p>
+<p>刚开始你的项目（repository）里面除了README.md都没有，但是不用怕。</p>
+<h1 id="安装nodejs、git、hexo方法"><a href="#安装nodejs、git、hexo方法" class="headerlink" title="安装nodejs、git、hexo方法"></a>安装nodejs、git、hexo方法</h1><p>先下载Git，Git是什么？Git是代码托管工具。Git的特点是能够让多人一起开发一款软件。具体怎么实现的略去不表，总之Git的思想就是大家一起贡献代码，通过合理的组织方式保证代码提交的有序和质量的稳定，同时保存历史的代码记录防止现在的版本崩坏。但是Git的用途早已不限于程序员圈子了，起码在我看来Git用来写书、翻译、写文档等等都是极佳的，任何需要多人远程协作的项目都应该尝试使用Git。目前GitHub是全网最大的代码托管平台。自从GitHub背后的金主微软爸爸（一点也不微，一点也不软）财大气粗的宣布可以免费托管私人项目后，托管平台的隐私性得到了保证，我们更没有理由不试一试GitHub啦！</p>
+<p>   OS: Windows 10 ~ 7均可</p>
+<p>   <a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/">Hexo</a>: 3.3.1</p>
+<p>   <a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js</a>: 6.10.2 LTS</p>
+<p>   <a target="_blank" rel="noopener" href="https://desktop.github.com/">Github Desktop</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Git</a>选择64位的安装包，下载后安装</p>
+<p>   新增一个仓库(Repositories)，仓库名称为 <code>yourname.github.io</code> [yourname是你的账号]。<br>   开启刚安装好的 Github Desktop ，并将刚创好的仓库存到本地端。<br>   然后右键刚拉下来的仓库，选取 Open in Git Shell 打开 Git bash(option可选)，执行指令将 Github 上的仓库拉到本地端。</p>
+<pre><code>$ git pull origin master
+</code></pre><p>Github Desktop 右上的 Sync 按钮具有 pull/push 功能，不想打指令可以多尝试。<br>使用 Github Desktop 的好处是不必像其他教学一样，不需要配置 SSH Key 和 设定 origin 位置路径，省了两个步骤。<br>安装好 Node.js 后，就能使用 npm 安装 hexo。</p>
+<pre><code>$ npm install -g hexo-cli
+</code></pre><p>输入以下指令可查看版本。</p>
+<pre><code>$ hexo version
+</code></pre><p>接下来，依序输入以下指令，初始化我们的 Blog。</p>
+<pre><code># git bash 上面的路径大概长这样
+You-PC@You  /e/Documents/GitHub/yourname.github.io (master)
+$ hexo init        # 初始化 blog
+# 输入上面那个指令后 hexo 会产生新的 .git盖掉旧的 .git
+$ git init              # 所以就重新产生一个 .git
+$ npm install        # 安装相关套件
+$ hexo g        # 产生静态页面
+$ hexo s        # 启动本地服务器
+</code></pre><p>网址列输入 <code>http://localhost:4000</code> ，就能观看 Blog 了。<br>预设会有一个 Hello World 文章。<br>到我们本地 yourname.github.io 的文件夹中能找到 _config.yml 文件。<br>这是 Hexo 的全局配置文件。</p>
+<pre><code># Deployment
+deploy:
+  type: git
+  repository: git@github.com:yourname/yourname.github.io.git
+  branch: master
+</code></pre><p>这边是 YAML 语法，冒号后面记得空一格，照上面的设定输入，仓库的 SSH 地址如下图可获得。<br>执行以下命令安装 hexo-deployer-git，没安装套件前输入 hexo d 会出现 Error。</p>
+<pre><code>$ npm install hexo-deployer-git --save
+</code></pre><p>产生静态页面后，部署到 Github。</p>
+<pre><code>$ hexo d -g     # 等同输入 hexo g 和 hexo d 指令
+</code></pre><p>再来就可以上 <code>https://yourname.github.io/</code> 查看 Blog 了。</p>
+<h2 id="常用-Hexo-指令"><a href="#常用-Hexo-指令" class="headerlink" title="常用 Hexo 指令"></a>常用 Hexo 指令</h2><p>写新文章</p>
+<pre><code>$ hexo new &quot;postName&quot;         # 产生新的文章
+$ hexo new page &quot;pageName&quot;    # 产生新的页面
+</code></pre><p>Hexo提供了常用命令的简写</p>
+<pre><code>$ hexo n == hexo new           # 产生新的 post/page/draft
+$ hexo g == hexo generate      # 产生静态页面
+$ hexo s == hexo server        # 启动本地浏览
+$ hexo d == hexo deploy        # 部署文件至 Github 上
+</code></pre><p>指令组合</p>
+<pre><code>$ hexo d -g    # 产生静态文件后，部署 blog
+$ hexo s -g    # 产生静态文件后，预览 blog
+</code></pre><h1 id="各种坑的处理方法"><a href="#各种坑的处理方法" class="headerlink" title="各种坑的处理方法"></a>各种坑的处理方法</h1><h2 id="Hexo-无法生成-index-html"><a href="#Hexo-无法生成-index-html" class="headerlink" title="Hexo 无法生成 index.html"></a>Hexo 无法生成 index.html</h2><p>在刚初始化一个项目后， 你运行 <code>hexo g</code>，有时候 hexo 并不会生成 <code>index.html</code> 和其他一些静态文件。 这一般是没有初始化完全的原因, 有些插件没有安装</p>
+<ol>
+<li>查看 npm 插件缺失情况</li>
+</ol>
+<pre><code>$ npm ls --depth 0
+</code></pre><p>这时一般会提醒你有插件没有装。</p>
+<pre><code>npm ERROR! missing xxx
+</code></pre><ol>
+<li>安装缺失插件</li>
+</ol>
+<p>如果你的插件都在 <code>packages.json</code> 里， 可以简单通过如下命令安装</p>
+<pre><code>$ npm install --save
+</code></pre><p>要是没有， 就依次将所有缺失的插件安装上</p>
+<pre><code>$ npm install --save jquery jsdom [xxx ...]
+</code></pre><ol>
+<li>重新生成静态文件</li>
+</ol>
+<p>安装好后，执行 <code>hexo g</code> 命令应该就可以正常生成完整博客了。</p>
+<h2 id="hexo-deploy不上去，明明本地能看但是联网后死活404"><a href="#hexo-deploy不上去，明明本地能看但是联网后死活404" class="headerlink" title="hexo deploy不上去，明明本地能看但是联网后死活404"></a>hexo deploy不上去，明明本地能看但是联网后死活404</h2><p><img src="/2019/04/14/%E9%85%8D%E7%BD%AEhexo+GitHub%20Pages%E7%BA%AA%E5%AE%9E/github-page-404.png" srcset="/img/loading.gif" alt="github-page-404"></p>
+<ol>
+<li><p>首先有可能是环境没安装完全。</p>
+</li>
+<li><p>其次，可能是config.yml中deploy不完全，应为https链接，此时删除根目录下.deploy_git文件夹后重新hexo deploy即可<br><img src="/2019/04/14/%E9%85%8D%E7%BD%AEhexo+GitHub%20Pages%E7%BA%AA%E5%AE%9E/config-yml-deploy-not-ready.png" srcset="/img/loading.gif" alt="config-yml-deploy-not-ready"><br><img src="/2019/04/14/%E9%85%8D%E7%BD%AEhexo+GitHub%20Pages%E7%BA%AA%E5%AE%9E/config-yml-deploy-ready.png" srcset="/img/loading.gif" alt="config-yml-deploy-ready"></p>
+</li>
+<li><p>再次，未使用git的bash，会提示权限不够</p>
+</li>
+<li><p>最后，没有CNAME，CNAME应位于source文件夹内，新建文本文件CNAME，内容为你的域名，username.github.io即可。CNAME不应该有后缀名。其实这一步应该是多余的，因为域名都会自动跳转。</p>
+</li>
+<li><p>另外，目前GitHub还没被墙，但不排除将来被隔离的可能。</p>
+<h2 id="hexo-next主题下出现德文"><a href="#hexo-next主题下出现德文" class="headerlink" title="hexo next主题下出现德文"></a>hexo next主题下出现德文</h2><p>根目录theme文件夹，你正在使用的主题内的config.yml内language词条加属性zh-CN，不知道哪个language就全加。</p>
+<h2 id="登录自己的域名，发现优先以文本方式显示README-md"><a href="#登录自己的域名，发现优先以文本方式显示README-md" class="headerlink" title="登录自己的域名，发现优先以文本方式显示README.md"></a>登录自己的域名，发现优先以文本方式显示README.md</h2><p>README.md应该位于source内，并且根目录config.yml中skip_render为README.md</p>
+</li>
+</ol>
+<p><img src="/2019/04/14/%E9%85%8D%E7%BD%AEhexo+GitHub%20Pages%E7%BA%AA%E5%AE%9E/list-of-hexo-on-github.png" srcset="/img/loading.gif" alt="list-of-hexo-on-github"></p>
+<h1 id="需要的环境："><a href="#需要的环境：" class="headerlink" title="需要的环境："></a>需要的环境：</h1><ol>
+<li>GitHub账号</li>
+<li>安装nodejs环境</li>
+<li>安装Git环境</li>
+<li>windows10 or 7</li>
+</ol>
+<h1 id="2020年1月11日更新："><a href="#2020年1月11日更新：" class="headerlink" title="2020年1月11日更新："></a>2020年1月11日更新：</h1><p>许久不写博客，今日发现重装系统后的新电脑无法正常发布和更新博客内容。事实上我的内容都上传到我的repository上了，我只需要调整好下载的分支就可以了。具体请看<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21193762">参考文献</a>。具体流程如下：</p>
+<p>首先确认你的哪个分支是最全的。我的是hexo分支保存所有博文，master分支只适用于网页渲染。因此我迁移电脑需要下载hexo分支。</p>
+<p>调整到hexo分支的本地目录，在git bash下执行<br><code>npm install hexo</code><br><code>npm install</code> # 下载和更新需要的库<br><code>npm install hexo-deployer-git</code><br>不需要执行hexo init。</p>
+<p>然后下载，输入<br><code>git pull origin hexo</code></p>
+<p>如果提示报错，显示你本地已经有修改，则输入下列命令放弃修改：<br><code>git reset --hard</code><br><code>git pull origin hexo</code></p>
+<p>现在你的本地hexo分支内应该下载了已经上传过的所有博客。</p>
+<h1 id="2020年10月23日更新："><a href="#2020年10月23日更新：" class="headerlink" title="2020年10月23日更新："></a>2020年10月23日更新：</h1><p>npm下载慢的话，可以先<br><code>npm install cnpm</code><br>然后将所有npm指令替代为cnpm</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/record/">record</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/github-pages/">github pages</a>
+                    
+                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "配置hexo+GitHub Pages纪实&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

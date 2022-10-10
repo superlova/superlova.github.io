@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5 z-depth-3" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A4%E8%AF%86Fuzzing%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%95%E5%85%83/" target="_self">
+          <img src="/img/softwaretesting.jpg" srcset="/img/loading.gif" alt="【学习笔记】Fuzzing学习笔记1——认识Fuzzing的基本单元"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A4%E8%AF%86Fuzzing%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%95%E5%85%83/">
+        <p class="h4 index-header">【学习笔记】Fuzzing学习笔记1——认识Fuzzing的基本单元</p>
+      </a>
+
+      <a href="/2020/08/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A4%E8%AF%86Fuzzing%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%95%E5%85%83/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Fuzzing又称模糊测试。
+https://www.fuzzingbook.org/html/Fuzzer.html
+Fuzzing测试是什么？
+Create random inputs, and see if they break things.
+
+说得简单、纯粹点，Fuzzing是一种软件测试方法，通过不断生成不同的输入，使被测程序崩溃、出错，以此改进程序本身的软件测试方法。由于Fuzzing的核心在于生成软件测试用例，因此这种方法又被称为生成软件测试。
+构建第一个fuzzerimport random
+
+def fuzzer(max_length=100, char_start=32,</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Fuzzing/">Fuzzing</a>&nbsp;
+          
+            <a href="/tags/Testing/">Testing</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/19/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】leetcode打卡：分治算法"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/19/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+        <p class="h4 index-header">【竞赛打卡】leetcode打卡：分治算法</p>
+      </a>
+
+      <a href="/2020/08/19/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
+leetcode 50 Pow(x,n)题目描述
+实现 pow(x, n) ，即计算 x 的 n 次幂函数。
+算法描述：
+Pow算法有快速幂实现方法。
+快速幂，二进制取幂（Binary Exponentiation，也称平方法），是一个在 $O(\log(n))$ 的时间内计算 $a^n$ 的小技巧，而暴力的计算需要 $O(n)$ 的时间。而这个技巧也常常用在非计算的场景，因为它可以应用在任何具有结合律的运算中。其中显然的是它可以应用于模意义下取幂、矩阵幂等运算。
+计算a的n次方表示将n个a连乘在一起。然而当a和n太大的时候，这种方法就</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/algorithm/">algorithm</a>&nbsp;
+          
+            <a href="/tags/leetcode/">leetcode</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/divide-and-conquer/">divide-and-conquer</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/" target="_self">
+          <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【学习笔记】使用tf.data对预处理过程优化"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/">
+        <p class="h4 index-header">【学习笔记】使用tf.data对预处理过程优化</p>
+      </a>
+
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文是关于 tf.data 介绍的第二篇，主要介绍一些数据预处理方面的优化方法，诸如并行化预处理映射函数、使用缓存等。
+构建一个机器学习模型时，由于数据预处理过程不能使用GPU进行加速，因此格外耗时。背后的原因可能是CPU、网络或者缓存等复杂的因素。因此要研究如何提升数据预处理的效率，首先需要控制实验的变量。想实现这一点，构造一个虚假的数据集比较可行。
+通过构建一个虚假的数据集，从tf.data.Dataset继承的类，称为ArtificialDataset。该数据集模拟三件事：
+
+生成num_samples样本（默认为3）
+在第一个模拟打开文件的项目之前睡眠一段时间
+在产生每个项目以模拟从文</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-15&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【学习笔记】tf.data基本使用"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        <p class="h4 index-header">【学习笔记】tf.data基本使用</p>
+      </a>
+
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">使用 tf.data API 可以轻松处理大量数据，支持多样化的数据格式，还可以方便执行复杂的转换。本文介绍了不同类别源数据转化为 tf.data.Dataset 的方法，以及 Dataset 常见的预处理方法。
+概览最近几年我们在机器学习的加速计算领域取得了一些突破。虽然我们进行指标运算和矩阵运算所需的时间大大减少了，但是提供数据加速的CPU却没能跟上相应的步伐，这就成为了预处理中的瓶颈。我们本以为可以通过构建更复杂的模型来减少对硬件的需求，但是CPU的效率还是取决于他们拥有多少RAM。
+
+对于一些数据集很大的问题，解决问题的方法除了提升CPU的性能之外，还有对数据集进行分批次处理，但是分批</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-15&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】使用TensorBoard分析模型性能"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/">
+        <p class="h4 index-header">【学习笔记】使用TensorBoard分析模型性能</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第六篇，讲述的是如何使用TensorBoard分析模型的性能，优化模型的资源消耗。
+TensorBoard可以监控模型的各个组分运行过程中的时间消耗和资源消耗，并根据这些数据对模型下一步优化提出建议。
+首先我们安装性能分析的插件
+!pip install -U tensorboard_plugin_profile
+
+定义TensorBoard的回调函数（数据预处理和模型定义略去不表），注意这里新的参数profile_batch只监控第500到520之间的20个Batch，避免监控过多导致模型运行效率过低。
+# Create a TensorBoard callb</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】通过TensorBoard可视化词嵌入空间"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/">
+        <p class="h4 index-header">【学习笔记】通过TensorBoard可视化词嵌入空间</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第五篇，讲述的是如何使用TensorBoard对词嵌入空间可视化。
+TensorBoard可以将词嵌入空间二维化，方便我们理解词嵌入空间的含义。
+from tensorboard.plugins import projector
+
+引入IMDb数据集。tensorflow_datasets是tensorflow的官方数据集库。
+import tensorflow_datasets as tfds
+
+(train_data, test_data), info = tfds.load(
+    &quot;imdb_reviews/subwords8k&quot;,</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E8%B0%83%E6%95%B4%E8%B6%85%E5%8F%82%E6%95%B0/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】通过TensorBoard调整超参数"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E8%B0%83%E6%95%B4%E8%B6%85%E5%8F%82%E6%95%B0/">
+        <p class="h4 index-header">【学习笔记】通过TensorBoard调整超参数</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E8%B0%83%E6%95%B4%E8%B6%85%E5%8F%82%E6%95%B0/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第四篇，讲述的是如何借助TensorBoard调整模型的超参数。
+TensorBoard中的HParams仪表板是比较新颖的工具包，提供了多种调节超参数的工具，并且该工具还在不断更新中。
+from tensorboard.plugins.hparams import api as hp
+
+用过sklearn进行机器学习模型调参的同学应该体验过交叉验证调参的方法。通过提供许多不同的超参数选项，GridSearchCV将训练多个模型，并取性能最优的模型超参数。
+from sklearn.model_selection import GridSearchCV
+from</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%9B%BE/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】用TensorBoard生成模型图"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%9B%BE/">
+        <p class="h4 index-header">【学习笔记】用TensorBoard生成模型图</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%9B%BE/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第三篇，讲述的是如何令TensorBoard生成模型架构图。
+TensorBoard不但可以展示存在的图片和张量，还可以生成图片，诸如模型图等。通过TensorBoard的GRAPHS选项卡，可以快速查看模型结构的预览图，并确保其符合设计预期。
+比如我们定义模型如下：
+model = keras.models.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(32, activation=&#39;relu&#39;),
+    keras.la</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】用TensorBoard展示图片"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/">
+        <p class="h4 index-header">【学习笔记】用TensorBoard展示图片</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8TensorBoard%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第二篇，讲述的是如何令TensorBoard展示外界已有的图片和Tensor。
+我们可以利用TensorBoard展示图片类数据，或者通过tf.summary将张量类数据转化成图片。下面是对Fashion-MNIST数据集中部分图片的可视化：
+可视化单个图片import tensorflow as tf
+from tensorflow import keras
+
+fashion_mnist = keras.datasets.fashion_mnist
+(train_images, train_labels), (test_images, test_labels)</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91TensorBoard%E7%AE%80%E4%BB%8B/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】TensorBoard简介"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91TensorBoard%E7%AE%80%E4%BB%8B/">
+        <p class="h4 index-header">【学习笔记】TensorBoard简介</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91TensorBoard%E7%AE%80%E4%BB%8B/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">简单介绍了TensorBoard的用途和使用方法。
+TensorBoard简介TensorBoard是Google开发的模型内部参数跟踪和可视化的调试工具。在Tensorflow中，用TensorBoard可以监控模型的各种指标的变化（如acc、loss的动态变化），可以将模型结构可视化，可以可视化词嵌入空间，可以分析模型性能，可以分析数据集的公平性等等，是一个非常强大且非常简单的工具。
+TensorBoard核心就是回调函数和可视化操作面板。通过编写回调函数获取模型信息，通过命令行启动TensorBoard图形化界面。
+TensorBoard的回调函数API为：
+tf.keras.callb</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之注意力机制与预训练模型"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
+        <p class="h4 index-header">【竞赛打卡】新闻文本分类之注意力机制与预训练模型</p>
+      </a>
+
+      <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
+本章介绍了Bert的原理和使用，具体包括pretrain和finetune两部分。
+基于深度学习的文本分类Transformer原理当用神经网络来处理大量的输入信息时，可以借鉴人脑的注意力机制，只选择一些关键的信息输入进行处理，来提高神经网络的效率。注意力机制可以单独使用，但更多地用作神经网络中的一个组件。基于循环神经网络的序列到序列模型的一个缺点是无法并行计算，为了提高并行计算效率以及捕捉长距离的依赖关系，我们可以使用自注意力模型（Self-Attention Model）来建立一个全连接的网络结构。
+Transformer模型是一个</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-04&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
+          
+            <a href="/tags/Classification/">Classification</a>&nbsp;
+          
+            <a href="/tags/attention/">attention</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之深度学习Word2Vec"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/">
+        <p class="h4 index-header">【竞赛打卡】新闻文本分类之深度学习Word2Vec</p>
+      </a>
+
+      <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">谦虚使人进步，骄傲使人落后。
+最近课题内容较多时间紧张，同时我认为学习资料非常翔实，遂转发以做笔记。之后会在文章最后总结自己的思路和经验。
+Task5 基于深度学习的文本分类2在上一章节，我们通过FastText快速实现了基于深度学习的文本分类模型，但是这个模型并不是最优的。在本章我们将继续深入。
+基于深度学习的文本分类本章将继续学习基于深度学习的文本分类。
+学习目标
+学习Word2Vec的使用和基础原理
+学习使用TextCNN、TextRNN进行文本表示
+学习使用HAN网络结构完成文本分类
+
+文本表示方法 Part3词向量本节通过word2vec学习词向量。word2vec模型背后的基本思想</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-31&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
+          
+            <a href="/tags/Classification/">Classification</a>&nbsp;
+          
+            <a href="/tags/word2vec/">word2vec</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/27/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0FastText/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之深度学习FastText"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/27/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0FastText/">
+        <p class="h4 index-header">【竞赛打卡】新闻文本分类之深度学习FastText</p>
+      </a>
+
+      <a href="/2020/07/27/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0FastText/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">当你写东西或讲话的时候，始终要想到使每个普通工人都懂得，都相信你的号召，都决心跟着你走。要想到你究竟为什么人写东西，向什么人讲话。——《反对党八股》
+在上一章节，我们使用传统机器学习算法来解决了文本分类问题，从本章开始我们将尝试使用深度学习方法。与传统机器学习不同，深度学习既提供特征提取功能，也可以完成分类的功能。
+本次学习我们主要介绍FastText。
+fastText是一个快速文本分类算法，与基于神经网络的分类算法相比有两大优点：1、fastText在保持高精度的情况下加快了训练速度和测试速度2、fastText不需要预训练好的词向量，fastText会自己训练词向量3、fastText两</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-27&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
+          
+            <a href="/tags/Classification/">Classification</a>&nbsp;
+          
+            <a href="/tags/FastText/">FastText</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之机器学习文本分类"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/">
+        <p class="h4 index-header">【竞赛打卡】新闻文本分类之机器学习文本分类</p>
+      </a>
+
+      <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">今我睹子之难穷也，吾非至于子之门则殆矣。
+文本表示方法实践自然语言总需要转换成数值等表示才能被线性模型等处理。下面利用task1&amp;2提到的编码方式进行实践。
+Label这种编码方式是把自然语言首先分词成基本语素单元，然后把不同的单元赋予唯一的整数编码。比如本次比赛提供的数据集就是该编码方式。每条数据都是整数序列，最大整数为7549，最小整数为0。
+这样做的好处是相对节约内存，且实现简单；坏处是破坏了自然语言中部分语义，无法进一步进行诸如删除停用词、词根提取等操作。另外，编码的大小可能会让算法误以为词和词之间有大小关系。
+因为原来的数据集就是此编码方法，故不再赘述。
+Bag of Wor</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-23&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Classification/">Classification</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/">
+        <p class="h4 index-header">【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析</p>
+      </a>
+
+      <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">不要对我有任何期待哦！
+实验环境Colab
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import seaborn as sns
+import scipy
+from collections import Counter
+
+准备数据df_train = pd.read_csv(train_path, sep=&#39;\t&#39;)
+df_test = pd.read_csv(test_pa</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Feature-Engineering/">Feature Engineering</a>&nbsp;
+          
+            <a href="/tags/Data-Science/">Data Science</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/21/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E8%B5%9B%E9%A2%98%E7%90%86%E8%A7%A3/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】零基础入门NLP之新闻文本分类之赛题理解"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/21/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E8%B5%9B%E9%A2%98%E7%90%86%E8%A7%A3/">
+        <p class="h4 index-header">【竞赛打卡】零基础入门NLP之新闻文本分类之赛题理解</p>
+      </a>
+
+      <a href="/2020/07/21/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E8%B5%9B%E9%A2%98%E7%90%86%E8%A7%A3/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这项任务不好做呀，稍不小心就占用了task2的内容。
+零基础入门NLP之新闻文本分类之赛题理解一、现在公开的情报1. 比赛内容本次比赛的任务为文本的分类任务。虽然简单，但是想要取得高分还是不容易。
+待分类文本为新闻文本。新闻文本根据来源，分为财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐，共14类。
+2. 数据内容训练集和测试集在官网下载。
+其中训练集是带正确标签的，测试集不带标签，是真正的题目。我们的任务是训练模型，正确分类测试集中每一条新闻的标签。
+训练集由20万条新闻构成，测试集五万条数据。
+每条新闻都被编码为整数序列。每个单词对应一个整数。
+数据集中</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Feature-Engineering/">Feature Engineering</a>&nbsp;
+          
+            <a href="/tags/Data-Science/">Data Science</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/07/20/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" target="_self">
+          <img src="/img/feature.png" srcset="/img/loading.gif" alt="【学习笔记】特征工程"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/07/20/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        <p class="h4 index-header">【学习笔记】特征工程</p>
+      </a>
+
+      <a href="/2020/07/20/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文翻译自HJ van Veen的Feature Engineering一文，总结了数据竞赛中常用的特征工程方法。
+特征工程本文翻译自HJ van Veen的Feature Engineering一文。由于原文以PPT方式呈现，信息高度压缩，因此在我整理本文过程中，添加了自己的理解。如有错误，敬请指正！
+
+全文概览：
+
+机器学习的特征工程是将原始的输入数据转换成特征，以便于更好的表示潜在的问题、提高预测模型准确性的过程。
+特征工程是数据科学中最具创造性的部分，决定了机器学习模型的性能上限。
+即便是号称端到端的神经网络也需要特征工程，比如cv需要获得HOG，SIFT，whitening, per</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-20&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          
+            <a href="/categories/notes/translation/">translation</a>&nbsp;
+          
+            <a href="/categories/notes/translation/%E8%BD%AC%E8%BD%BD/">转载</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
+          
+            <a href="/tags/Feature-Engineering/">Feature Engineering</a>&nbsp;
+          
+            <a href="/tags/Data-Science/">Data Science</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/" target="_self">
+          <img src="/img/anime/3.jpg" srcset="/img/loading.gif" alt="【论文阅读笔记】CAGFuzz: Coverage-Guided Adversarial Generative Fuzzing Testing of Deep Learning Systems"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/">
+        <p class="h4 index-header">【论文阅读笔记】CAGFuzz: Coverage-Guided Adversarial Generative Fuzzing Testing of Deep Learning Systems</p>
+      </a>
+
+      <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">提出了CAGFuzz，这是一种覆盖率指导的灰盒对抗性生成模糊测试方法，可以为目标DNN生成对抗性示例，以发现其潜在缺陷。
+DeepXplore，使用多个DNN来发现并生成位于这些DNN决策边界之间的对抗性示例。
+DeepHunter，使用变形突变策略来生成新的测试示例。
+DeepGauge，提出了深度神经网络的新覆盖标准。
+
+为了提高泛化能力，仅从数据的角度添加较小的扰动就非常重要。
+现有研究完全忽略了包含高级语义信息（例如图像对象类别和场景语义）的深度特征约束。使用L0和L∞来限制对抗性示例的像素级变化，这样的约束只能代表对抗实例和原始实例之间的视觉一致性，而不能保证对抗实例和原始实例的高级</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/paper/">paper</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Fuzzing/">Fuzzing</a>&nbsp;
+          
+            <a href="/tags/Robustness/">Robustness</a>&nbsp;
+          
+            <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
+          
+            <a href="/tags/Coverage/">Coverage</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/27/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Towards-Evaluating-the-Robustness-of-Neural-Networks/" target="_self">
+          <img src="/img/anime/2.jpg" srcset="/img/loading.gif" alt="【论文阅读笔记】Towards Evaluating the Robustness of Neural Networks"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/27/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Towards-Evaluating-the-Robustness-of-Neural-Networks/">
+        <p class="h4 index-header">【论文阅读笔记】Towards Evaluating the Robustness of Neural Networks</p>
+      </a>
+
+      <a href="/2020/06/27/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Towards-Evaluating-the-Robustness-of-Neural-Networks/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">2017年的攻击文章，目标是当时防御性较高的防御性蒸馏模型，属于图像分类模型。结果是成功令其鲁棒性下降。文章最后的结论是，做防御的人应该用较先进的攻击手段测试自己的模型，同时应该注意防御对抗样本的迁移特性，即在其他弱模型上生成样本后在目标模型上测试的行为。
+
+警告！本文为简读，大量省略了原文内容，只留下了我关注的细节。
+
+引言防御性模型蒸馏（Defensive distillation）是近年来抵御对抗样本攻击的最有效方法之一。防御性模型蒸馏应用于前馈神经网络，只需一次重训练，就能将攻击成功率从95%降至0.5%。
+目前有两种衡量神经网络鲁棒性的方法，一是试图证明一个下界，二是攻击模型，试图展</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-27&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/paper/">paper</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Robustness/">Robustness</a>&nbsp;
+          
+            <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/20/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing-A-Survey/" target="_self">
+          <img src="/img/softwaretesting.jpg" srcset="/img/loading.gif" alt="【论文阅读笔记】Fuzzing: A Survey"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/20/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing-A-Survey/">
+        <p class="h4 index-header">【论文阅读笔记】Fuzzing: A Survey</p>
+      </a>
+
+      <a href="/2020/06/20/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Fuzzing-A-Survey/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">2018年CyberSecurity收录的一篇关于软件测试中模糊测试的综述。作者来自清华大学。文章名越短越霸气。
+
+警告！本文在写作过程中大量使用了谷歌翻译。
+
+一、引言模糊测试几乎不需要了解目标，并且可以轻松扩展到大型应用程序，因此已成为最受欢迎的漏洞发现解决方案
+模糊的随机性和盲目性导致发现错误的效率低下
+反馈驱动的模糊模式（feedback-driven fuzzing mode）和遗传算法（genetic algorithms）的结合提供了更灵活和可自定义的模糊框架，并使模糊过程更加智能和高效。
+二、背景
+1.静态分析静态分析（Static Analysis）是对在没有实际执行程序的情</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-20&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/paper/">paper</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Fuzzing/">Fuzzing</a>&nbsp;
+          
+            <a href="/tags/Software-Testing/">Software Testing</a>&nbsp;
+          
+            <a href="/tags/Survey/">Survey</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Welcome...&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

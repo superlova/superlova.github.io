@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>用于科学计算的GPU选购参考 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 七月 1日 2019, 6:11 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      7 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <p>实验室最近要采购一批显卡，需要调研显卡的型号和价格。</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>首先说一下需求：</p>
+<ul>
+<li>首先显卡的用途是科学计算，更具体一点是深度学习，有人做图像，有人做NLP；</li>
+<li>其次预算有限，得买性价比最好的；</li>
+<li>然后可能会有很多人要用服务器训练模型。</li>
+</ul>
+<p>然后这是戴尔服务器的售后人员发来的建议采购清单：<br><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-18-19-43.png" srcset="/img/loading.gif" alt></p>
+<p>其中M10：19999￥ P100： 49999￥ V100：59999￥ P40：49999￥</p>
+<p>值得一提的是，谷歌的Colab上面用的是这款：<br><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-18-21-48.png" srcset="/img/loading.gif" alt><br><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-18-21-58.png" srcset="/img/loading.gif" alt></p>
+<p>但是一个从事深度学习研究的学长建议我买1080Ti。他好像提都没提过Tesla啊？难道显卡水这么深？</p>
+<h2 id="GPU参数"><a href="#GPU参数" class="headerlink" title="GPU参数"></a>GPU参数</h2><p>GPU的性能主要由下面三个主要参数构成：</p>
+<p><strong>计算能力</strong>。通常我们关心的是32位浮点计算能力。当然，对于高玩来说也可以考虑16位浮点用来训练，8位整数来预测。</p>
+<p><strong>内存大小</strong>。神经网络越深，或者训练时批量大小越大，所需要的GPU内存就越多。</p>
+<p><strong>内存带宽</strong>。内存带宽要足够才能发挥出所有计算能力。</p>
+<p>此外，针对不同深度学习架构，GPU参数的选择优先级是不一样的，总体来说分两条路线：</p>
+<p><strong>卷积网络和Transformer</strong>：张量核心&gt;FLOPs（每秒浮点运算次数）&gt;显存带宽&gt;16位浮点计算能力</p>
+<p><strong>循环神经网络</strong>：显存带宽&gt;16位浮点计算能力&gt;张量核心&gt;FLOPs</p>
+<p>这个排序背后有一套逻辑，下面将详细解释一下。</p>
+<p>在说清楚哪个GPU参数对速度尤为重要之前，先看看两个最重要的张量运算：矩阵乘法和卷积。</p>
+<p>举个栗子，以运算矩阵乘法A×B=C为例，将A、B复制到显存上比直接计算A×B更耗费资源。也就是说，如果你想用LSTM等处理大量小型矩阵乘法的循环神经网络，显存带宽是GPU最重要的属性。</p>
+<p>矩阵乘法越小，内存带宽就越重要。</p>
+<p>相反，卷积运算受计算速度的约束比较大。因此，要衡量GPU运行ResNets等卷积架构的性能，最佳指标就是FLOPs。张量核心可以明显增加FLOPs。</p>
+<p>Transformer中用到的大型矩阵乘法介于卷积运算和RNN的小型矩阵乘法之间，16位存储、张量核心和TFLOPs都对大型矩阵乘法有好处，但它仍需要较大的显存带宽。</p>
+<h2 id="性价比分析"><a href="#性价比分析" class="headerlink" title="性价比分析"></a>性价比分析</h2><p>下面总结了一张GPU和TPU的标准性能数据，值越高代表性能越好。RTX系列假定用了16位计算，Word RNN数值是指长度&lt;100的段序列的biLSTM性能。</p>
+<p>这项基准测试是用PyTorch 1.0.1和CUDA 10完成的。</p>
+<p><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-19-09-53.png" srcset="/img/loading.gif" alt="GPU和TPU的性能数据"></p>
+<p>性价比可能是选择一张GPU最重要的考虑指标。</p>
+<p>性价比可能是选择一张GPU最重要的考虑指标。在攻略中，小哥进行了如下运算测试各显卡的性能：</p>
+<ul>
+<li>用语言模型Transformer-XL和BERT进行Transformer性能的基准测试。</li>
+<li>用最先进的biLSTM进行了单词和字符级RNN的基准测试。</li>
+<li>上述两种测试是针对Titan Xp、Titan RTX和RTX 2080 Ti进行的，对于其他GPU则线性缩放了性能差异。</li>
+<li>借用了现有的CNN基准测试。</li>
+<li>用了亚马逊和eBay上显卡的平均售价作为GPU的参考成本。<br>最后，可以得出CNN、RNN和Transformer的归一化性能/成本比值，如下所示：</li>
+</ul>
+<p><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-19-11-20.png" srcset="/img/loading.gif" alt="CNN、RNN和Transformer的每美元性能"></p>
+<p>在上面这张图中，数字越大代表每一美元能买到的性能越强。可以看出， RTX 2060比RTX 2070，RTX 2080或RTX 2080 Ti更具成本效益，<strong>甚至是Tesla V100性价比的5倍以上</strong>。</p>
+<p>所以此轮的性价比之王已经确定，是RTX 2060无疑了。</p>
+<p>下图是李沐老师画了900和1000系列里各个卡的32位浮点计算能力和价格的对比（价格是wikipedia的推荐价格，真实价格通常会有浮动）。</p>
+<p><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-19-06-00.png" srcset="/img/loading.gif" alt></p>
+<p>由于GPU的功耗，散热和体积，需要一些额外考虑。</p>
+<ul>
+<li>机箱体积<br>GPU尺寸较大，通常不考虑太小的机箱。而且机箱自带的风扇要好。</li>
+<li>电源<br>购买GPU时需要查下GPU的功耗，50w到300w不等。因此买电源时需要功率足够的。</li>
+<li>主板的PCIe卡槽<br>推荐使用PCIe 3.0 16x来保证足够的GPU到主内存带宽。如果是多卡的话，要仔细看主板说明，保证多卡一起使用时仍然是16x带宽。（有些主板插4卡时会降到8x甚至4x）</li>
+</ul>
+<h2 id="Tesla为什么那么贵？"><a href="#Tesla为什么那么贵？" class="headerlink" title="Tesla为什么那么贵？"></a>Tesla为什么那么贵？</h2><p>英伟达现在有一项非常坑爹的政策，如果在数据中心使用CUDA，那么只允许使用Tesla GPU而不能用GTX或RTX GPU。</p>
+<p>由于担心法律问题，研究机构和大学经常被迫购买低性价比的Tesla GPU。<strong>然而，Tesla与GTX和RTX相比并没有真正的优势，价格却高出10倍。</strong></p>
+<p>Nvidia卡有面向个人用户（例如GTX系列）和企业用户（例如Tesla系列）两种。企业用户卡通常使用被动散热和增加了内存校验从而更加适合数据中心。但计算能力上两者相当。<strong>企业卡通常要贵上10倍</strong>。</p>
+<p>Tesla显卡那么贵，其实是贵在双精度浮点数运算能力上了，外加一个鸡肋的ECC校验功能，实在不值。</p>
+<h2 id="总结建议："><a href="#总结建议：" class="headerlink" title="总结建议："></a>总结建议：</h2><p><strong>最佳GPU</strong>：RTX 2070</p>
+<p><strong>避免的坑</strong>：所有Tesla、Quadro、创始人版（Founders Edition）的显卡，还有Titan RTX、Titan V、Titan XP</p>
+<p><strong>高性价比</strong>：RTX 2070（高端），RTX 2060或GTX 1060 (6GB)（中低端）</p>
+<p><strong>计算机视觉或机器翻译研究人员</strong>：采用鼓风设计的GTX 2080 Ti，如果训练非常大的网络，请选择RTX Titans</p>
+<p><strong>NLP研究人员</strong>：RTX 2080 Ti</p>
+<p><strong>已经开始研究深度学习</strong>：RTX 2070起步，以后按需添置更多RTX 2070</p>
+<h2 id="其他配件要求："><a href="#其他配件要求：" class="headerlink" title="其他配件要求："></a>其他配件要求：</h2><p><img src="/2019/07/01/%E7%94%A8%E4%BA%8E%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84GPU%E9%80%89%E8%B4%AD%E5%8F%82%E8%80%83/2019-07-01-19-19-14.png" srcset="/img/loading.gif" alt="各硬件性能要求"></p>
+<ul>
+<li><p>CPU:<br>因为主要使用显卡进行cuda计算，因此对CPU的要求并不是很高，频率越高、线程数越多越好，一般最低要求cpu核心数大于显卡个数。其中一个制约因素：cpu的最大PCI-E 通道数。每张显卡占用16条pcie通道才能达到最大性能，而单cpu最大支持40条pcie，也就是即使有4个pcie x16接口，只能最多达到2路x16加一路x8，插上的显卡不能发挥全部性能。不过，主板芯片组其实也可以扩充一部分pcie通道。（x99主板可以扩宽2.0的8lanes，z170可以扩充3.0的20lanes）</p>
+</li>
+<li><p>主板:<br>前面提到了cpu提供的pcie通道数的限制，如果要使用多块显卡，就需要主板提供额外的pcie通道，一般只有服务器级别的主板才会提供扩展pcie通道如x99、x299等主板，但是使用此类主板必须搭配具有该接口的服务器级cpu（xeon系列、i7 7900x以上、i9系列等），如果不需要三块以上的显卡，使用cpu提供的40lane pcie即可。</p>
+</li>
+<li><p>内存：<br>深度学习需要大量数据，中间计算过程也会临时储存大量数据，一般要求具有显存2~3倍的内存，32G或64G乃至更高。内存频率越高越好。<br>最低建议32G DDR4 3200MHz内存(16G*2)约2000元，预算宽裕可升级到64G（约4000元）</p>
+</li>
+<li><p>硬盘：<br>深度学习需要大量数据，和较快的访问速度，一般使用一个较大的固态硬盘作为系统盘和训练数据仓储盘，另外使用hdd机械硬盘作为仓储盘。<br>建议使用512G以上nVME固态硬盘（800元）搭配几TB(2TB约300元）Hdd作为储存空间</p>
+</li>
+<li><p>电源、机箱：电源其实还是要买个比较稳定的，因为要保证长期稳定运行会有“无休止”的training。一般使用大品牌的经过80PLUS金牌或铂金认证的电源。只搭配一张显卡700w即可，每多一张增加400w。4*titan V大概使用1600w电源。</p>
+</li>
+</ul>
+<p>深度学习实验室共享服务器，7x24小时运行  2080ti或者4titan V ，预算充裕可以专门购置一台高性能多显卡深度学习服务器，24*7小时运行，其他用户可以在自己的笔记本电脑和台式机上编写和初步调试卷积神经网络，本地验证无误后，上传至服务器进行训练任务。这样做可以极大的节省设备开支，最大限度的利用计算资源，也避免了每个用户单独配置复杂的软件环境。</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/record/">record</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/GPU/">GPU</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "用于科学计算的GPU选购参考&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

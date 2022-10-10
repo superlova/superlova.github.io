@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【学习笔记】用Hadoop实现Word Count - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期四, 五月 6日 2021, 8:18 早上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+            
+            <div class="markdown-body">
+              <p>好像不管什么Hadoop学习都是从Word Count开始，跨越语言的Word Count</p>
+<!--more--->
+<p>Word Count是MapReduce 的经典入门案例，其目标是统计给定一系列文本文件的单词出现次数。</p>
+<p>编程思路：</p>
+<p><code>map</code>阶段：把输入的数据进行分词，并将其组合成键值对的形式，key是单词，value全部标记为1。</p>
+<p><code>shuffle</code> 阶段：经过默认的排序分区分组，key相同的单词会作为一组数据构成新的键值对。</p>
+<p><code>reduce</code>阶段：处理 <code>shuffle</code> 完的一组数据，该组数据就是该单词所有的键值对。</p>
+<p><img src="/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/Word_Count_MR阶段.png" srcset="/img/loading.gif" alt></p>
+<h2 id="Map类的编写"><a href="#Map类的编写" class="headerlink" title="Map类的编写"></a>Map类的编写</h2><pre><code class="lang-java">/**
+ * @description: WordCount Mapper类，对应MapTask
+ * @author: ZYT
+ * KEYIN map阶段的输入
+ * VALUEIN  todo MapReduce 有默认读取数据的组件：TextInputFormat
+ *          todo 逐行读取。k是偏移量（LongWritable），无意义；v是每行的文本内容（Text）。
+ * KEYOUT 单词类型，Text
+ * VALUEOUT 次数，LongWritable
+ */
+public class WordCountMapper extends Mapper&lt;LongWritable, Text, Text, LongWritable&gt; &#123;
+    /**
+     * 每当TextInputFormat返回一个键值对，map就调用一次。
+     * 根据TextInputFormat的特性，事实上是每一行文本调用一次Map方法。
+     * @param key
+     * @param value
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @Override
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;
+//        super.map(key, value, context);
+        String text = value.toString();
+        String[] words = text.split(&quot;\\s+&quot;);
+        for (String word : words) &#123;
+            context.write(new Text(word), new LongWritable(1));
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>优化</p>
+<pre><code class="lang-java">public class WordCountMapper extends Mapper&lt;LongWritable, Text, Text, LongWritable&gt; &#123;
+
+    private Text outKey = new Text();
+    private static final LongWritable outValue = new LongWritable(1);
+
+    /**
+     * 每当TextInputFormat返回一个键值对，map就调用一次。
+     * 根据TextInputFormat的特性，事实上是每一行文本调用一次Map方法。
+     * @param key
+     * @param value
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @Override
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;
+//        super.map(key, value, context);
+        String text = value.toString();
+        String[] words = text.split(&quot;\\s+&quot;);
+        for (String word : words) &#123;
+            outKey.set(word);
+            context.write(outKey, outValue);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Reduce类的编写"><a href="#Reduce类的编写" class="headerlink" title="Reduce类的编写"></a>Reduce类的编写</h2><pre><code class="lang-java">public class WordCountReducer extends Reducer&lt;Text, LongWritable, Text, LongWritable&gt; &#123;
+
+    private LongWritable outValue = new LongWritable(0);
+
+    /**
+     * todo q: 当map的输出数据来到reduce之后该如何调用？
+     * 1. 排序所有pair
+     * 2. 分组pair，key相同的分成一组
+     * 3. 每一组调用一次reduce
+     * @param key
+     * @param values
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     * 输出key：该组的单词
+     * 输出value：该组所有次数的迭代器。
+     */
+    @Override
+    protected void reduce(Text key, Iterable&lt;LongWritable&gt; values, Context context) throws IOException, InterruptedException &#123;
+//        super.reduce(key, values, context);
+        long count = 0;
+        for (LongWritable value : values) &#123;
+            count += value.get();
+        &#125;
+        outValue.set(count);
+        context.write(key, outValue);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Driver类的编写"><a href="#Driver类的编写" class="headerlink" title="Driver类的编写"></a>Driver类的编写</h2><pre><code class="lang-java">/**
+ * 该类是MapReduce程序客户端驱动类。主要是为了构造Job对象，指定各种组件的属性。
+ * 包括Mapper、Reducer、输入输出类型、数据路径、提交作业等。
+ */
+public class WordCountDriver &#123;
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException &#123;
+        // 创建配置对象
+        Configuration conf = new Configuration();
+
+        // 构建Job作业实例， 参数为Conf、Job名字
+        Job job = Job.getInstance(conf, WordCountDriver.class.getSimpleName());
+
+        // 设置MR程序运行的主类
+        job.setJarByClass(WordCountDriver.class);
+
+        // 设置本次MR程序的Mapper、Reducer类
+        job.setMapperClass(WordCountMapper.class);
+        job.setReducerClass(WordCountReducer.class);
+
+        // 指定Mapper阶段输出的kv类型
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(LongWritable.class);
+
+        // 指定Reducer阶段kv类型，也是最终输出的kv类型
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(LongWritable.class);
+
+        // 配置本次作业的输入输出数据路径
+        // todo: 默认组件 TextInputFormat、TextOutputFormat
+        FileInputFormat.setInputPaths(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        // 提交作业
+//        job.submit();
+        // 采用waitForCompletion方式提交job 参数表示是否开启实时追踪作业执行情况的功能
+        boolean res_flag = job.waitForCompletion(true);
+
+        // 退出程序，和job结果进行绑定
+        System.exit(res_flag ? 0 : 1);
+    &#125;
+&#125;
+</code></pre>
+<p>继承工具类Tool的Driver</p>
+<pre><code class="lang-java">/**
+ * 使用ToolRunner提交MapReduce作业
+ */
+public class WordCountDriver_v2 extends Configured implements Tool &#123;
+    public static void main(String[] args) throws Exception &#123;
+        // 创建配置对象
+        Configuration conf = new Configuration();
+        // 使用ToolRunner提交程序
+        int status = ToolRunner.run(conf, new WordCountDriver_v2(), args);
+        // 退出客户端
+        System.exit(status);
+    &#125;
+
+    @Override
+    public int run(String[] args) throws Exception &#123;
+
+        // 构建Job作业实例， 参数为Conf、Job名字
+        Job job = Job.getInstance(getConf(), WordCountDriver_v2.class.getSimpleName());
+
+        // 设置MR程序运行的主类
+        job.setJarByClass(WordCountDriver_v2.class);
+
+        // 设置本次MR程序的Mapper、Reducer类
+        job.setMapperClass(WordCountMapper.class);
+        job.setReducerClass(WordCountReducer.class);
+
+        // 指定Mapper阶段输出的kv类型
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(LongWritable.class);
+
+        // 指定Reducer阶段kv类型，也是最终输出的kv类型
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(LongWritable.class);
+
+        // 配置本次作业的输入输出数据路径
+        // todo: 默认组件 TextInputFormat、TextOutputFormat
+        FileInputFormat.setInputPaths(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        return job.waitForCompletion(true) ? 0 : 1;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="如何运行MapReduce程序？"><a href="#如何运行MapReduce程序？" class="headerlink" title="如何运行MapReduce程序？"></a>如何运行MapReduce程序？</h2><p>MapReduce程序是单机运行还是分布式运行？</p>
+<p>MapReduce程序需要的运算资源是Hadoop YARN分配还是本机自己分配？</p>
+<p>运行在何种模式，取决于 mapreduce.framwork.name</p>
+<p>yarn: 集群模式</p>
+<p>local: 本地模式</p>
+<p>如果不指定，默认是local模式。</p>
+<p>在 mapred-default.xml 中定义。如果代码中（conf.set）、运行的环境中（mapred-site.xml）有配置，则会覆盖default的配置。</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Hadoop/">Hadoop</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Word-Count/">Word Count</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【学习笔记】用Hadoop实现Word Count&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
