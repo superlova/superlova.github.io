@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Superlova">
   <meta name="keywords" content="">
-  <title>【学习笔记】李宏毅2019ML课程-P1 - Superlova</title>
+  <title>【学习笔记】李宏毅2019ML课程-Note1 - Superlova</title>
   <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    1.6k 字
+                    2.4k 字
                   </span>
                 
 
@@ -142,7 +142,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      5 分钟
+                      8 分钟
                   </span>
                 
 
@@ -177,10 +177,10 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期一, 十月 10日 2022, 10:18 晚上</p>
+                class="note note-warning">本文最后更新于：星期二, 十月 11日 2022, 9:04 晚上</p>
             
             <div class="markdown-body">
-              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录第一、二、三、四个视频的知识点。<br><!--more---></p>
+              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：机器学习的概念和分类、利用线性模型解决回归问题以及梯度下降。<br><!--more---></p>
 <h3 id="一、机器学习介绍"><a href="#一、机器学习介绍" class="headerlink" title="一、机器学习介绍"></a>一、<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av59538266">机器学习介绍</a></h3><p>说一下我学这门课的初衷吧。其实机器学习的课程在研究生阶段就已经上过了，但是工作之后才发现有一些基础没搞懂或者已经遗忘，因此在学习新知识时存在障碍。恰逢Datawhale给了这次组队学习的机会，我便想与群友们一起把这门基础课程搞定。</p>
 <h4 id="1-概要"><a href="#1-概要" class="headerlink" title="1. 概要"></a>1. 概要</h4><p>本节通俗易懂地介绍了机器学习的概念，介绍了AI的发展历史，以及与传统规则的区别。简单来说，<strong>机器学习</strong>是一种从有限数据中学习规律并对未知数据进行预测的方法。</p>
 <p>刚开始讲了比较多的名词和概念。老师最后的图里很好地总结了本次课的内容：</p>
@@ -225,9 +225,36 @@ L(f)=\sum (y-\hat{y})</script><p>这样肯定是有问题的，假设我们有�
 L(f)=\sum (y-\hat{y})^2</script><p>其实也有其他的损失函数定义方法可以规避第一个损失函数的问题，比如使用绝对值。但这里我们就钦定平方损失函数了，它有很多好处，但是我们先按下不表。</p>
 <h4 id="第三步，进行训练，并利用损失函数指导训练过程"><a href="#第三步，进行训练，并利用损失函数指导训练过程" class="headerlink" title="第三步，进行训练，并利用损失函数指导训练过程"></a>第三步，进行训练，并利用损失函数指导训练过程</h4><p>到目前为止，我们有很多带标签的数据 $(x,\hat{y})$，有线性模型，有损失函数。那我该怎么得到训练好的模型呢？</p>
 <p><strong>最好的模型</strong>到底是什么？对于线性模型来说，其实求解最优的$w$和$b$，从而可以让我们的模型无论输入什么$x$，都能准确得到与真实值相差无几的$y$。</p>
-<p>让我们忘掉w和b的具体含义、晦涩不清的L函数，专心解决这个问题：如何优化L函数，求解最好的$w$和$b$？</p>
-<p>一种解决问题的方法使用微积分来嗯算，通过计算导数去寻找L的极值点。运气好的话，L的变量不多，该方法看似可行；运气不好的话，我们面对的问题过于复杂、参数过多，问题就不好解决了。</p>
-<p>有一种通用的最优化方法，叫做<strong>梯度下降</strong> (Gradient Descent) 方法，专门用于解决这种凸优化问题。</p>
+<p>让我们忘掉w和b的具体含义、晦涩不清的L函数，专心解决这个问题：如何优化$w$和$b$，以便L达到最小？</p>
+<script type="math/tex; mode=display">
+w^*=arg\min_{w}L(w) \\
+b^*=arg\min_{b}L(b)</script><p>一种解决问题的方法使用微积分来嗯算，通过计算导数去寻找L的极值点。运气好的话，L的变量不多，该方法看似可行；运气不好的话，我们面对的问题过于复杂、参数过多，问题就不好解决了。</p>
+<p>还有一种笨办法是穷举所有可能的$w$，选择能使L最小的$w^*$即可。这种方法虽然可行，但是没有效率。</p>
+<p>有一种通用的最优化方法，叫做<strong>梯度下降</strong> (Gradient Descent) 方法，专门用于解决这种凸优化问题。使用梯度下降算法的前提是优化目标是可微的。</p>
+<h5 id="1-梯度下降算法简介"><a href="#1-梯度下降算法简介" class="headerlink" title="1. 梯度下降算法简介"></a>1. 梯度下降算法简介</h5><p>恰好，我们的损失函数L是可微的，也就是二阶可导的。如果我们当初选取损失函数时，使用绝对值作为损失函数，处理起来便没有这么便利了。</p>
+<p>梯度下降的具体过程是这样的：</p>
+<ol>
+<li>选择一个初始$w_0$</li>
+<li>计算该位置下w对L的微分，这个微分对应函数在此处下降最快的方向；</li>
+<li>将$w_0$朝着这个方向移动一小步$ \eta$<script type="math/tex; mode=display">w\prime=w_0-\eta\frac{\mathrm{d}L}{\mathrm{d}w}</script></li>
+<li>在新的位置开始新一轮迭代计算，直到$w$不再变化为止。</li>
+</ol>
+<p>不妨将梯度下降算法的求解过程想象为人下山的过程，人会先找到下山最快的方向，然后朝着那个方向走一步，直到抵达最低点。</p>
+<p><img src="/2022/10/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-P1/模拟梯度下降.png" srcset="/img/loading.gif" alt></p>
+<p>在上图中，每一条线围成的圈就是等高线，代表损失函数的值，颜色约深的区域代表的损失函数越小；红色的箭头代表等高线的法线方向。</p>
+<p>上述过程是求解L在变量w下的最优解的梯度下降过程，但是L还与偏移量b存在对应关系，所以实际上梯度下降在线性模型的具体公式如下：</p>
+<script type="math/tex; mode=display">
+w_k\rightarrow w'_k=w_k-\eta\frac{\partial C}{\partial w_k} \\
+b_l\rightarrow b'_l=b_l-\eta\frac{\partial C}{\partial b_l}</script><p>其中，偏微分的具体公式如下：</p>
+<p><img src="/2022/10/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-P1/线性回归偏微分方程.png" srcset="/img/loading.gif" alt></p>
+<h5 id="2-梯度下降算法的局限性"><a href="#2-梯度下降算法的局限性" class="headerlink" title="2. 梯度下降算法的局限性"></a>2. 梯度下降算法的局限性</h5><p>首先，<strong>梯度下降算法容易陷入局部最优，找不到全局最优解</strong>。</p>
+<p>如下图所示，当梯度下降算法优化到local minima 时，前面有座高山，它的梯度是正的，优化算法会强迫我们往回走。</p>
+<p><img src="/2022/10/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-P1/梯度下降算法局部最优.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/2022/10/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-P1/梯度下降局部最优2.png" srcset="/img/loading.gif" alt></p>
+<p>这个问题在我们的线性回归模型里暂时遇不到，因为线性模型非常简单，是一个凸函数。但当我们试图利用梯度下降算法训练复杂模型，比如神经网络时，就很有可能遭遇该问题。</p>
+<p>有很多方法能够解决梯度下降算法的全局最优解问题，包括调整每次行进的步长$\eta$，使其更有希望跨越“大山”等手段等等。</p>
+<p>其次，梯度下降算法要求目标函数是可微的，这在某些情况下会<strong>产生相当大的计算代价</strong>。假设我们的问题有上百万维，计算二阶偏导数就需要上万亿（百万的平方）次！</p>
+<p>再次，<strong>当训练数据相当多时，梯度下降算法会变得很慢</strong>。在实践中，为了计算梯度$\nabla L$，我们需要为了每个训练样本x单独计算梯度$\nabla L_x$，然后求平均值。这会花费很长时间。</p>
 
             </div>
             <hr>
@@ -524,7 +551,7 @@ L(f)=\sum (y-\hat{y})^2</script><p>其实也有其他的损失函数定义方法
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【学习笔记】李宏毅2019ML课程-P1&nbsp;",
+        "【学习笔记】李宏毅2019ML课程-Note1&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 90,
@@ -581,6 +608,32 @@ L(f)=\sum (y-\hat{y})^2</script><p>其实也有其他的损失函数定义方法
   </script>
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
 
 
 
