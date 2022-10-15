@@ -4,6 +4,7 @@ date: 2022-10-13 10:52:43
 index_img: /img/datawhale.jpg
 tags: ['Machine Learning', 'MOOC', 'Gradient Descent', 'Bias and Variance']
 mathjax: true
+math: true
 categories: 
 - notes
 ---
