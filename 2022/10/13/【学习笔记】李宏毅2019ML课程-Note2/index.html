@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    3.7k 字
+                    4.5k 字
                   </span>
                 
 
@@ -142,7 +142,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      13 分钟
+                      15 分钟
                   </span>
                 
 
@@ -177,7 +177,7 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期六, 十月 15日 2022, 9:44 上午</p>
+                class="note note-warning">本文最后更新于：星期六, 十月 15日 2022, 10:34 上午</p>
             
             <div class="markdown-body">
               <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：偏差和方差、模型选择、梯度下降算法。<br><!--more---></p>
@@ -255,13 +255,35 @@
 <p>普通的梯度下降算法采用的参数更新思路：</p>
 <script type="math/tex; mode=display">
 w^{t+1}\leftarrow w^t-\eta^tg^t \\
-\eta^t=\frac{\eta^t}{\sqrt{t + 1}}</script><p>则Adagram是这样更新的：</p>
+\eta^t=\frac{\eta^t}{\sqrt{t + 1}}</script><p>则Adagrad是这样更新的：</p>
 <script type="math/tex; mode=display">
 w^{t+1}\leftarrow w^t-\frac{\eta^t}{\sigma^t}g^t \\
 g^t =\frac{\partial L(\theta^t)}{\partial w}</script><p>其中$\sigma^t$是之前参数的所有微分的均方根，对于每个参数都是不一样的。</p>
-<p>Adagram的设计思路为，如果某个参数的偏导数累计比较大，其学习率就会相对较小；相反，如果偏导数累计较小，则学习率相对较大。但是整体上迭代次数越多，学习率越小。</p>
-<p>AdaGram的缺点是，如果在经过一定次数的迭代，依然没有找到最优点时，由于学习率已经非常小，很难再继续优化了。</p>
-<h3 id="3-3-4-RMSprop-算法"><a href="#3-3-4-RMSprop-算法" class="headerlink" title="3.3.4 RMSprop 算法"></a>3.3.4 RMSprop 算法</h3><h2 id="3-4-梯度估计"><a href="#3-4-梯度估计" class="headerlink" title="3.4 梯度估计"></a>3.4 梯度估计</h2><h3 id="3-4-1-动量法"><a href="#3-4-1-动量法" class="headerlink" title="3.4.1 动量法"></a>3.4.1 动量法</h3><h3 id="3-4-3-Adam-算法"><a href="#3-4-3-Adam-算法" class="headerlink" title="3.4.3 Adam 算法"></a>3.4.3 Adam 算法</h3><h2 id="3-3-数据预处理"><a href="#3-3-数据预处理" class="headerlink" title="3.3 数据预处理"></a>3.3 数据预处理</h2><p>一般而言，样本特征由于来源以及度量单位不同，他们的尺度 (Scale) 即取值范围也不同。对于某些机器学习模型，会对那些尺度更大的数据更敏感。因此对于尺度敏感的模型，必须先对样本进行预处理，将各个维度的特征转换到相同的取值区间内，并且消除不同特征之间的相关性，才能取得理想的效果。</p>
+<p>将Adagrad的式子化简：</p>
+<p><img src="/2022/10/13/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-Note2/化简后的adagrad.png" srcset="/img/loading.gif" alt></p>
+<p>Adagrad的设计思路为，如果某个参数的偏导数累计比较大，其学习率就会相对较小；相反，如果偏导数累计较小，则学习率相对较大。但是整体上迭代次数越多，学习率越小。</p>
+<p>AdaGrad的缺点是，如果在经过一定次数的迭代，依然没有找到最优点时，由于学习率已经非常小，很难再继续优化了。</p>
+<h3 id="3-3-4-RMSprop-算法"><a href="#3-3-4-RMSprop-算法" class="headerlink" title="3.3.4 RMSprop 算法"></a>3.3.4 RMSprop 算法</h3><p>RMSProp算法可以帮助解决某些情况下Adagrad算法过早衰减的问题。</p>
+<p>RMSProp算法在AdaGrad的基础上，改进了参数偏导数的累计方式。Adagrad算法是计算每个参数梯度平方的累计值：</p>
+<script type="math/tex; mode=display">
+G_t=\sum^t_{\tau=1}\textbf{g}_{\tau}\odot\textbf{g}_{\tau}</script><p>其中$\textbf{g}_{\tau}\in\mathbb{R}^{|\theta|}$是第$\tau$ 次迭代时的梯度。</p>
+<p>RMSProp算法首先计算每次迭代梯度 $\textbf{g}_t$平方的指数衰减移动平均：</p>
+<script type="math/tex; mode=display">
+G_t=\beta G_{t-1}+(1-\beta)\textbf{g}_t\odot\textbf{g}_t \\
+=(1-\beta)\sum^t_{\tau=1}\beta^{t-\tau}\textbf{g}_{\tau}\odot\textbf{g}_{\tau}</script><p>其中$\beta$为衰减率，一般为0.9。</p>
+<p>RMSProp算法的参数更新差值为：</p>
+<script type="math/tex; mode=display">
+\Delta\theta_t=-\frac{\alpha}{\sqrt{G_t+\epsilon}}\odot\textbf{g}_t</script><p>其中$\alpha$是初始的学习率，比如0.001。</p>
+<p>在迭代过程中，由于每个参数的学习率并不是衰减趋势，因此既可以变小也可以变大。</p>
+<h2 id="3-4-梯度估计"><a href="#3-4-梯度估计" class="headerlink" title="3.4 梯度估计"></a>3.4 梯度估计</h2><p>除了调整学习率之外，还可以进行梯度估计的修正。这样做的原因是，小批量梯度下降选取的样本具有随机性，如果每次选取的样本数量比较小，则损失可能会呈现震荡的方式下降。一般我们可以采取使用最近一段时间内的平均梯度来代替当前时刻的随机梯度的做法来缓解随机性，提升优化速度。</p>
+<h3 id="3-4-1-动量法"><a href="#3-4-1-动量法" class="headerlink" title="3.4.1 动量法"></a>3.4.1 动量法</h3><p>还记得之前我们说过的，梯度下降算法容易陷入局部最优解吗？我们将梯度下降的优化过程比喻成小球滚落山坡的过程。但是梯度下降的优化过程忽略了小球本身具有动量，与现实中有一定区别。如果我们将梯度下降算法添加上动量的模拟，则小球在陷入局部最优解时，足够高的动量能帮助小球“冲”出局部最优解。</p>
+<p><img src="/2022/10/13/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML%E8%AF%BE%E7%A8%8B-Note2/梯度下降算法容易陷入局部最优.png" srcset="/img/loading.gif" alt></p>
+<p>在第t次迭代是，计算负梯度的“加权移动平均”作为参数的更新方向：</p>
+<script type="math/tex; mode=display">
+\Delta\theta_t=\rho\Delta\theta_{t-1}-\alpha\textbf{g}_t=-\alpha\sum^t_{\tau=1}\rho^{t-\tau}\textbf{g}_{\tau}</script><p>其中$\rho$为动量因子，一般为0.9，$\alpha$为学习率。</p>
+<p>这样一来，每个参数的实际更新差值取决于最近一段时间内梯度的加权平均值。当某个参数在最近一段时间内的梯度方向都一致，其真是更新参数的幅度会变大，相当于加速冲刺；当某个参数在最近一段时间内的梯度方向不一致，则参数更新幅度会变小，相当于刹车。从某种角度来说，当前梯度叠加部分上次的梯度，这种做法可以近似看做二阶梯度。</p>
+<h3 id="3-4-3-Adam-算法"><a href="#3-4-3-Adam-算法" class="headerlink" title="3.4.3 Adam 算法"></a>3.4.3 Adam 算法</h3><p>Adam算法是如今最常用的优化算法了，它是RMSProp算法和动量法的结合，不但使用动量作为参数更新方向，而且可以自适应调整学习率。</p>
+<h2 id="3-3-数据预处理"><a href="#3-3-数据预处理" class="headerlink" title="3.3 数据预处理"></a>3.3 数据预处理</h2><p>一般而言，样本特征由于来源以及度量单位不同，他们的尺度 (Scale) 即取值范围也不同。对于某些机器学习模型，会对那些尺度更大的数据更敏感。因此对于尺度敏感的模型，必须先对样本进行预处理，将各个维度的特征转换到相同的取值区间内，并且消除不同特征之间的相关性，才能取得理想的效果。</p>
 <p>归一化 (Normalization) 方法泛指把数据特征转换为相同尺度的方法，比如把数据特征映射到 [0,1] 区间内，或者直接映射为均值为0、方差为1的正态分布。</p>
 <p><strong>最小最大值归一化</strong>：将每个特征缩放到 [0,1] 或者 [-1,1] 之间。假设我们有 N 哥样本 ${x^{(n)}}^{N}_{n=1}$，对每一维特征x，归一化后的特征为：</p>
 <script type="math/tex; mode=display">
