@@ -150,6 +150,64 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/04/14/Coreutils%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/">
+        <p class="h4 index-header">Coreutils重新编译方法</p>
+      </a>
+
+      <a href="/2019/04/14/Coreutils%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Coreutils重新编译方法
+下载coreutils，在Linux系统下解压
+
+
+
+运行指令 ./configure
+
+
+
+运行 make
+
+进入src文件夹，挑选您要修改的文件，我以pwd.c为例，将其复制到我的个人文件夹
+
+修改pwd.c，将其内部所有带“VERSION”的行全部注释掉
+
+运行指令1
+$ gcc -E -I ~/MyCode/coreutils-8.30/lib/ -I ~/MyCode/coreutils-8.30/ -I ~/MyCode/coreutils-8.30/src pwd.c -o pwd.i
+
+运行指令2
+$ gcc -c pwd.i -o pwd.o
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-04-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/record/">record</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/compiler/">compiler</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2019/04/14/%E9%85%8D%E7%BD%AEhexo+GitHub%20Pages%E7%BA%AA%E5%AE%9E/">
         <p class="h4 index-header">配置hexo+GitHub Pages纪实</p>
       </a>

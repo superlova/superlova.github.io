@@ -150,6 +150,61 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
+          <img src="/img/Einstein.jpg" srcset="/img/loading.gif" alt="numpy中的einsum使用方法"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+        <p class="h4 index-header">numpy中的einsum使用方法</p>
+      </a>
+
+      <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文将介绍爱因斯坦求和约定，以及在numpy中的使用
+numpy里面有很多奇技淫巧，爱因斯坦求和约定就是其中之一。
+爱因斯坦求和约定能够很方便和简介地表示点积、外积、转置、矩阵-向量乘法、矩阵-矩阵乘法等，这在深度学习公式推导中的用处很大。
+其实我不认为einsum在numpy中用处很大，我认为其顶多就是一种统一的矩阵运算写法罢了。这种技巧，是在牺牲可读性基础上，对代码的简化。而且由于numpy对其他运算也有进行优化，所以仅凭借爱因斯坦乘数法还不一定能提升代码执行效率。
+可能是我还没有体会到高维张量相互计算时的痛苦吧。
+先看一下einsum的api：
+np.einsum(equation, *</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/numpy/">numpy</a>&nbsp;
+          
+            <a href="/tags/einsum/">einsum</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/05/19/numpy%E4%B8%ADaxis%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" target="_self">
           <img src="/img/numpy.png" srcset="/img/loading.gif" alt="numpy中axis的简单理解"
                class="index-img img-fluid rounded index-thumbnails">
@@ -614,11 +669,11 @@ RNN的对抗测试面临某些挑战，概括为三方面：
           
             <a href="/tags/C/">C++</a>&nbsp;
           
-            <a href="/tags/STL/">STL</a>&nbsp;
-          
             <a href="/tags/string/">string</a>&nbsp;
           
             <a href="/tags/regex/">regex</a>&nbsp;
+          
+            <a href="/tags/STL/">STL</a>&nbsp;
           
         
       </div>
@@ -666,11 +721,11 @@ RNN的对抗测试面临某些挑战，概括为三方面：
           
             <a href="/tags/C/">C++</a>&nbsp;
           
+            <a href="/tags/STL/">STL</a>&nbsp;
+          
             <a href="/tags/map/">map</a>&nbsp;
           
             <a href="/tags/set/">set</a>&nbsp;
-          
-            <a href="/tags/STL/">STL</a>&nbsp;
           
         
       </div>
@@ -1073,58 +1128,6 @@ Trie树由词的公共前缀构成节点，降低了存储空间的同时提升�
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-24&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/NLP/">NLP</a>&nbsp;
-          
-            <a href="/tags/deep-learning/">deep learning</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/06/21/NLP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
-        <p class="h4 index-header">NLP学习笔记1</p>
-      </a>
-
-      <a href="/2019/06/21/NLP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">IMDB数据集探索实验是在Google Colab上面做的，机器也是用的谷歌云。
-# keras.datasets.imdb is broken in 1.13 and 1.14, by np 1.16.3
-!pip install tf_nightly
-
-安装tensorflow
-from __future__ import absolute_import, division, print_function, unicode_literals
-
-import tensorflow as tf
-from tensorflow import keras
-
-import numpy as np
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-21&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
