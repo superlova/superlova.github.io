@@ -6,7 +6,7 @@
   <link href="https://superlova.github.io/atom.xml" rel="self"/>
   
   <link href="https://superlova.github.io/"/>
-  <updated>2022-10-15T02:44:09.974Z</updated>
+  <updated>2022-10-16T13:56:17.399Z</updated>
   <id>https://superlova.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【学习笔记】李宏毅2019ML-Note3-深度学习介绍和反向传播</title>
+    <link href="https://superlova.github.io/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/"/>
+    <id>https://superlova.github.io/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</id>
+    <published>2022-10-16T10:32:13.000Z</published>
+    <updated>2022-10-16T13:56:17.399Z</updated>
+    
+    <content type="html"><![CDATA[<p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：深度学习算法介绍、反向传播机制。<br><!--more---></p><h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><p>深度学习大家已经很熟悉了。深度学习技术属于一类机器学习技术。使用深度学习解决问题的过程同样需要三步骤：</p><p>Step1：选择深度学习模型：神经网络（Neural network），神经网络有各种不同类型，比如前馈神经网络、卷积神经网络等；<br>Step2：模型评估（Goodness of function）；<br>Step3：选择最优函数（Pick best function），不同的网络结构需要定义不同的参数学习方法，比如反向传播算法；</p><p>接下来逐一介绍三个步骤的具体内容。</p><h2 id="第一步：选择神经网络：从前馈网络开始"><a href="#第一步：选择神经网络：从前馈网络开始" class="headerlink" title="第一步：选择神经网络：从前馈网络开始"></a>第一步：选择神经网络：从前馈网络开始</h2><p>前馈（feedforward）也可以称为前向，从信号流向来理解就是输入信号进入网络后，信号流动是单向的，即信号从前一层流向后一层，一直到输出层，其中任意两层之间的连接并没有反馈（feedback），亦即信号没有从后一层又返回到前一层。</p><p>下图是一个由一层输入层、N层隐藏层和一层输出层构成的、每层包含M个神经元的全连接网络，神经元的激活函数为sigmoid：</p><p><img src="/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/前馈网络.png" alt></p><p>为什么叫全链接呢？因为layer1与layer2之间两两都有连接，所以叫做Fully Connect；</p><p>为什么叫前馈呢？因为现在传递的方向是由后往前传，所以叫做Feedforward。</p><p>当隐藏层N非常大时，我们就说这个网络非常深。现如今的网络结构动辄几百层，随之带来很大的计算开销。一个一个计算神经元的输入输出是不现实的，一种加速方法是将神经网络的信息传递过程具象化为矩阵运算。</p><p>假设下图的前馈网络：</p><p><img src="/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/前馈网络-矩阵计算演示.png" alt></p><p>计算方法就是：sigmoid（权重w【黄色】 * 输入【蓝色】+ 偏移量b【绿色】）= 输出</p><p>如果有很多层，就进行嵌套</p><p><img src="/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/很多层的全连接网络的矩阵计算.png" alt></p><p>所以整个神经网络运算就相当于一连串的矩阵运算。矩阵运算是可以被GPU并行加速的，因此深度学习模型才能够在如今这个算力大爆发的年代大放异彩。</p><p><strong>深度学习的本质是利用隐藏层学习到了输入特征的有效表示方法，代替了之前依靠数据科学家的经验的特征工程。</strong></p><h2 id="第二步：模型评估方法：选择损失函数"><a href="#第二步：模型评估方法：选择损失函数" class="headerlink" title="第二步：模型评估方法：选择损失函数"></a>第二步：模型评估方法：选择损失函数</h2><p>对于模型的评估，我们一般采用损失函数来反应模型的好差，所以对于神经网络来说，我们采用交叉熵（cross entropy）函数来对$y$和$\hat{y}$的损失进行计算，接下来我们就是调整参数，让交叉熵越小越好。</p><h2 id="第三步：选择最优模型：梯度下降，以及用反向传播算法优化计算"><a href="#第三步：选择最优模型：梯度下降，以及用反向传播算法优化计算" class="headerlink" title="第三步：选择最优模型：梯度下降，以及用反向传播算法优化计算"></a>第三步：选择最优模型：梯度下降，以及用反向传播算法优化计算</h2><p>梯度下降算法在之前的笔记已经讲过，神经网络的梯度下降算法也是相同的。</p><p><img src="/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/梯度下降.png" alt></p><p>梯度下降的具体过程：</p><p><img src="/2022/10/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note3-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/梯度下降的过程.png" alt></p><ol><li>给到$\theta$(weight and bias)</li><li>先选择一个初始的 $\theta^0$，计算 $\theta^0$ 的损失函数（Loss Function）设一个参数的偏微分</li><li>计算完这个向量（vector）偏微分，然后就可以去更新的你 $\theta$</li><li>百万级别的参数（millions of parameters）</li><li>反向传播（Backpropagation）是一个比较有效率的算法，让你计算梯度（Gradient） 的向量（Vector）时，可以有效率的计算出来</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：深度学习算法介绍、反向传播机制。&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
+&lt;h1 id=&quot;深度学习&quot;&gt;&lt;a href=&quot;#深度学习&quot; class=&quot;headerlink&quot; title=&quot;深度学习&quot;&gt;&lt;/a&gt;深度</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
+    
+    <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
+    
+    <category term="Deep Learning" scheme="https://superlova.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Backpropagation" scheme="https://superlova.github.io/tags/Backpropagation/"/>
+    
+  </entry>
   
   <entry>
     <title>【学习笔记】李宏毅2019ML课程-Note2</title>
@@ -540,31 +571,6 @@
     <category term="leetcode" scheme="https://superlova.github.io/tags/leetcode/"/>
     
     <category term="searching" scheme="https://superlova.github.io/tags/searching/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【学习笔记】Docker综合实践</title>
-    <link href="https://superlova.github.io/2021/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Docker%E7%BB%BC%E5%90%88%E5%AE%9E%E8%B7%B5/"/>
-    <id>https://superlova.github.io/2021/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Docker%E7%BB%BC%E5%90%88%E5%AE%9E%E8%B7%B5/</id>
-    <published>2021-04-24T14:16:40.000Z</published>
-    <updated>2022-08-02T13:32:34.787Z</updated>
-    
-    <content type="html"><![CDATA[<p>Datawhale Docker学习笔记第六篇<br><!--more---></p><p>在没有学习docker之前，部署项目都是直接启动文件，比如java项目就是java –jar xxxx.jar的方式，python项目就是python xxxx.py。如果采用docker的方式去部署这些项目，一般有两种方式，以jar包项目为例</p><h1 id="方式一、挂载部署"><a href="#方式一、挂载部署" class="headerlink" title="方式一、挂载部署"></a>方式一、挂载部署</h1><p>这种方式类似于常规部署，通过数据卷的方式将宿主机的jar包挂载到容器中，然后执行jar包的jdk选择容器中的而非采用本地的。</p><ol><li>将jar包上传到服务器的指定目录，比如/root/docker/jar。</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yobtp2tj30o007njt5.jpg" alt></p><ol><li>通过docker pull openjdk:8命令获取镜像</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yord00xj30o006bju3.jpg" alt></p><ol><li>编写docker-compose.yml文件</li></ol><pre><code class="lang-yaml">version:&#39;3.0&#39;services:  java:    image: docker.io/openjdk    restart:always    container_name: myopenjdk    ports:      - 8080:8001    volumes:      - /root/docker/jar/xxxx.jar:/root:z      - /etc/localtime:/etc/localtime    environment:      - TZ=&quot;Asia/Shanghai&quot;    entrypoint: java -jar /root/xxxx.jar    mynetwork:      ipv4_address: 192.168.1.13networks:  mynetwork:   ipam:     config:      - subnet: 192.168.1.0/24</code></pre><p>参数解释：</p><ul><li><p>build 指定dockerfile所在文件夹的路径 context指定dockerfile文件所在路径 dockerfile指定文件的具体名称</p></li><li><p>container_name 指定容器名称</p></li><li><p>volumes 挂载路径  z是用来设置selinux，或者直接在linux通过命令临时关闭或者永久关闭</p></li><li><p>ports 暴露端口信息</p></li><li><p>networks是用来给容器设置固定的ip</p></li></ul><ol><li>执行命令docker-compose up –d启动jar包, 可以通过docker ps查看容器是否在运行，需要注意的是默认查看所有运行中的容器，如果想查看所有容器，需要添加参数-a</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yp7mo2wj30o0057aay.jpg" alt></p><ol><li><p>注意如果容器启动失败或者状态异常，可以通过docker logs查看日志</p></li><li><p>通过docker inspect myopenjdk查看容器详细信息，可以看到容器ip已经设置成功</p></li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9ypl8wgdj30o009wabq.jpg" alt></p><ol><li>然后在虚拟机中打开浏览器输入jar包项目的访问地址，就可以看到运行的项目，需要注意访问端口是映射过的端口而非项目实际端口</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yq1vynoj30o00dytaj.jpg" alt></p><h2 id="方式二、构建镜像部署"><a href="#方式二、构建镜像部署" class="headerlink" title="方式二、构建镜像部署"></a>方式二、构建镜像部署</h2><ol><li><p>将jar包上传到服务器的指定目录，比如/root/docker/jar。</p></li><li><p>在该目录下创建Dockerfile文件，通过vim等编辑工具在Dockerfile中编辑以下内容</p></li></ol><pre><code class="lang-dockerfile">FROM java:8MAINTAINER YHFLABEL description=”learn docker”ADD xxx.jarEXPOSE 8001ENTRYPOINT [“java”,”-jar”,”xxxx.jar”]</code></pre><p>参数解释：</p><ul><li><p>FROM java:8 指定所创建镜像的基础镜像</p></li><li><p>MAINTAINER yhf 指定作者为yhf</p></li><li><p>LABEL 为生成的镜像添加元数据标签信息</p></li><li><p>ADD xxxx.jar 添加内容到镜像</p></li><li><p>EXPOSE 8080 声明镜像内服务监听的端口</p></li><li><p>ENTRYPOINT 指定镜像的默认入口命令，支持两种格式ENTRYPOINT[“java”,”-jar”,”xxxx.jar”]；ENTRYPOINT java –jar xxxx.jar。注意每个dokcerfile中只能有一个ENTRYPOINT，如果指定多个只有最后一个生效。</p></li></ul><ol><li><p>Dockerfile构建完成以后可以通过命令docker build构建镜像，然后再运行容器，这里咱们用docker-compose命令直接编排构建镜像和运行容器。</p></li><li><p>编写docker-compose.yml文件</p><p>```yaml<br>version: ‘3’</p></li></ol><p>services:</p><p>  java_2:<br>    restart: always<br>    image: yhfopenjdk:latest<br>    container_name: myopenjdk<br>    ports:</p><pre><code>  - 8080:8001volumes:  - /etc/localtime:/etc/localtimeenvironment:  - TZ=&quot;Asia/Shanghai&quot;entrypoint: java -jar /root/datawhale-admin-1.0.0.jarnetworks:  mynetwork:     ipv4_address: 192.168.1.13</code></pre><p>networks:<br>  mynetwork:<br>   ipam:<br>     config:</p><pre><code>  - subnet: 192.168.1.0/24</code></pre><p> ```</p><p>参数解释同方式一：</p><ol><li>执行docker-compose up –d直接启动基于文件构建的自定义镜像，如果镜像不存在会自动构建，如果已存在那么直接启动。如果想重新构建镜像，则执行docker-compose build。如果想在执行compose文件的时候重构，则执行docker-compose up –d –build。</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yqi1lv0j30o007ign6.jpg" alt></p><p>此使通过dockerfile文件构建的镜像已经创建</p><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yqxa7t1j30o005qdi5.jpg" alt></p><p>通过镜像运行的容器已经正常启动，可以通过docker ps查看容器是否在运行，需要注意的是默认查看所有运行中的容器，如果想查看所有容器，需要添加参数-a</p><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yra1jg1j30o0013q33.jpg" alt></p><ol><li>在浏览器中输入访问路径可以看到项目已经正常运行</li></ol><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9yrmnnzzj30o00d975v.jpg" alt></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Datawhale Docker学习笔记第六篇&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
-&lt;p&gt;在没有学习docker之前，部署项目都是直接启动文件，比如java项目就是java –jar xxxx.jar的方式，python项目就是python xxxx.py。如果采用do</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="Docker" scheme="https://superlova.github.io/tags/Docker/"/>
     
   </entry>
   
