@@ -6,7 +6,7 @@
   <link href="https://superlova.github.io/atom.xml" rel="self"/>
   
   <link href="https://superlova.github.io/"/>
-  <updated>2022-10-16T13:56:17.399Z</updated>
+  <updated>2022-10-19T14:17:53.714Z</updated>
   <id>https://superlova.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【学习笔记】李宏毅ML-Note4-深度学习优化</title>
+    <link href="https://superlova.github.io/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/"/>
+    <id>https://superlova.github.io/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/</id>
+    <published>2022-10-19T11:03:40.000Z</published>
+    <updated>2022-10-19T14:17:53.714Z</updated>
+    
+    <content type="html"><![CDATA[<p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：深度学习算法的优化。<br><!--more---></p><p>神经网络训练不好怎么办？为什么loss不下降？这里讨论的训练不好，是指在训练过程中的loss始终降不下来。从数学优化的角度，此时可能陷入了局部最小值或者鞍点等微分为零的点。</p><h2 id="1-优化陷入鞍点-Saddle-Point-或局部极小值-Local-Minima"><a href="#1-优化陷入鞍点-Saddle-Point-或局部极小值-Local-Minima" class="headerlink" title="1. 优化陷入鞍点 (Saddle Point) 或局部极小值 (Local Minima)"></a>1. 优化陷入鞍点 (Saddle Point) 或局部极小值 (Local Minima)</h2><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/陷入鞍点或者局部最小点.png" alt></p><p>鞍点是指在一个方向上的gradient=0，但是在其他方向的gradient不为零，说明loss仍有继续优化的空间。</p><p>局部最小点则是所有方向的gradient均为零，此时无论往哪个方向走都无法令loss继续变小。这种情况比较棘手。</p><p>如何确认到底是鞍点还是局部极值？</p><p>这里有个结论：如果该点处的二阶偏导数矩阵（海塞矩阵）是正定的，即该海塞矩阵的所有特征值都大于零，说明该点附近的所有值均大于该点，即该点为局部最小值。</p><p>如果海塞矩阵的特征值全为负，则说明这里是局部最大值。</p><p>其他情况下，如果海塞矩阵的特征值有正有负，说明这里是个鞍点。</p><p>求解该点处的二阶偏导数不但可以帮助判断是否为鞍点，还可以帮助我们选择优化的方向。如果该处是一个鞍点，则我们就选择一个海塞矩阵特征值为负值的特征向量，朝着这个特征向量的方向进行移动，就能够最快速走出鞍点。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/快速走出鞍点.png" alt></p><p>实际上求海塞矩阵是一个计算量比较大的操作，除非有必要，否则这种方法其实很少使用。事实上，很少有优化算法具备把损失函数给优化到局部最小值或者鞍点的程度，在此之前我们会受到其他问题的困扰，比如batch没有选择好、优化方法并不够优秀等。</p><h2 id="2-batch没有选择好"><a href="#2-batch没有选择好" class="headerlink" title="2. batch没有选择好"></a>2. batch没有选择好</h2><p>在使用随机梯度下降算法时，我们会定义一个batch大小，并把训练集分割成batch大小的一个个子集，每次梯度下降只在子集上进行遍历，每次训练完一个子集的内容叫做一个epoch。</p><p>batch的大小自然会影响网络训练的速度以及优化效果。小batch可以加速训练，缺点是小batch随机性更大，没办法代表整体的数据集。极端情况下，batch=1时，甚至会出现loss在原地不断震荡的情况。</p><p>然而batch过大则失去了意义，因为这会导致训练速度变慢。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/batch大小的权衡.png" alt></p><p>如果引入并行计算（即GPU运算），那么batch_size在一定程度内都可以很快。但是不同GPU支持的batch_size是有极限的（取决于显存）。</p><p>batch_size 对最终的优化效果有影响吗？是有的。大的batch_size可能会导致优化阶段产生问题。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/batch_size对最终优化效果的影响.png" alt></p><p>这种问题是怎么产生的呢？有一种解释是这样的，当我们试图以一个比较大的batch_size训练模型时，可能会卡在客观存在的局部极值点；但是如果我们使用比较小的batch，相当于人为引入了更多的随机性。w在batch_A上是局部极值点，但是在batch_B上就不一定了。</p><p>另外，在testing的时候，选择不同的batch也会让accuracy不一样。如果大的Batch对应的Testing结果差 ，代表 Overfitting 。</p><p>最后总结一下，batch_size可能造成的影响：</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/batch_size的选择总结.png" alt></p><h2 id="3-虽然-gradient-没有降低到0，但是-loss-已经不再-变小-了（没有选择合适的优化算法）"><a href="#3-虽然-gradient-没有降低到0，但是-loss-已经不再-变小-了（没有选择合适的优化算法）" class="headerlink" title="3. 虽然 gradient 没有降低到0，但是 loss 已经不再 变小 了（没有选择合适的优化算法）"></a>3. 虽然 gradient 没有降低到0，但是 loss 已经不再 变小 了（没有选择合适的优化算法）</h2><p>多数情况下，不会有真正陷入 critical point 的机会，而是在 critical point 附近徘徊。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/训练卡住了并不一定意味着gradient很小.png" alt></p><p>因此需要我们调整学习率。每个不同的参数应该在训练的不同阶段拥有不同的学习率。这种通过改变学习率来优化算法的训练速度的方法，在Note2中已有介绍。</p><p>常用的自适应改变参数学习率的算法有Adagrad算法、RMSProp算法等。</p><p>一种方法是使用带有momentum的优化算法。动量法在Note2里已有介绍，我们将梯度下降的优化过程比喻成小球滚落山坡的过程。但是梯度下降的优化过程忽略了小球本身具有动量，与现实中有一定区别。如果我们将梯度下降算法添加上动量的模拟，则小球在陷入局部最优解时，足够高的动量能帮助小球“冲”出局部最优解。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/动量法模拟.png" alt></p><p>使用动量法的优化算法有Adam等。实际上，Adam是Adagrad和Momentum动量法的结合。</p><p>此外，从经验上看，学习率一开始要保持大一些，来保证收敛到最优点附近；然后要减小学习率来避免震荡。那么我们自然可以想到，学习率跟随训练轮次变大逐渐变小。这就是<strong>学习率衰减</strong>。</p><p>在刚开始训练时，由于参数是随机初始化的，梯度也往往比较大，再加上比较大的初始学习率，会使得训练不稳定。因此我们希望刚开始几轮迭代的学习率较小，等梯度下降到一定程度时再恢复学习率。这种方法称之为<strong>学习率预热</strong>。等预热完毕后在进行学习率衰减。</p><p>利用这两个思想，改进Adam后，就是优化算法RAdam。</p><ol><li>损失函数也会有影响</li></ol><p>分类问题的损失函数可以选择MSE和Cross-entropy。现在我们更多选择交叉熵。为什么MSE不行呢？</p><p>MSE在loss大的地方非常平坦，梯度趋近于零，最后stuck卡住！难以优化。</p><p>Cross-entropy ：左上角有斜率，可以透过梯度，一路往右下角走。更易收敛。</p><p><img src="/2022/10/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/MSE和Cross-entropy.png" alt></p><ol><li>也许需要 normalization</li></ol><p>一般而言，样本特征由于来源以及度量单位不同，他们的尺度 (Scale) 即取值范围也不同。对于某些机器学习模型，会对那些尺度更大的数据更敏感。因此对于尺度敏感的模型，必须先对样本进行预处理，将各个维度的特征转换到相同的取值区间内，并且消除不同特征之间的相关性，才能取得理想的效果。</p><p>归一化 (Normalization) 方法泛指把数据特征转换为相同尺度的方法，比如把数据特征映射到 [0,1] 区间内，或者直接映射为均值为0、方差为1的正态分布。</p><p><strong>最小最大值归一化</strong>：将每个特征缩放到 [0,1] 或者 [-1,1] 之间。假设我们有 N 哥样本 ${x^{(n)}}^{N}_{n=1}$，对每一维特征x，归一化后的特征为：</p><script type="math/tex; mode=display">\hat{x}^{(n)}=\frac{x^{(n)}-\min_n(x^{(n)})}{\max_n(x^{(n)})-\min_n(x^{(n)})}</script><p><strong>标准化</strong>：将每维特征都调整到标准正态分布：</p><script type="math/tex; mode=display">\hat{x}^{(n)}=\frac{x^{(n)}-\mu}{\sigma}</script><p>除此之外，还有Batch-Normalization和Layer-Normalization的算法。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：深度学习算法的优化。&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
+&lt;p&gt;神经网络训练不好怎么办？为什么loss不下降？这里讨论的训练不好，是指在训练过程中的loss始终降不下来。从数学优化的角度，此时可能陷入了局部</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
+    
+    <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
+    
+    <category term="Deep Learning" scheme="https://superlova.github.io/tags/Deep-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>【学习笔记】李宏毅2019ML-Note3-深度学习介绍和反向传播</title>
@@ -542,35 +571,6 @@
     <category term="google test" scheme="https://superlova.github.io/tags/google-test/"/>
     
     <category term="unit test" scheme="https://superlova.github.io/tags/unit-test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【竞赛打卡】大整数相乘 I</title>
-    <link href="https://superlova.github.io/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/"/>
-    <id>https://superlova.github.io/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/</id>
-    <published>2021-04-28T06:49:39.000Z</published>
-    <updated>2022-08-02T13:32:34.821Z</updated>
-    
-    <content type="html"><![CDATA[<p>两个大整数相乘，如何在不损失精度的前提下计算得到正确的结果？<br><!--more---></p><h1 id="unsigned-long-long-整数之间的乘法"><a href="#unsigned-long-long-整数之间的乘法" class="headerlink" title="unsigned long long 整数之间的乘法"></a><code>unsigned long long</code> 整数之间的乘法</h1><h2 id="1-问题引入"><a href="#1-问题引入" class="headerlink" title="1. 问题引入"></a>1. 问题引入</h2><p>如果我们使用 <code>C++</code> 语言，在 64 位系统上，<code>unsigned long long</code> 类型（或者 <code>uint64_t</code> 类型）的变量能够保存的数值范围是 $\left[0,2^{64}\right)$。任何小于该数值的数字都能被正确存储。</p><script type="math/tex; mode=display">2^{64}-1=18,446,744,073,709,551,615</script><p>这个十进制的整数足足有20位，一般情况下我们是不需要考虑溢出问题的。</p><p>但是如果两个<code>uint64_t</code>的变量要做乘法，就必须考虑溢出问题了。因为两个64位整数相乘，其结果可能达到128位，超过了一个变量能存储的数据的极限大小。</p><p>两个<code>uint64_t</code>变量的乘法该如何正确计算？考虑极端情况，两个<code>uint64_t</code>整数所能表达的最大数字<code>UINT_MAX</code>相乘：</p><script type="math/tex; mode=display">(2^{64}-1)\times (2^{64}-1)=2^{128}-2^{65}+1</script><p>这里面最大的数字是$2^{128}$，因此我们最极端情况下有128位的信息需要保存。</p><h2 id="2-问题简化"><a href="#2-问题简化" class="headerlink" title="2. 问题简化"></a>2. 问题简化</h2><p>首先让我们<strong>简化一下问题</strong>。假设我现在只能用一款古董电脑，它只支持保存四位十进制整数的变量，也就是一个变量的保存范围为$[0,9999]$。如何计算两个四位整数相乘？</p><p>还记得乘法是怎么计算的吗？我们应该都学习过小学数学，通过将数字中的每一个字符看作计算单元，然后利用99乘法表就能够口算出结果了。</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/2021-04-29-08-44-58.png" alt></p><p>或者可以每两个字符看成计算的基本单元，这样就需要计算两位数乘法。</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/2021-04-29-08-50-09.png" alt></p><p>同样可以计算得到正确结果。假设每个方框是计算机的一个变量，后一种计算方式可以保证每个变量中保存的元素大小不超过计算机的保存能力（假设计算机保存能力为2位）。</p><p>回到题目本身。该运算的结果达到7位，超过了我们计算机限制的4位，因此可以使用两个变量保存该结果：<code>lo</code>保存结果的低四位，<code>hi</code>保存结果的高四位。</p><p>另外我们使用四个变量将两个乘数拆分成前后两个部分，<code>a</code>保存第一个操作数的高2位，<code>b</code>保存第一个操作数的低2位,<code>c</code>保存第二个操作数的高2位，<code>d</code>保存第二个操作数的低2位。</p><p>为什么要这么做？因为计算机的存储能力为4位，两个四位数字相乘，结果最多能达到八位，所以我们肯定不能容忍两个四位数字相乘；但是两个两位数字相乘，结果最多达到四位，是可以被当前的计算机所存储的。所以我们需要把四位数字拆分成前后两个部分。</p><p>抽象一下计算过程，以下不考虑进位。</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/2021-04-29-09-07-00.png" alt></p><p>第一步，计算b与d的乘积，得到结果<code>bd</code>和进位k_1：</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/计算b与d的乘积.png" alt></p><p>第二步，计算a与d的乘积，并且加上bd的进位k_1，得到结果ad和进位k_2，注意这个k_2最终会与ac求和：</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/计算a与d的乘积.png" alt></p><p>第三步，计算b与c的乘积，得到结果bc和进位k_3：</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/计算b与c的乘积.png" alt></p><p>第四步，计算a与c的乘积，并且加上bc的进位k_3，得到结果ac和进位k_4，注意这个k_4最终会成为高位hi的最大的部分，因此ac得到的k_4没必要和ac分离开：</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/计算a与c的乘积.png" alt></p><p>第五步，低位结果计算，首先将ad和bc加起来，得到ad+bc以及可能存在的进位k_5；然后将ad+bc向左移位两格，再加上bd，就是低位结果lo。</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/低位结果计算.png" alt></p><p>第六步，高位结果计算，将ac和进位k_5加起来，注意此时的ac包含了进位k_4，并没有分离出去。我们还需要加上计算ad得到的k_2，因此hi=ac+k_2+k_5。</p><p><img src="/2021/04/28/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E4%B8%A4%E6%95%B0%E7%9B%B8%E4%B9%98/高位结果计算.png" alt></p><h2 id="3-示例"><a href="#3-示例" class="headerlink" title="3. 示例"></a>3. 示例</h2><p>举一个具体点的例子：如何利用该电脑正确计算<code>1213*1214</code>？</p><script type="math/tex; mode=display">1213\times 1214=1,472,582</script><pre><code>a = 12b = 13c = 12d = 14</code></pre><ol><li>计算b与d的乘积，得到结果<code>bd</code>和进位k_1：<br>```<br>b <em> d = 13 </em> 14 = 182</li></ol><hr><p>k_1 = 1<br>bd = 82</p><pre><code>2. 计算a与d的乘积，并且加上bd的进位k_1，得到结果ad和进位k_2</code></pre><p>a <em> d + k_1 = 12 </em> 14 + 1 = 169<br>k_2 = 1<br>ad = 69</p><pre><code>3. 计算b与c的乘积，得到结果bc和进位k_3</code></pre><p>b <em> c = 13 </em> 12 = 156<br>k_3 = 1<br>bc = 56</p><pre><code>4. 计算a与c的乘积，并且加上bc的进位k_3，得到结果ac。此时不用分离进位，因此没有k_4。</code></pre><p>a <em> c + k_3 = 12 </em> 12 + 1 = 145<br>ac = 145</p><pre><code>5. 低位结果计算，首先将ad和bc加起来，得到ad+bc以及可能存在的进位k_5；然后将ad+bc向左移位两格，再加上bd，就是低位结果lo</code></pre><p>ad + bc = 125<br>k_5 = 1<br>adbc = 25<br>lo = adbc &lt;&lt; 2 + bd = 2500 + 82 = 2582</p><pre><code>6. 高位结果计算，将ac和进位k_5加起来，注意此时的ac包含了进位k_4，并没有分离出去。我们还需要加上计算ad得到的k_2，因此hi=ac+k_2+k_5</code></pre><p>hi = ac + k_2 + k_5 = 145 + 1 + 1 = 147</p><pre><code>最终结果的高位部分为147，低位部分为2582，与答案1472582相同。## 迁移到64位整数相乘以上我们讨论的都是四位整数相乘的问题，其实64位二进制数相乘也是一样的道理。首先我们将两个64位乘数OP1和OP2各自分成两半32位整数，也就是a/b/c/d，然后按照上述算法计算，即可得到结果的高64位和低64位。算法如下：```cppvoid mul_64_64_to_128(uint64_t op1, uint64_t op2, uint64_t *hi, uint64_t *lo) &#123;    // 取abcd    uint64_t a, b, c, d;    b = (op1 &amp; 0xFFFFFFFF);    a = (op1 &gt;&gt; 32);    d = (op2 &amp; 0xFFFFFFFF);    c = (op2 &gt;&gt; 32);    // bd    uint64_t k_1 = b * d;    uint64_t bd = (k_1 &amp; 0xFFFFFFFF);    k_1 &gt;&gt;= 32;    // ad    uint64_t k_2 = a * d + k_1;    uint64_t ad = (k_2 &amp; 0xFFFFFFFF);    k_2 &gt;&gt;= 32;    // bc    uint64_t k_3 = b * c;    uint64_t bc = (k_3 &amp; 0xFFFFFFFF);    k_3 &gt;&gt;= 32;    // ac    uint64_t ac = a * c + k_3;    // lo    uint64_t k_5 = ad + bc;    uint64_t ad_bc = (k_5 &amp; 0xFFFFFFFF);    k_5 &gt;&gt;= 32;    *lo = (ad_bc &lt;&lt; 32) + bd;    // hi    *hi = ac + k_2 + k_5;&#125;</code></pre><p>验证一下结果：</p><pre><code class="lang-cpp">int main() &#123;    uint64_t op1 = 1e12;    uint64_t op2 = 1e12;    uint64_t hi = 0ULL, lo = 0ULL;    mul_64_64_to_128(op1, op2, &amp;hi, &amp;lo);    cout &lt;&lt; hi &lt;&lt; &quot;\n&quot; &lt;&lt; lo &lt;&lt; endl;    return 0;&#125;&gt;&gt;&gt;542102003764205206896640Process finished with exit code 0</code></pre><p>乍一看结果，<code>1e12*1e12</code>结果怎么不是<code>1e24</code>呢？其实这是由于结果是十进制导致不直观，实际上我们的结果是正确的。我们比较下二进制就可以了。</p><p>首先定义一个函数<code>ulld_to_b</code>，将<code>uint64_t</code>变量转换为64位的二进制字符串：</p><pre><code class="lang-cpp">string ulld_to_b(uint64_t i) &#123;    return bitset&lt;64&gt;(i).to_string();&#125;</code></pre><p>然后查询<code>1e24</code>的二进制表示为：</p><pre><code>00000000000000000000000000000000000000000000000011010011110000100001101111001110110011001110110110100001000000000000000000000000</code></pre><p>该数值是我在<a href="https://www.sojson.com/hexconvert.html">这个网站</a>上查询的。</p><p>然后编写测试用例：</p><pre><code class="lang-cpp">TEST(TestCase, test1) &#123;    uint64_t op1 = 1e12;    uint64_t op2 = 1e12;    uint64_t hi = 0ULL, lo = 0ULL;    mul_64_64_to_128(op1, op2, &amp;hi, &amp;lo);    string res = &quot;&quot;;    res = ulld_to_b(hi) + ulld_to_b(lo);    cout &lt;&lt; res &lt;&lt; endl;    string ground_truth = &quot;00000000000000000000000000000000000000000000000011010011110000100001101111001110110011001110110110100001000000000000000000000000&quot;;    EXPECT_STREQ(ground_truth.c_str(), res.c_str());&#125;int main(int argc, char** argv) &#123;    testing::InitGoogleTest(&amp;argc, argv);    return RUN_ALL_TESTS();&#125;</code></pre><p>没问题，通过了。当然，仅通过一个测试用例不算证明程序的正确性，勤劳的你可以多用几个测试用例试试。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.codeproject.com/Tips/618570/UInt-Multiplication-Squaring">https://www.codeproject.com/Tips/618570/UInt-Multiplication-Squaring</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;两个大整数相乘，如何在不损失精度的前提下计算得到正确的结果？&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
-&lt;h1 id=&quot;unsigned-long-long-整数之间的乘法&quot;&gt;&lt;a href=&quot;#unsigned-long-long-整数之间的乘法&quot; class=&quot;heade</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="algorithm" scheme="https://superlova.github.io/tags/algorithm/"/>
-    
-    <category term="leetcode" scheme="https://superlova.github.io/tags/leetcode/"/>
-    
-    <category term="searching" scheme="https://superlova.github.io/tags/searching/"/>
     
   </entry>
   

@@ -150,6 +150,63 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/" target="_self">
+          <img src="/img/anime/3.jpg" srcset="/img/loading.gif" alt="【论文阅读笔记】CAGFuzz: Coverage-Guided Adversarial Generative Fuzzing Testing of Deep Learning Systems"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/">
+        <p class="h4 index-header">【论文阅读笔记】CAGFuzz: Coverage-Guided Adversarial Generative Fuzzing Testing of Deep Learning Systems</p>
+      </a>
+
+      <a href="/2020/06/28/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91CAGFuzz-Coverage-Guided-Adversarial-Generative-Fuzzing-Testing-of-Deep-Learning-Systems/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">提出了CAGFuzz，这是一种覆盖率指导的灰盒对抗性生成模糊测试方法，可以为目标DNN生成对抗性示例，以发现其潜在缺陷。
+DeepXplore，使用多个DNN来发现并生成位于这些DNN决策边界之间的对抗性示例。
+DeepHunter，使用变形突变策略来生成新的测试示例。
+DeepGauge，提出了深度神经网络的新覆盖标准。
+
+为了提高泛化能力，仅从数据的角度添加较小的扰动就非常重要。
+现有研究完全忽略了包含高级语义信息（例如图像对象类别和场景语义）的深度特征约束。使用L0和L∞来限制对抗性示例的像素级变化，这样的约束只能代表对抗实例和原始实例之间的视觉一致性，而不能保证对抗实例和原始实例的高级</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/paper/">paper</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Fuzzing/">Fuzzing</a>&nbsp;
+          
+            <a href="/tags/Robustness/">Robustness</a>&nbsp;
+          
+            <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
+          
+            <a href="/tags/Coverage/">Coverage</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/06/27/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Towards-Evaluating-the-Robustness-of-Neural-Networks/" target="_self">
           <img src="/img/anime/2.jpg" srcset="/img/loading.gif" alt="【论文阅读笔记】Towards Evaluating the Robustness of Neural Networks"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1229,51 +1286,6 @@ print(list_a) # [2]
             <a href="/tags/Python/">Python</a>&nbsp;
           
             <a href="/tags/Data-Augmentation/">Data Augmentation</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/05/20/%E5%A6%82%E4%BD%95%E8%AF%84%E4%BB%B7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%BB%A5%E5%8F%8A%E5%85%B6%E4%BB%96%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F/">
-        <p class="h4 index-header">如何评价推荐系统以及其他智能系统</p>
-      </a>
-
-      <a href="/2020/05/20/%E5%A6%82%E4%BD%95%E8%AF%84%E4%BB%B7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%BB%A5%E5%8F%8A%E5%85%B6%E4%BB%96%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">看到一篇介绍推荐系统的评价方法与指标的文章，刚好本课题组也有个同学在做推荐系统相关的课题，并且该文章的评价指标部分对我目前的课题有启发作用，因此转载。
-如何评价推荐系统以及其他智能系统1. 评价推荐系统评测一个推荐系统时，需要考虑用户、物品提供商、推荐系统提供网站的利益，一个好的推荐系统是能够令三方共赢的系统。比如弹窗广告就不是一个好的推荐系统。
-1.1 评测实验方法1.1.1 离线实验（offline experiment）离线实验的方法的步骤如下：
-a）通过日志系统获得用户行为数据，并按照一定格式生成一个标准的数据集；b）将数据集按照一定的规则分成训练集和测试集；c）在训练集上训练用户兴趣</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-20&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/testing/">testing</a>&nbsp;
-          
-            <a href="/tags/Recommendation-System/">Recommendation System</a>&nbsp;
-          
-            <a href="/tags/Metrics/">Metrics</a>&nbsp;
           
         
       </div>
