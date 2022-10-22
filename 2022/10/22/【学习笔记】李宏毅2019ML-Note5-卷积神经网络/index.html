@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【学习笔记】李宏毅2019ML-Note5-卷积神经网络 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期六, 十月 22日 2022, 9:48 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      9 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期日, 十月 23日 2022, 2:46 凌晨</p>
+            
+            <div class="markdown-body">
+              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：卷积神经网络。<br><!--more---></p>
+<h2 id="为什么我们要用CNN？"><a href="#为什么我们要用CNN？" class="headerlink" title="为什么我们要用CNN？"></a>为什么我们要用CNN？</h2><p>要回答这个问题，首先要说明为什么全连接网络不适合做图像识别任务。</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/为什么要用CNN_1.png" srcset="/img/loading.gif" alt></p>
+<p>以图像为输入，会导致输入序列特别长。假设输入是一张<code>100*100</code>像素的图片，每个像素有<code>R/G/B</code>三个分量，要想将它整理为输入序列，每张图片的维度为<code>100*100*3=30000</code>。</p>
+<p>输入层的参数过多，会导致中间层的参数过多，网络不仅训练代价提升，还有过拟合的风险。实际上图像分类任务用不着那么多参数，原因有三：</p>
+<ol>
+<li>每种特征所需的仅仅是图片的一小部分</li>
+</ol>
+<p>从神经网络的可解释性上来说，网络的第一层学习到的是最简单的特征分类，比如一张输入图片”有没有绿色出现，有没有黄色出现，有没有斜的条纹“等等；第二层会学到更复杂一些的特征组合，越往后学到的特征越抽象。</p>
+<p>但是对于一个检测”是否有鸟嘴“的分类器来说，不需要看整张图片就可以知道这件事；<strong>输入序列可以从一整张图片优化为原图的一小部分</strong>。</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/为什么要用CNN_2.png" srcset="/img/loading.gif" alt></p>
+<ol>
+<li>识别同一特征的分类器的部分参数可以共享</li>
+</ol>
+<p>对于检测鸟嘴的分类器而言，鸟嘴出现在图片的不同位置根本无所谓。我们不需要训练两组参数，来分别检测到底是左下方的鸟嘴还是右上方的鸟嘴。这意味着<strong>做同一特征分类的参数可以共享</strong>。</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/为什么要用CNN_3_参数共享.png" srcset="/img/loading.gif" alt></p>
+<ol>
+<li><strong>输入序列的部分信息可以略过</strong></li>
+</ol>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/为什么要用CNN_4.png" srcset="/img/loading.gif" alt></p>
+<p>对图片进行采样，得到的像素更低的图片，并不会影响人对这张图片的理解。</p>
+<h2 id="CNN-架构"><a href="#CNN-架构" class="headerlink" title="CNN 架构"></a>CNN 架构</h2><p>卷积神经网络有两个基本单元：卷积层(Convolution Layers)和池化层(MaxPooling Layers)，可以实现上面三点性能优化。</p>
+<p>一个完整的卷积神经网络大概长这样：</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/CNN架构_1.png" srcset="/img/loading.gif" alt></p>
+<p>卷积层：是一种利用卷积操作提取图像的局部特征的网络结构。通过选择卷积核，不断执行卷积操作，得到原图像的特征图；后续的网络根据该特征图为输入，继续提取特征。</p>
+<p>池化层：有最大池化和平均池化两种方式，最大池化是取滑动窗口内最大的元素作为输出。</p>
+<h2 id="CNN-卷积层与全连接层的联系"><a href="#CNN-卷积层与全连接层的联系" class="headerlink" title="CNN 卷积层与全连接层的联系"></a>CNN 卷积层与全连接层的联系</h2><p>卷积核中的权值每次滑动计算时只是局部连接，且在卷积列中的神经元共享参数——计算局部信息，而全连接层神经元的权值与所有输入相连——计算全局信息。</p>
+<p>卷积层的作用是从输入数据中采集关键数据内容。全连接层在深度卷积神经网络中的作用是将前面经过多次卷积后高度抽象的特征进行整合。</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/CNN卷积层与全连接层的关系.png" srcset="/img/loading.gif" alt></p>
+<h2 id="用Keras实现CNN网络"><a href="#用Keras实现CNN网络" class="headerlink" title="用Keras实现CNN网络"></a>用Keras实现CNN网络</h2><p>以<a target="_blank" rel="noopener" href="https://www.tensorflow.org/tutorials/images/cnn">tensorflow的图像分类教程</a>为例，实践使用keras搭建卷积模型的方法：</p>
+<p>先导入相关包</p>
+<pre><code class="lang-py">import tensorflow as tf
+
+from tensorflow.keras import datasets, layers, models
+import matplotlib.pyplot as plt
+</code></pre>
+<p>然后下载并准备 CIFAR10 数据集</p>
+<pre><code class="lang-py">(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+
+# 归一化像素值到 0 ~ 1
+train_images, test_images = train_images / 255.0, test_images / 255.0
+</code></pre>
+<p>验证数据</p>
+<pre><code class="lang-py">class_names = [&#39;airplane&#39;, &#39;automobile&#39;, &#39;bird&#39;, &#39;cat&#39;, &#39;deer&#39;,
+               &#39;dog&#39;, &#39;frog&#39;, &#39;horse&#39;, &#39;ship&#39;, &#39;truck&#39;]
+
+plt.figure(figsize=(10,10))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(train_images[i])
+    # The CIFAR labels happen to be arrays, 
+    # which is why you need the extra index
+    plt.xlabel(class_names[train_labels[i][0]])
+plt.show()
+</code></pre>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/CIFAR10样例.png" srcset="/img/loading.gif" alt></p>
+<p>接下来开始搭建网络：</p>
+<pre><code class="lang-py">model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation=&#39;relu&#39;, input_shape=(32, 32, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation=&#39;relu&#39;))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation=&#39;relu&#39;))
+</code></pre>
+<p>卷积网络被封装为<code>Conv2D</code>，其中第一个参数为卷积核个数，你可以理解为隐藏层神经元个数；我们这里定义为32个，它会提取32种不同类别的特征。</p>
+<p>第二个参数是(3,3)，代表卷积核的大小是<code>3*3</code>的，这与李老师课堂上的示例一致；</p>
+<p>第三个参数代表我们选择激活函数为<code>relu</code>；</p>
+<p>第四个参数是只有在临近输入层的卷积层才会有的，代表输入向量的维度。这里的图像是彩色的，不但有长宽，还有通道数(channels)为3，因此输入向量的大小为(32,32,3)。</p>
+<p>在搭建完第一层Conv2D后，紧接着会搭建最大池化层，池化层filter为<code>2*2</code>。后续的操作也是重复的，都是一层卷积、一层池化。到目前为止，模型结构如下：</p>
+<pre><code class="lang-py">model.summary()
+</code></pre>
+<pre><code>Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 32)        896       
+
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 32)       0         
+ )                                                               
+
+ conv2d_1 (Conv2D)           (None, 13, 13, 64)        18496     
+
+ max_pooling2d_1 (MaxPooling  (None, 6, 6, 64)         0         
+ 2D)                                                             
+
+ conv2d_2 (Conv2D)           (None, 4, 4, 64)          36928     
+
+=================================================================
+Total params: 56,320
+Trainable params: 56,320
+Non-trainable params: 0
+_________________________________________________________________
+</code></pre><p>我们可以看到，第一层Conv2D的输出向量的大小变成了(30,30,32)，这里32是我们之前定义的卷积核个数，<code>30*30</code>则是特征图大小。每次卷积操作都会导致宽度和高度的收缩。</p>
+<p>参数量为896，这是如何计算来的呢？首先每个卷积核是<code>3*3</code>，同时图像有3个channel，因此每个卷积核的参数个数为<code>3*3*3</code>，再加上一个偏置量，就是28个参数。一共32个卷积核，最后的参数量即为<code>[(height * width * channel) + 1] * filter</code>。</p>
+<p>卷积层只是特征提取器，最后为了完成分类操作，我们需要在卷积层后面拼接全连接层。不用太多，几层就够了：</p>
+<pre><code class="lang-py">model.add(layers.Flatten())
+model.add(layers.Dense(64, activation=&#39;relu&#39;))
+model.add(layers.Dense(10))
+model.summary()
+</code></pre>
+<pre><code>Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 32)        896       
+
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 32)       0         
+ )                                                               
+
+ conv2d_1 (Conv2D)           (None, 13, 13, 64)        18496     
+
+ max_pooling2d_1 (MaxPooling  (None, 6, 6, 64)         0         
+ 2D)                                                             
+
+ conv2d_2 (Conv2D)           (None, 4, 4, 64)          36928     
+
+ flatten (Flatten)           (None, 1024)              0         
+
+ dense (Dense)               (None, 64)                65600     
+
+ dense_1 (Dense)             (None, 10)                650       
+
+=================================================================
+Total params: 122,570
+Trainable params: 122,570
+Non-trainable params: 0
+_________________________________________________________________
+</code></pre><p>卷积层的输出在输入两个 Dense 层之前需要被展平（Flatten）为形状为 (1024) 的向量。</p>
+<p>仅添加了两层全连接层，参数量就多了65600+650个，可以看到全连接层真的比CNN多很多冗余参数。</p>
+<p>最后编译并训练一下：</p>
+<pre><code class="lang-py">model.compile(optimizer=&#39;adam&#39;,
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=[&#39;accuracy&#39;])
+
+history = model.fit(train_images, train_labels, epochs=10, 
+                    validation_data=(test_images, test_labels))
+
+plt.plot(history.history[&#39;accuracy&#39;], label=&#39;accuracy&#39;)
+plt.plot(history.history[&#39;val_accuracy&#39;], label = &#39;val_accuracy&#39;)
+plt.xlabel(&#39;Epoch&#39;)
+plt.ylabel(&#39;Accuracy&#39;)
+plt.ylim([0.5, 1])
+plt.legend(loc=&#39;lower right&#39;)
+plt.show()
+
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+</code></pre>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/训练结果.png" srcset="/img/loading.gif" alt></p>
+<p>准确率只有不到70%，可以改进的地方还有很多。不过对于一个简单模型而言，在10分类任务上能达到如此成绩已是不容易了。</p>
+<h2 id="CNN学到了什么？"><a href="#CNN学到了什么？" class="headerlink" title="CNN学到了什么？"></a>CNN学到了什么？</h2><p>分析第一层Conv到底学到了什么还是很容易的，因为每个卷积核实际上是在计算小范围内是否包含指定特征。但是后续Conv会根据该特征图计算更抽象的特征，我们该如何分析？</p>
+<p>可以采用这种分析方法，首先固定参数，然后通过梯度下降法去找能够让某个神经元的输出值最大的输入图片。</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/生成最能激活某个神经元的图片.png" srcset="/img/loading.gif" alt></p>
+<p>上面就是12个filter对应的结果，这些图片的特征是某种纹路在图上不断的重复。因此实际上神经元会对这种不断重复的花纹做出最大的反应。</p>
+<p>当我们以同样的分析方法分析卷积网络最后的全连接层（这里汇聚了卷积层提取出来的各路特征），得到的图像为：</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/全连接_生成最能激活某个神经元的图片.png" srcset="/img/loading.gif" alt></p>
+<p>发现最能激活某个神经元的图片，不再是那些纹路单一的图像了，而是带有某种花纹，似乎有某些含义。</p>
+<p>但是当我们用同样的方法分析输出层时，得到的图像理论上应该是确切的数字，实际上确实乱码一样无法被辨认的图片：</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/输出层_生成最能激活某个神经元的图片.png" srcset="/img/loading.gif" alt></p>
+<p>人类虽然无法辨识，但是机器十分确定地告诉我们，左上角的图片就是0，右下角就是8。这种现象很有意思。</p>
+<p>这种思想被应用于对抗样本攻击之中，可以生成一些令模型误判的诡异图片，并将其改造原本的数据集，就可以令模型犯错。</p>
+<p>关于文本领域对抗样本的讨论在<a href="https://superlova.github.io/2020/06/20/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91Deep-Text-Classification-Can-be-Fooled/">这里</a></p>
+<p>Deep Dream则利用该思想，将CNN变成一个图像生成器，夸大化原有的输入图像：</p>
+<p><img src="/2022/10/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%852019ML-Note5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DeepDream夸大的图像.png" srcset="/img/loading.gif" alt></p>
+<p>右边有一只熊，这个熊原来是一个石头(对机器来说，这个石头有点像熊，它就会强化这件事情，所以它就真的变成了一只熊)。</p>
+<h2 id="CNN的其他应用场景"><a href="#CNN的其他应用场景" class="headerlink" title="CNN的其他应用场景"></a>CNN的其他应用场景</h2><p>CNN可以应用于游戏领域，比如围棋</p>
+<p>CNN可以应用于自然语言处理领域，比如文本分类、语音识别</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MOOC/">MOOC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Convolutional-Neural-Network/">Convolutional Neural Network</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【学习笔记】李宏毅2019ML-Note5-卷积神经网络&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
