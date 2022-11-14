@@ -177,7 +177,7 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期六, 十月 29日 2022, 8:03 晚上</p>
+                class="note note-warning">本文最后更新于：星期日, 十月 30日 2022, 3:40 凌晨</p>
             
             <div class="markdown-body">
               <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：自注意力机制。<br><!--more---></p>
@@ -259,7 +259,7 @@
 <h2 id="六、self-attention-的具体应用"><a href="#六、self-attention-的具体应用" class="headerlink" title="六、self-attention 的具体应用"></a>六、self-attention 的具体应用</h2><p>上面我们是以文本为例介绍的self-attention，实际上有很多其他任务也可以用self-attention来解决（虽然不见得是最佳方案）。</p>
 <p>语音识别任务里，通过将一段音频按照一定时间窗口进行切分，也可以得到一个包含很多向量的输入序列；则处理方法与文本任务大同小异，只不过语音分割时产生的输入序列会非常长，此时需要对计算过程加以优化。例子：Truncate Self-Attention</p>
 <p>图像识别任务里，每个图像按照像素进行分割，并逐行遍历，也可以形成一个序列，这个序列里的每个输入向量是(R,G,B)的三维向量。例子：Self-Attention GAN</p>
-<h2 id="七、总结和提问"><a href="#七、总结和提问" class="headerlink" title="七、总结和提问"></a>七、总结和提问</h2><h3 id="1-Self-Attention-的核心思想？"><a href="#1-Self-Attention-的核心思想？" class="headerlink" title="1. Self-Attention 的核心思想？"></a>1. Self-Attention 的核心思想？</h3><p>通过综合考虑输入词与上下文之间的相关关系，得到包含上下文语义信息的输出向量。</p>
+<h2 id="七、其他变种-self-attention"><a href="#七、其他变种-self-attention" class="headerlink" title="七、其他变种 self-attention"></a>七、其他变种 self-attention</h2><h2 id="八、总结和提问"><a href="#八、总结和提问" class="headerlink" title="八、总结和提问"></a>八、总结和提问</h2><h3 id="1-Self-Attention-的核心思想？"><a href="#1-Self-Attention-的核心思想？" class="headerlink" title="1. Self-Attention 的核心思想？"></a>1. Self-Attention 的核心思想？</h3><p>通过综合考虑输入词与上下文之间的相关关系，得到包含上下文语义信息的输出向量。</p>
 <h3 id="2-Self-attention-是如何计算的？"><a href="#2-Self-attention-是如何计算的？" class="headerlink" title="2. Self-attention 是如何计算的？"></a>2. Self-attention 是如何计算的？</h3><script type="math/tex; mode=display">
 \text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V</script><p>其中Q、K、V都是从输入向量学习而来的稠密向量组成的矩阵，它们不包含上下文的语义信息；</p>
 <ul>
@@ -290,7 +290,7 @@
 \text{PosEncoding}_{(\text{pos}, 2i)}=\sin{(\frac{\text{pos}}{10000^{2i/d_{model}}})} \\
 \text{PosEncoding}_{(\text{pos}, 2i+1)}=\cos{(\frac{\text{pos}}{10000^{2i/d_{model}}})}</script><p>其中pos表示词在句子中的位置，i则表示向量的分量。这种计算方法无需学习任何参数。</p>
 <p>在BERT论文中，采用的位置编码就变成了Embedding的方法自动学习得到。</p>
-
+<h2 id="附、self-attention-的代码实现"><a href="#附、self-attention-的代码实现" class="headerlink" title="附、self-attention 的代码实现"></a>附、self-attention 的代码实现</h2>
             </div>
             <hr>
             <div>

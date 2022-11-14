@@ -150,6 +150,130 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】leetcode打卡：查找算法"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">
+        <p class="h4 index-header">【竞赛打卡】leetcode打卡：查找算法</p>
+      </a>
+
+      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
+leetcode 35 搜索插入位置给定一个无重复元素的排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+思路：简单的二分搜索。注意边界条件。注意初始化条件是L = 0, R = nums.size()。
+代码：
+class Solution &#123;
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int L = 0, R = nums.size(</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/algorithm/">algorithm</a>&nbsp;
+          
+            <a href="/tags/leetcode/">leetcode</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/searching/">searching</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】leetcode打卡：动态规划"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+        <p class="h4 index-header">【竞赛打卡】leetcode打卡：动态规划</p>
+      </a>
+
+      <a href="/2020/08/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91leetcode%E6%89%93%E5%8D%A1%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
+leetcode 198 打家劫舍动态规划
+设置dp[i]为前i个元素中打劫所得最高金额
+构建状态转移方程：
+dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
+
+边界条件：
+dp[0] = nums[0];
+dp[1] = max(nums[0], nums[1]);
+
+代码：
+class Solution &#123;
+public:
+    int rob(vector&lt;int&gt;&amp; nums) &#123;
+        if (nums.empty()) return 0;
+   </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-23&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/algorithm/">algorithm</a>&nbsp;
+          
+            <a href="/tags/leetcode/">leetcode</a>&nbsp;
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Dynamic-Programming/">Dynamic Programming</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/08/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B/" target="_self">
           <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——时间序列模型"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1103,120 +1227,6 @@ fastText是一个快速文本分类算法，与基于神经网络的分类算法
             <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
           
             <a href="/tags/FastText/">FastText</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之机器学习文本分类"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/">
-        <p class="h4 index-header">【竞赛打卡】新闻文本分类之机器学习文本分类</p>
-      </a>
-
-      <a href="/2020/07/23/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">今我睹子之难穷也，吾非至于子之门则殆矣。
-文本表示方法实践自然语言总需要转换成数值等表示才能被线性模型等处理。下面利用task1&amp;2提到的编码方式进行实践。
-Label这种编码方式是把自然语言首先分词成基本语素单元，然后把不同的单元赋予唯一的整数编码。比如本次比赛提供的数据集就是该编码方式。每条数据都是整数序列，最大整数为7549，最小整数为0。
-这样做的好处是相对节约内存，且实现简单；坏处是破坏了自然语言中部分语义，无法进一步进行诸如删除停用词、词根提取等操作。另外，编码的大小可能会让算法误以为词和词之间有大小关系。
-因为原来的数据集就是此编码方法，故不再赘述。
-Bag of Wor</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-23&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
-          
-            <a href="/tags/Classification/">Classification</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/">
-        <p class="h4 index-header">【竞赛打卡】零基础入门NLP之新闻文本分类之数据读取与分析</p>
-      </a>
-
-      <a href="/2020/07/22/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8NLP%E4%B9%8B%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">不要对我有任何期待哦！
-实验环境Colab
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-import seaborn as sns
-import scipy
-from collections import Counter
-
-准备数据df_train = pd.read_csv(train_path, sep=&#39;\t&#39;)
-df_test = pd.read_csv(test_pa</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Feature-Engineering/">Feature Engineering</a>&nbsp;
-          
-            <a href="/tags/Data-Science/">Data Science</a>&nbsp;
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
           
         
       </div>

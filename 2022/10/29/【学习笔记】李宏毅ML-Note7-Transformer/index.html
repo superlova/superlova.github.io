@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【学习笔记】李宏毅ML-Note7-Transformer - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期六, 十月 29日 2022, 8:05 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.9k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      6 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期日, 十月 30日 2022, 3:59 凌晨</p>
+            
+            <div class="markdown-body">
+              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：Transformer。<br><!--more---></p>
+<h2 id="一、Seq2Seq"><a href="#一、Seq2Seq" class="headerlink" title="一、Seq2Seq"></a>一、Seq2Seq</h2><p>Transformer是一类Seq2seq结构的模型，输入长度为N的序列，输出长度为M的序列。其中M的长度是由模型决定的。诸如文本生成、语音合成、机器翻译等任务都需要应用seq2seq模型。</p>
+<p>很多任务可以被转化为seq2seq任务，但不一定是最优解。</p>
+<p>seq2seq模型由一个编码器（Encodeer）和一个解码器（Decoder）组成，基础架构如下：</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-1.png" srcset="/img/loading.gif" alt></p>
+<p>seq2seq模型是一种架构，只规定了输入输出，并没有规定必须使用哪种具体的模型。</p>
+<h2 id="二、Encoder"><a href="#二、Encoder" class="headerlink" title="二、Encoder"></a>二、Encoder</h2><p>如图所示是Transformer的Encoder：</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-2.png" srcset="/img/loading.gif" alt></p>
+<p>Transformer 的 Encoder 是由若干的 Block 构成的，每个 Block 包含一个 multihead self-attention 结构和一个全连接网络等，这些 Block 串联起来组成 Encoder。</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-3.png" srcset="/img/loading.gif" alt></p>
+<p>需要关注两个细节：</p>
+<ol>
+<li>self-attention 层的向量输出后，需要经过一步残差运算，和原来的输入相加；</li>
+<li>残差运算后的向量需要 LayerNormalization 操作；</li>
+<li>normalized 之后的向量需要输入内部的全连接网络，输出的向量同样要与这一步骤的输入进行残差；</li>
+<li>在输出前同样需要经过 normalization。</li>
+</ol>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-4.png" srcset="/img/loading.gif" alt></p>
+<p>实际上，在具体实现时，上面的操作顺序是可以改变的，有若干文章已经在讨论 LayerNormalization 的执行时机对最终性能的影响。</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-layer-norm.png" srcset="/img/loading.gif" alt></p>
+<h2 id="三、Decoder"><a href="#三、Decoder" class="headerlink" title="三、Decoder"></a>三、Decoder</h2><p>Decoder负责以Encoder的输出为知识，生成一系列输出向量。</p>
+<h3 id="3-1-Decoder-的执行步骤"><a href="#3-1-Decoder-的执行步骤" class="headerlink" title="3.1 Decoder 的执行步骤"></a>3.1 Decoder 的执行步骤</h3><p>Transformer 的 Decoder 是一个自回归（AutoRegressive）模型，即使用自身以前的产出来预测将来的产出。</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-decoder-example-1.png" srcset="/img/loading.gif" alt></p>
+<p>在这里我们以语音转文字任务为例，以一串音频为输入（在图示的例子中，是“机器学习”四个字），Encoder 首先学习适当的语义向量，并将其输入 Decoder 中，Decoder 执行如下操作：</p>
+<ol>
+<li>Decoder 先以 [start] 符号作为输入，通过 Encoder 提供的知识，来预测该符号对应的输出是什么；</li>
+<li>Decoder 产出的预测向量是一个长度为单词表大小的向量，向量的每个分量代表输出为该词时的概率值；</li>
+<li>紧接着 Decoder 会以该输出为输入，来预测输出；</li>
+<li>由此循环往复，直至 Decoder 认为模型的输出为特殊符号 [end]为止。</li>
+</ol>
+<h3 id="3-2-Decoder-的具体架构"><a href="#3-2-Decoder-的具体架构" class="headerlink" title="3.2 Decoder 的具体架构"></a>3.2 Decoder 的具体架构</h3><p>Transformer 的 Decoder 与 Encoder 架构十分类似：</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-decoder-structure.png" srcset="/img/loading.gif" alt></p>
+<ol>
+<li>接纳模型输入的 attention 层是 masked self-attention 层，它的特点是，在考虑某个输入向量$x_n$的输出时，self-attention 会综合所有的上下文信息，而 masked self-attention 只会考虑已经出现过的 $x_1~x_n$ 范围内的所有向量，而不会考虑它的下文；<br> 这样做是自然的，因为 Decoder 是以过去的输出预测将来的输出的自回归模型，它无法参考尚未生成的下文内容；</li>
+<li>经过 masked self-attention 的编码后的输出向量，会被当做下一层 self-attention 的 query 查询向量，然后与 encoder 得到的输出向量计算相关性；也就是说，query 来自 Decoder 的输入，而 key 和 value 都来自 Encoder 层。这一步骤叫做 Cross Attention。<br> 在 Decoder 中加入 Cross Attention ，是希望模型能够正确地利用 Encoder 提供的知识，并根据现有的输入，自动生成合适的输出表示。要完成这一步，Encoder 提供的先验知识与 Decoder 提供的查询词都是必不可少的。</li>
+</ol>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-decoder-cross-attention.png" srcset="/img/loading.gif" alt></p>
+<p>Transformer 的 Encoder 与 Decoder 的详细架构如图：</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-encoder-decoder.png" srcset="/img/loading.gif" alt></p>
+<p>需要注意，原文中 Transformer 的多个 Decoder 结构使用的 Encoder 信息都来自于最后一个 Encoder，这样做是自然地，毕竟我们认为最后一层学习到的知识最抽象，泛化能力最强；</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-encoder-decoder-2.png" srcset="/img/loading.gif" alt></p>
+<p>事实上并不总是这样，也有一些文章在研究令不同时期的 Encoder 产出的向量送给不同时期的 Decoder，并取得了一定的效果：</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-cross-attention-various.png" srcset="/img/loading.gif" alt></p>
+<h3 id="3-3-非自回归-Decoder"><a href="#3-3-非自回归-Decoder" class="headerlink" title="3.3 非自回归 Decoder"></a>3.3 非自回归 Decoder</h3><p>存在一些 None AutoRegressive Decoder，这些 Decoder 不是以自身之前的输出预测之后的输出，而是一次性给出整个输出序列。</p>
+<p>自回归问题是通过在输出集合中添加特殊符号 [end] 来解决序列不停止的问题的，但是 非自回归 Decoder 一次性输出整个序列，它只能预先设定一个序列长度值，并依此长度进行输出。这种类型的 Decoder 当然也会输出 [end] ，但 Decoder 并不会根据此来终止后续字符的生成。最终的结果会截断 [end] 之后的字符。</p>
+<p>部分非自回归 Decoder 可以通过另外训练一个分类器，通过学习输入序列长度与输出序列长度之间的关系来动态产生序列的长度。</p>
+<p>非自回归 Decoder 的优点在于可并行化，快速；而且输出序列的长度是人为可控的；</p>
+<p>缺点在于准确率等相对不如自回归 Decoder。</p>
+<h2 id="四、Transformer-的训练过程"><a href="#四、Transformer-的训练过程" class="headerlink" title="四、Transformer 的训练过程"></a>四、Transformer 的训练过程</h2><p>其实就是训练一个分类问题。假设问题为一段语音，问题的答案为“我爱中国”四个字，则 Encoder 会学习该语音的向量表示并输出给 Decoder，Decoder 则会分别输入 <code>BOS、我、爱、中、国</code>，作为五个训练样本；他们的正确答案为<code>我、爱、中、国、EOS</code>，每个字对应一个 one-hot 向量。最后通过优化交叉熵损失函数，按照正常的梯度下降算法进行优化即可。</p>
+<p><img src="/2022/10/29/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note7-Transformer/transformer-training.png" srcset="/img/loading.gif" alt></p>
+<p>这种以正确答案为输入的训练方法称作 Teacher Forcing。</p>
+<h2 id="五、Transformer-训练技巧"><a href="#五、Transformer-训练技巧" class="headerlink" title="五、Transformer 训练技巧"></a>五、Transformer 训练技巧</h2><h3 id="5-1-Copy-Mechanism"><a href="#5-1-Copy-Mechanism" class="headerlink" title="5.1 Copy Mechanism"></a>5.1 Copy Mechanism</h3><p>对于一些问答等问题，当输入中包含一些实体时，模型可以直接把该实体复制到输出序列中进行原样输出，称之为“复制机制”，这需要保证输入信息到输出信息之间的畅通。</p>
+<p>实现 Copy Mechanism 的网络结构有指针网络等。</p>
+<h3 id="5-2-Guided-Attention"><a href="#5-2-Guided-Attention" class="headerlink" title="5.2 Guided Attention"></a>5.2 Guided Attention</h3><p>通过人为限制注意力的学习方向、学习重点等，提升模型的学习能力。比如规定语音合成任务的注意力只能从左往右学习等。</p>
+<h3 id="5-3-Beam-Search"><a href="#5-3-Beam-Search" class="headerlink" title="5.3 Beam Search"></a>5.3 Beam Search</h3><p>Beam Search 是一种帮助找到最优解的方法，其思想类似于动态规划，是为了解决 Decoder 在贪心地选择最优输出时，错过了次优输出，导致后续输出全错的问题。</p>
+<p>Beam Search 并不总一定能找到最优解，而且一味追寻最优解，在一些需要发挥创意的任务中，反而不好，比如新闻生成任务等。</p>
+<h3 id="5-4-优化评估指标"><a href="#5-4-优化评估指标" class="headerlink" title="5.4 优化评估指标"></a>5.4 优化评估指标</h3><p>一般而言 Decoder 的损失函数都是交叉熵，这是因为交叉熵方便求导好训练；而评估模型时使用的往往是 BLEU。但如果我们使用 BLEU 这种相对科学一点的评估函数来做损失函数的话，可能需要借助强化学习（Reinforcement Learning, RL）的思想，强行把 BLEU 移植到模型中。</p>
+<h3 id="5-5-scheduled-sampling"><a href="#5-5-scheduled-sampling" class="headerlink" title="5.5 scheduled sampling"></a>5.5 scheduled sampling</h3><p>Decoder 在训练过程中，训练样本永远都是正确答案，缺乏一些负样本，告诉 Decoder 你不应该将预测值预测为该值。为了做到这一点，我们需要在训练时随机在输入序列中添加噪音，但这一举措可能会损失训练的并行化能力。</p>
+<h2 id="六、总结和问答"><a href="#六、总结和问答" class="headerlink" title="六、总结和问答"></a>六、总结和问答</h2><h3 id="为什么要加入残差模块？"><a href="#为什么要加入残差模块？" class="headerlink" title="为什么要加入残差模块？"></a>为什么要加入残差模块？</h3><h3 id="为什么要加入-LayerNormalization-模块？"><a href="#为什么要加入-LayerNormalization-模块？" class="headerlink" title="为什么要加入 LayerNormalization 模块？"></a>为什么要加入 LayerNormalization 模块？</h3><h3 id="BatchNormalization-和-LayerNormalization-的区别？"><a href="#BatchNormalization-和-LayerNormalization-的区别？" class="headerlink" title="BatchNormalization 和 LayerNormalization 的区别？"></a>BatchNormalization 和 LayerNormalization 的区别？</h3><h3 id="Transformer-使用到的几种-Mask"><a href="#Transformer-使用到的几种-Mask" class="headerlink" title="Transformer 使用到的几种 Mask"></a>Transformer 使用到的几种 Mask</h3><h3 id="前馈神经网络在-Transformer-中的作用"><a href="#前馈神经网络在-Transformer-中的作用" class="headerlink" title="前馈神经网络在 Transformer 中的作用"></a>前馈神经网络在 Transformer 中的作用</h3><h3 id="Gelu-的作用"><a href="#Gelu-的作用" class="headerlink" title="Gelu 的作用"></a>Gelu 的作用</h3><h2 id="七、transformer-的代码实现"><a href="#七、transformer-的代码实现" class="headerlink" title="七、transformer 的代码实现"></a>七、transformer 的代码实现</h2>
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MOOC/">MOOC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Self-Attention/">Self-Attention</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Transformer/">Transformer</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【学习笔记】李宏毅ML-Note7-Transformer&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
