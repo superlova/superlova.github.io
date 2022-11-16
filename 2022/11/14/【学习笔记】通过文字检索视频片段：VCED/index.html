@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    327 字
+                    304 字
                   </span>
                 
 
@@ -177,12 +177,14 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期二, 十一月 15日 2022, 1:51 凌晨</p>
+                class="note note-warning">本文最后更新于：星期四, 十一月 17日 2022, 1:42 凌晨</p>
             
             <div class="markdown-body">
-              <p>VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。<br><!--more---></p>
+              <p>第一篇：环境部署</p>
+<!--more--->
+<p>VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。</p>
 <p>本项目参考自 <a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced">Datawhale 的 VCED 学习教程</a>。</p>
-<h1 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h1><p>环境为 Mac Monterey, Apple M1 Pro 芯片，内存 16GB。</p>
+<p>环境为 Mac Monterey, Apple M1 Pro 芯片，内存 16GB。</p>
 <p>首先需要安装 docker，在 mac 上安装 docker 只需去官网下载客户端：</p>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/install/mac-install/">https://docs.docker.com/desktop/install/mac-install/</a></p>
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/mac安装docker.png" srcset="/img/loading.gif" alt></p>
@@ -203,7 +205,7 @@ docker run -itd -p 8501:8501 -p 45679:45679 --name vced_arm nil01/vced
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/浏览器交互页面.png" srcset="/img/loading.gif" alt></p>
 <p>启动 docker 进程之后，输入指令 <code>docker ps</code> 查看运行中的 container，输入 <code>docker ps &lt;CONTAINER ID&gt;</code> 即可结束该 container。</p>
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/docker操作.png" srcset="/img/loading.gif" alt></p>
-<h1 id="二、Jina-生态"><a href="#二、Jina-生态" class="headerlink" title="二、Jina 生态"></a>二、Jina 生态</h1><h1 id="三、跨模态模型"><a href="#三、跨模态模型" class="headerlink" title="三、跨模态模型"></a>三、跨模态模型</h1><h1 id="四、前端模块"><a href="#四、前端模块" class="headerlink" title="四、前端模块"></a>四、前端模块</h1><h1 id="五、后端模块"><a href="#五、后端模块" class="headerlink" title="五、后端模块"></a>五、后端模块</h1><h1 id="六、项目扩展"><a href="#六、项目扩展" class="headerlink" title="六、项目扩展"></a>六、项目扩展</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced/blob/main/README.md">https://github.com/datawhalechina/vced/blob/main/README.md</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced/blob/main/README.md">https://github.com/datawhalechina/vced/blob/main/README.md</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.jina.ai/get-started/install/windows/">https://docs.jina.ai/get-started/install/windows/</a></p>
 
             </div>

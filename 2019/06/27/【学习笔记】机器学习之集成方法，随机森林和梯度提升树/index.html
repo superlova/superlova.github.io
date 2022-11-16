@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Superlova">
   <meta name="keywords" content="">
-  <title>机器学习——集成方法 - Superlova</title>
+  <title>【学习笔记】机器学习之集成方法，随机森林和梯度提升树 - Superlova</title>
   <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    994 字
+                    1.1k 字
                   </span>
                 
 
@@ -177,10 +177,12 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+                class="note note-warning">本文最后更新于：星期三, 十一月 16日 2022, 5:53 下午</p>
             
             <div class="markdown-body">
-              <h2 id="1-投票分类器"><a href="#1-投票分类器" class="headerlink" title="1. 投票分类器"></a>1. 投票分类器</h2><p>三个臭皮匠顶一个诸葛亮。即便是很多预测准确率仅强于随机的个体学习器的组合，经过一定的安排，也可以发挥令人惊讶的效果。在机器学习中，这种看起来没什么含金量的学习策略称之为<strong>集成学习</strong>。</p>
+              <p>本文会介绍集成方法，bagging 和 boosting 两种思路，以及两种思路的代表性模型：随机森林和梯度提升树。</p>
+<!--more--->
+<h2 id="1-投票分类器"><a href="#1-投票分类器" class="headerlink" title="1. 投票分类器"></a>1. 投票分类器</h2><p>三个臭皮匠顶一个诸葛亮。即便是很多预测准确率仅强于随机的个体学习器的组合，经过一定的安排，也可以发挥令人惊讶的效果。在机器学习中，这种看起来没什么含金量的学习策略称之为<strong>集成学习</strong>。</p>
 <p>集成学习首先需要一系列的个体学习器。之后采用某些策略结合它们的判断。</p>
 <p>集成学习的要求：</p>
 <ul>
@@ -197,11 +199,11 @@
 <p>将其类比到集成学习中来，如果相互独立的个体学习器足够多，那么我们得到正确结论的概率将大大提升。不过这里有一个最关键的点：<strong>模型之间相互独立</strong>。这个要求其实是蛮难达到的，因为即便是不同的机器学习模型，如果采用相同或者相似的数据集进行训练，那么他们之间必然存在某种相关性。更不用说连模型都是一模一样的情况了。</p>
 <h2 id="2-Boosting算法"><a href="#2-Boosting算法" class="headerlink" title="2. Boosting算法"></a>2. Boosting算法</h2><p>Boosting算法的核心思想是分割训练集，用同一种机器学习算法得到差异化的一系列模型。</p>
 <p>先从初始训练集训练出一个基学习器，再根据基学习器的表现对训练样本的分布进行调整，是的先前基学习器做错的训练样本在后续收到更多地关注。然后基于调整后的样本分布来训练下一个基学习器。如此反复进行，训练T个基学习器，最终加权投票。</p>
-<p><img src="/2019/06/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95/2019-06-27-21-57-03.png" srcset="/img/loading.gif" alt></p>
-<p><img src="/2019/06/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95/2019-06-27-21-57-17.png" srcset="/img/loading.gif" alt></p>
-<h2 id="3-Bagging算法"><a href="#3-Bagging算法" class="headerlink" title="3. Bagging算法"></a>3. Bagging算法</h2><p>有放回采样被称为Bagging。采用Bagging的方法我们可以得到很多的可能有重复样本的数据子集。我们在之前的文章中已经提到，对于每个选取的子集，平均下来只有63%的训练实例被采样，剩下的37%正好当做测试集。</p>
+<p><img src="/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-03.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-17.png" srcset="/img/loading.gif" alt></p>
+<h3 id="梯度提升树"><a href="#梯度提升树" class="headerlink" title="梯度提升树"></a>梯度提升树</h3><h3 id="梯度提升树的实现：XGBoost"><a href="#梯度提升树的实现：XGBoost" class="headerlink" title="梯度提升树的实现：XGBoost"></a>梯度提升树的实现：XGBoost</h3><h3 id="LightGBM"><a href="#LightGBM" class="headerlink" title="LightGBM"></a>LightGBM</h3><h2 id="3-Bagging算法"><a href="#3-Bagging算法" class="headerlink" title="3. Bagging算法"></a>3. Bagging算法</h2><p>有放回采样被称为Bagging。采用Bagging的方法我们可以得到很多的可能有重复样本的数据子集。我们在之前的文章中已经提到，对于每个选取的子集，平均下来只有63%的训练实例被采样，剩下的37%正好当做测试集。</p>
 <p>随机森林就采用了Bagging采样方法来训练很多的决策树。如果你观察单一的决策树，重要的特征会出现在更靠近根部的位置，不重要的特征会经常出现在靠近叶子的位置。因此我们可以通过计算一个特征在森林的全部树中出现的平均深度来预测特征的重要性。</p>
-
+<h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3>
             </div>
             <hr>
             <div>
@@ -222,6 +224,12 @@
                       <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
                     
                       <a class="hover-with-bg" href="/tags/boosting/">boosting</a>
+                    
+                      <a class="hover-with-bg" href="/tags/bagging/">bagging</a>
+                    
+                      <a class="hover-with-bg" href="/tags/random-forest/">random forest</a>
+                    
+                      <a class="hover-with-bg" href="/tags/GBDT/">GBDT</a>
                     
                   </span>
                 
@@ -497,7 +505,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "机器学习——集成方法&nbsp;",
+        "【学习笔记】机器学习之集成方法，随机森林和梯度提升树&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 90,
@@ -554,6 +562,32 @@
   </script>
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
 
 
 
