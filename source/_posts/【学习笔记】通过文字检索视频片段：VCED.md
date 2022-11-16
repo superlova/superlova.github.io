@@ -8,12 +8,14 @@ math: false
 categories: 
 - notes
 ---
-VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。
+
+第一篇：环境部署
+
 <!--more--->
 
-本项目参考自 [Datawhale 的 VCED 学习教程](https://github.com/datawhalechina/vced)。
+VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。
 
-# 一、环境准备
+本项目参考自 [Datawhale 的 VCED 学习教程](https://github.com/datawhalechina/vced)。
 
 环境为 Mac Monterey, Apple M1 Pro 芯片，内存 16GB。
 
@@ -53,15 +55,6 @@ docker run -itd -p 8501:8501 -p 45679:45679 --name vced_arm nil01/vced
 
 ![](【学习笔记】通过文字检索视频片段：VCED/docker操作.png)
 
-# 二、Jina 生态
-
-# 三、跨模态模型
-
-# 四、前端模块
-
-# 五、后端模块
-
-# 六、项目扩展
 
 # 参考
 
