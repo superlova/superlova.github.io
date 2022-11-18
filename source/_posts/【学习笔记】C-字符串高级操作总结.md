@@ -1,15 +1,15 @@
 ---
-title: C++字符串高级操作总结
+title: 【学习笔记】C++字符串高级操作总结
 date: 2020-03-23 23:50:02
 index_img: /img/cpp.png
 tags: ['C++', 'string', 'regex', 'STL']
 categories: 
 - notes
 ---
-C++的字符串操作非常多，功能也非常多样化，熟练使用标准库提供的字符串操作函数能够高效提升我们编写代码的效率和可读性。除了常用的<string>库中包含的几项基本操作之外，本文总结了几项特别好用而又不为人所知的高级操作。
+C++的字符串操作非常多，功能也非常多样化，熟练使用标准库提供的字符串操作函数能够高效提升我们编写代码的效率和可读性。除了常用的<string>库中包含的几项基本操作之外，本文总结了几项特别好用而又不为人所知的高级操作，包括\<regex\>、string_view等。
 <!-- more -->
 
-## 常见的基本操作回顾
+## 一、常见的基本操作回顾
 
 必须指明，<string>中字符串方法可以按照输入参数的类型不同调用不同的重载方法，这些函数名相同，但是参数类型和顺序完全不同，返回值也略有差别。
 
@@ -77,21 +77,21 @@ s.insert(pos, string, pos, len)
 
 其他函数及其说明见下表。
 
-![](C-字符串高级操作总结/2020-03-24-20-38-14.png)
-![](C-字符串高级操作总结/2020-03-25-08-58-36.png)
+![](【学习笔记】C-字符串高级操作总结/2020-03-24-20-38-14.png)
+![](【学习笔记】C-字符串高级操作总结/2020-03-25-08-58-36.png)
 
-## 搜索字符串
+## 二、搜索字符串
 
 <string>定义了六种不同的搜索方法，每种方法拥有四个重载版本。
 
-![](C-字符串高级操作总结/2020-03-25-09-00-50.png)
-![](C-字符串高级操作总结/2020-03-25-09-02-09.png)
+![](【学习笔记】C-字符串高级操作总结/2020-03-25-09-00-50.png)
+![](【学习笔记】C-字符串高级操作总结/2020-03-25-09-02-09.png)
 
 需要注意的有两点：
 1. 搜索函数返回类型为string::size_type，为无符号整数类型。
 2. 搜索失败时，返回string::npos，该值为-1，也就是无符号整数最大的值。
 
-## 正则表达式库
+## 三、正则表达式库
 
 正则表达式是字符串匹配的有力工具。C++11加入了对正则表达式的支持，具体定义位于<regex>头文件中。
 
@@ -104,15 +104,24 @@ s.insert(pos, string, pos, len)
 ### 第一种应用：Match和Search
 
 具体流程可概括为：定义、匹配、判断
+
 ```cpp
 regex reg("<.*>.*</.*>"); // 定义
-bool isExist = regex_match(string, reg); // 匹配整体
+regex reg_num(R"(\d)"); // 以 R"(...)" 的方式定义，相当于 Python 中的 r"..." ，特点是内部反斜杠不需要写两遍
+regex reg(R"(\S+)", regex::icase); // icase 表示忽略大小写
+
+bool isExist = regex_match(string, reg); // 匹配整体，全部匹配则返回 true，注意参数顺序
 //or
-bool isExist = regex_search(string, reg); // 匹配部分
-cout << boolalpha << isExist << endl; // 判断
+bool isExist = regex_search(string, reg); // 匹配部分，存在子串匹配则返回 true。注意参数顺序
+
+cout << boolalpha << isExist << endl; // 判断，boolalpha 为 cout 的参数，表示将 bool 变量按照 true/false 输出而不是输出 0 和 1
 ```
 
-你可能已经注意到了，regex_match和regex_search返回的仅仅是一个bool值，表明是否匹配。我们还需要匹配的位置。此时我们需要一个`match`对象来保存结果。`match`对象的方法如下所示。
+你可能已经注意到了，regex_match和regex_search返回的仅仅是一个bool值，表明是否匹配。我们还需要匹配的位置。此时我们需要一个`match`对象来保存结果。
+
+需要提取结果的场合，我们使用`regex_search()`和`regex_match()`的另一个版本，参数多了一个 match，运行完毕后 match 会保存有结果。
+
+`match`对象的方法如下所示。
 
 ```cpp
 smatch m;
@@ -139,19 +148,38 @@ for (auto pos = m.begin(); pos != m.end(); ++pos) {
 
 ### 第二种应用：Regex Iterator
 
-data可能很长，reg可能会多次匹配。为了迭代所有的匹配成果，我们可以使用regex_iterator。根据类型不同，分别是
-`sregex_iterator`
-`cregex_iterator`
-`wsregex_iterator`
-`wcregex_iterator`
+data可能很长，reg可能会多次匹配。为了迭代所有的匹配子串，我们可以使用`regex_iterator`。
+
+根据类型不同，分别是
+
+- `sregex_iterator`
+- `cregex_iterator`
+- `wsregex_iterator`
+- `wcregex_iterator`
 
 ```cpp
 regex reg("...");
 sregex_iterator pos(data.cbegin(), data.cend(), reg);
-sregex_iterator end;
+sregex_iterator end; // 空迭代器即可表示 end
 for (; pos != end; ++pos) {
     cout << pos->str() << endl;
 }
+```
+
+如何统计匹配个数？可以借助<iterator> 中的`distance()`来计算两个迭代器之间的距离。
+
+比如要统计一句话中单词的个数：
+
+```cpp
+regex reg(R"(\S+)");
+string text = "The cat sat on the mat";
+
+sregex_iterator begin{text.cbegin(), text.cend(), reg};
+sregex_iterator end;
+
+#include <iterator>
+auto count = std::distance(begin, end); // 专门计算迭代器之间的距离
+cout << count << endl;  // output: 6 
 ```
 
 ### 第三种应用：Regex Token Iterator
@@ -188,9 +216,9 @@ cout << regex_replace(data, reg, replace_pattern) << endl;
 模式替换串用$n指定第几个匹配部分group(n)
 $1 value=$2 含义即为原来是group(1)的部分替换成group(2)的内容。
 
-![](C-字符串高级操作总结/2020-03-25-10-21-38.png)
+![](【学习笔记】C-字符串高级操作总结/2020-03-25-10-21-38.png)
 
-## string_view
+## 四、string_view
 
 C++17加入了string_view对象，能够避免string类型的复制临时对象操作。
 
