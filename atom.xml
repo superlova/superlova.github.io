@@ -6,7 +6,7 @@
   <link href="https://superlova.github.io/atom.xml" rel="self"/>
   
   <link href="https://superlova.github.io/"/>
-  <updated>2022-11-16T18:04:05.359Z</updated>
+  <updated>2022-11-18T17:22:18.415Z</updated>
   <id>https://superlova.github.io/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【学习笔记】通过文字检索视频片段：VCED——跨模态模型介绍</title>
+    <link href="https://superlova.github.io/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E2%80%94%E2%80%94%E8%B7%A8%E6%A8%A1%E6%80%81%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://superlova.github.io/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E2%80%94%E2%80%94%E8%B7%A8%E6%A8%A1%E6%80%81%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/</id>
+    <published>2022-11-18T16:58:52.000Z</published>
+    <updated>2022-11-18T17:22:18.415Z</updated>
+    
+    <content type="html"><![CDATA[<p>第三篇：跨模态模型介绍</p><!--more---><h2 id="一、CLIP-模型"><a href="#一、CLIP-模型" class="headerlink" title="一、CLIP 模型"></a>一、CLIP 模型</h2><h2 id="二、多模态与跨模态"><a href="#二、多模态与跨模态" class="headerlink" title="二、多模态与跨模态"></a>二、多模态与跨模态</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;第三篇：跨模态模型介绍&lt;/p&gt;
+&lt;!--more---&gt;
+&lt;h2 id=&quot;一、CLIP-模型&quot;&gt;&lt;a href=&quot;#一、CLIP-模型&quot; class=&quot;headerlink&quot; title=&quot;一、CLIP 模型&quot;&gt;&lt;/a&gt;一、CLIP 模型&lt;/h2&gt;&lt;h2 id=&quot;二、多模态</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="VCED" scheme="https://superlova.github.io/tags/VCED/"/>
+    
+    <category term="multimodal" scheme="https://superlova.github.io/tags/multimodal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【学习笔记】李宏毅ML-Note8-自监督学习、BERT</title>
+    <link href="https://superlova.github.io/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/"/>
+    <id>https://superlova.github.io/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/</id>
+    <published>2022-11-17T08:09:44.000Z</published>
+    <updated>2022-11-18T12:48:10.804Z</updated>
+    
+    <content type="html"><![CDATA[<p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：自监督学习、BERT、GPT。</p><!--more---><h2 id="二、自监督学习"><a href="#二、自监督学习" class="headerlink" title="二、自监督学习"></a>二、自监督学习</h2><p>自监督学习由 Yann LeCun 在 2019 年首次提出，模型会从无标签的数据中采取某些方法构建标签，然后进行学习。由于自监督学习不需要人为对数据进行标签，因此自监督学习可以看做无监督学习的一种。</p><p>自监督学习常用于训练大规模的语言模型，比如 BERT、GPT 等。由于这些模型的参数量非常大，因此训练模型所需的数据量也非常大，甚至大到人工标注无法完成的程度。</p><p>BERT 的训练数据包含整个维基百科的无标签号文本的大语料库中（足足有25亿字！） 和图书语料库（有8亿字）；使用自监督学习能更高效、更直接地从数据中学到知识，避免人工标注带来的成本。</p><p>下面介绍几个 BERT 使用到的自监督学习方法。</p><h3 id="1-Masking-Input"><a href="#1-Masking-Input" class="headerlink" title="1. Masking Input"></a>1. Masking Input</h3><p>BERT 的输入是一个句子，句子由若干 token 组成。Masking Input 训练任务就是随机 Mask 句子中的词，来构建 {填空题, 答案} 这样的数据。</p><p>Mask 方法有很多，可以直接替换为 [MSK] 这种全新的特殊符号，或者替换为任意一个其他字。</p><p>到底用哪一种也是随机决定的。在原文中，80%的数据是由 [MSK] 特殊符号替换方法来生成的，10%的数据是以其他词进行替换生成的，还有 10%的数据是保持原样生成的。</p><p>这个过程 BERT 会预测 [MSK] 对应的字是哪一个，把盖住的部分对应的输出向量做线性变换，做 softmax 产出一个分布。由此，变成了一个监督学习的分类任务。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/masking_input.png" alt></p><p>训练方法：与 ground truth 进行最小化交叉熵。</p><h3 id="2-Next-Sentence-Prediction"><a href="#2-Next-Sentence-Prediction" class="headerlink" title="2. Next Sentence Prediction"></a>2. Next Sentence Prediction</h3><p>选择句子A和B作为预训练样本：B有50%的可能是A的下一句，也有50%的可能是来自语料库的随机句子。</p><pre><code>[cls] w1 w2 [sep] w3 w4 w5</code></pre><p>只取 cls 对应的输出，然后预测 yes or no，判断这两个句子是否相接。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/next_sentence_pred.png" alt></p><p>这一招不太有用，RoBERTa 舍弃了该方法。可能是这个任务太简单了，学不到太有用的东西。</p><h3 id="3-Sentence-Order-Prediction"><a href="#3-Sentence-Order-Prediction" class="headerlink" title="3. Sentence Order Prediction"></a>3. Sentence Order Prediction</h3><p>ALBERT 的训练方法，判断两句的顺序或者逆序。</p><h3 id="4-如何评估学习的效果？"><a href="#4-如何评估学习的效果？" class="headerlink" title="4. 如何评估学习的效果？"></a>4. 如何评估学习的效果？</h3><p>评估方法：GLUE（General Language Understanding Evaluation）</p><p>有九大任务，评估预训练模型的好坏。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/glue_score_9_missions.png" alt></p><h2 id="三、如何使用-BERT"><a href="#三、如何使用-BERT" class="headerlink" title="三、如何使用 BERT"></a>三、如何使用 BERT</h2><p>预训练模型完成训练后，需要将模型学习到的知识迁移到其他领域。这个迁移的过程叫做微调（fine-tuning）。微调需要一定的标注数据，进行监督学习。根据下游任务不同，所需要的标注数据不同。</p><h3 id="1-文本分类："><a href="#1-文本分类：" class="headerlink" title="1. 文本分类："></a>1. 文本分类：</h3><p>文本分类以一串文本为输入，输出为一个概率分布，表明该串文本被分成各个类别的概率。</p><p>INPUT:</p><pre><code>[cls] w1 w2 w3</code></pre><p>OUTPUT:<br>看 [cls] 的输出分布，然后与真实标注进行对比，最小交叉熵。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/bert_classification.png" alt></p><p>训练时，linear 线性变换矩阵的参数是随机初始化的，预训练的参数是直接下载的。</p><p>fine tuning 时，所有部分的参数都会梯度下降进行优化。</p><h3 id="2-序列标注"><a href="#2-序列标注" class="headerlink" title="2. 序列标注"></a>2. 序列标注</h3><p>输入一个序列，输出另一个序列。</p><pre><code>[cls] w1 w2 w3 w4</code></pre><p>BERT 以一个 [cls] 开头的序列为输入，对于每个 token，都会产出向量，并转化为预测该 token 的词性。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/pos_tagging.png" alt></p><h3 id="3-语义推理"><a href="#3-语义推理" class="headerlink" title="3. 语义推理"></a>3. 语义推理</h3><p>Natural Language Inference ，输入两个句子，输出两个句子的逻辑关系，多分类问题。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/natural_language_inference.png" alt></p><p>可以扩展到评论立场判断，输入原文+评论，输出读者对此的态度，支持反对还是中立。</p><h3 id="4-问答系统"><a href="#4-问答系统" class="headerlink" title="4. 问答系统"></a>4. 问答系统</h3><p>给定一篇文章+一个问题，机器产出答案在原文中的位置，分别是起始节点和终止节点。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_question_answering.png" alt></p><p>我们需要将输入整理成 query + document，输出两个位置，start_pos 和 end_pos ，在原文中 [start_pos, end_pos] 内的位置就是模型认为的答案。如果 start_pos 和 end_pos 都为 0，则模型认为没有答案。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_qa_input_output.png" alt></p><p>在这里唯一需要从头开始训练的模块是如上图所示的<font color="Orange">橙色</font>和<font color="Blue">蓝色</font>向量。</p><p>首先把橙色向量跟每个 document 的 N 个词向量对应的输出向量做点积，算出 N 个数值，然后过一下 softmax 得到概率分布。取最高的值为 start_pos。</p><p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_qa_input_outout_2.png" alt></p><p>然后把蓝色向量跟每个 document 的 N 个词向量错对应的输出向量做点积，算出 N 个数值，同样取最大后决定 end_pos。</p><p>这个过程类比 self-attention，就好像我们要训练 query 向量对应的 Q 矩阵。</p><p>实际上 BERT 的输入序列一般为 512，而一整篇文章往往巨长无比，我们一般每次只拿一小段一小段 document 进行训练，只有一个有正例。</p><h3 id="———"><a href="#———" class="headerlink" title="———"></a>———</h3><p>Bert 损失函数组成</p><p>第一部分是来自 Mask-LM 的单词级别分类任务；<br>另一部分是句子级别的分类任务；</p><p>所用的损失函数叫做负对数似然函数</p><p>BERT 则是通过「transformer 编码器」模块构建的。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：自监督学习、BERT、GPT。&lt;/p&gt;
+&lt;!--more---&gt;
+&lt;h2 id=&quot;二、自监督学习&quot;&gt;&lt;a href=&quot;#二、自监督学习&quot; class=&quot;headerlink&quot; title=&quot;二、自监督学习&quot;&gt;&lt;</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
+    
+    <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
+    
+    <category term="Self-Supervised Learning" scheme="https://superlova.github.io/tags/Self-Supervised-Learning/"/>
+    
+    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
+    
+  </entry>
   
   <entry>
     <title>【学习笔记】通过文字检索视频片段：VCED之Jina</title>
@@ -513,63 +573,6 @@
     <category term="Word Count" scheme="https://superlova.github.io/tags/Word-Count/"/>
     
     <category term="MapReduce" scheme="https://superlova.github.io/tags/MapReduce/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【学习笔记】用Hadoop实现Word Count</title>
-    <link href="https://superlova.github.io/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/"/>
-    <id>https://superlova.github.io/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/</id>
-    <published>2021-05-06T00:18:12.000Z</published>
-    <updated>2022-08-02T13:32:34.816Z</updated>
-    
-    <content type="html"><![CDATA[<p>好像不管什么Hadoop学习都是从Word Count开始，跨越语言的Word Count</p><!--more---><p>Word Count是MapReduce 的经典入门案例，其目标是统计给定一系列文本文件的单词出现次数。</p><p>编程思路：</p><p><code>map</code>阶段：把输入的数据进行分词，并将其组合成键值对的形式，key是单词，value全部标记为1。</p><p><code>shuffle</code> 阶段：经过默认的排序分区分组，key相同的单词会作为一组数据构成新的键值对。</p><p><code>reduce</code>阶段：处理 <code>shuffle</code> 完的一组数据，该组数据就是该单词所有的键值对。</p><p><img src="/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/Word_Count_MR阶段.png" alt></p><h2 id="Map类的编写"><a href="#Map类的编写" class="headerlink" title="Map类的编写"></a>Map类的编写</h2><pre><code class="lang-java">/** * @description: WordCount Mapper类，对应MapTask * @author: ZYT * KEYIN map阶段的输入 * VALUEIN  todo MapReduce 有默认读取数据的组件：TextInputFormat *          todo 逐行读取。k是偏移量（LongWritable），无意义；v是每行的文本内容（Text）。 * KEYOUT 单词类型，Text * VALUEOUT 次数，LongWritable */public class WordCountMapper extends Mapper&lt;LongWritable, Text, Text, LongWritable&gt; &#123;    /**     * 每当TextInputFormat返回一个键值对，map就调用一次。     * 根据TextInputFormat的特性，事实上是每一行文本调用一次Map方法。     * @param key     * @param value     * @param context     * @throws IOException     * @throws InterruptedException     */    @Override    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;//        super.map(key, value, context);        String text = value.toString();        String[] words = text.split(&quot;\\s+&quot;);        for (String word : words) &#123;            context.write(new Text(word), new LongWritable(1));        &#125;    &#125;&#125;</code></pre><p>优化</p><pre><code class="lang-java">public class WordCountMapper extends Mapper&lt;LongWritable, Text, Text, LongWritable&gt; &#123;    private Text outKey = new Text();    private static final LongWritable outValue = new LongWritable(1);    /**     * 每当TextInputFormat返回一个键值对，map就调用一次。     * 根据TextInputFormat的特性，事实上是每一行文本调用一次Map方法。     * @param key     * @param value     * @param context     * @throws IOException     * @throws InterruptedException     */    @Override    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;//        super.map(key, value, context);        String text = value.toString();        String[] words = text.split(&quot;\\s+&quot;);        for (String word : words) &#123;            outKey.set(word);            context.write(outKey, outValue);        &#125;    &#125;&#125;</code></pre><h2 id="Reduce类的编写"><a href="#Reduce类的编写" class="headerlink" title="Reduce类的编写"></a>Reduce类的编写</h2><pre><code class="lang-java">public class WordCountReducer extends Reducer&lt;Text, LongWritable, Text, LongWritable&gt; &#123;    private LongWritable outValue = new LongWritable(0);    /**     * todo q: 当map的输出数据来到reduce之后该如何调用？     * 1. 排序所有pair     * 2. 分组pair，key相同的分成一组     * 3. 每一组调用一次reduce     * @param key     * @param values     * @param context     * @throws IOException     * @throws InterruptedException     * 输出key：该组的单词     * 输出value：该组所有次数的迭代器。     */    @Override    protected void reduce(Text key, Iterable&lt;LongWritable&gt; values, Context context) throws IOException, InterruptedException &#123;//        super.reduce(key, values, context);        long count = 0;        for (LongWritable value : values) &#123;            count += value.get();        &#125;        outValue.set(count);        context.write(key, outValue);    &#125;&#125;</code></pre><h2 id="Driver类的编写"><a href="#Driver类的编写" class="headerlink" title="Driver类的编写"></a>Driver类的编写</h2><pre><code class="lang-java">/** * 该类是MapReduce程序客户端驱动类。主要是为了构造Job对象，指定各种组件的属性。 * 包括Mapper、Reducer、输入输出类型、数据路径、提交作业等。 */public class WordCountDriver &#123;    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException &#123;        // 创建配置对象        Configuration conf = new Configuration();        // 构建Job作业实例， 参数为Conf、Job名字        Job job = Job.getInstance(conf, WordCountDriver.class.getSimpleName());        // 设置MR程序运行的主类        job.setJarByClass(WordCountDriver.class);        // 设置本次MR程序的Mapper、Reducer类        job.setMapperClass(WordCountMapper.class);        job.setReducerClass(WordCountReducer.class);        // 指定Mapper阶段输出的kv类型        job.setMapOutputKeyClass(Text.class);        job.setMapOutputValueClass(LongWritable.class);        // 指定Reducer阶段kv类型，也是最终输出的kv类型        job.setOutputKeyClass(Text.class);        job.setOutputValueClass(LongWritable.class);        // 配置本次作业的输入输出数据路径        // todo: 默认组件 TextInputFormat、TextOutputFormat        FileInputFormat.setInputPaths(job, new Path(args[0]));        FileOutputFormat.setOutputPath(job, new Path(args[1]));        // 提交作业//        job.submit();        // 采用waitForCompletion方式提交job 参数表示是否开启实时追踪作业执行情况的功能        boolean res_flag = job.waitForCompletion(true);        // 退出程序，和job结果进行绑定        System.exit(res_flag ? 0 : 1);    &#125;&#125;</code></pre><p>继承工具类Tool的Driver</p><pre><code class="lang-java">/** * 使用ToolRunner提交MapReduce作业 */public class WordCountDriver_v2 extends Configured implements Tool &#123;    public static void main(String[] args) throws Exception &#123;        // 创建配置对象        Configuration conf = new Configuration();        // 使用ToolRunner提交程序        int status = ToolRunner.run(conf, new WordCountDriver_v2(), args);        // 退出客户端        System.exit(status);    &#125;    @Override    public int run(String[] args) throws Exception &#123;        // 构建Job作业实例， 参数为Conf、Job名字        Job job = Job.getInstance(getConf(), WordCountDriver_v2.class.getSimpleName());        // 设置MR程序运行的主类        job.setJarByClass(WordCountDriver_v2.class);        // 设置本次MR程序的Mapper、Reducer类        job.setMapperClass(WordCountMapper.class);        job.setReducerClass(WordCountReducer.class);        // 指定Mapper阶段输出的kv类型        job.setMapOutputKeyClass(Text.class);        job.setMapOutputValueClass(LongWritable.class);        // 指定Reducer阶段kv类型，也是最终输出的kv类型        job.setOutputKeyClass(Text.class);        job.setOutputValueClass(LongWritable.class);        // 配置本次作业的输入输出数据路径        // todo: 默认组件 TextInputFormat、TextOutputFormat        FileInputFormat.setInputPaths(job, new Path(args[0]));        FileOutputFormat.setOutputPath(job, new Path(args[1]));        return job.waitForCompletion(true) ? 0 : 1;    &#125;&#125;</code></pre><h2 id="如何运行MapReduce程序？"><a href="#如何运行MapReduce程序？" class="headerlink" title="如何运行MapReduce程序？"></a>如何运行MapReduce程序？</h2><p>MapReduce程序是单机运行还是分布式运行？</p><p>MapReduce程序需要的运算资源是Hadoop YARN分配还是本机自己分配？</p><p>运行在何种模式，取决于 mapreduce.framwork.name</p><p>yarn: 集群模式</p><p>local: 本地模式</p><p>如果不指定，默认是local模式。</p><p>在 mapred-default.xml 中定义。如果代码中（conf.set）、运行的环境中（mapred-site.xml）有配置，则会覆盖default的配置。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;好像不管什么Hadoop学习都是从Word Count开始，跨越语言的Word Count&lt;/p&gt;
-&lt;!--more---&gt;
-&lt;p&gt;Word Count是MapReduce 的经典入门案例，其目标是统计给定一系列文本文件的单词出现次数。&lt;/p&gt;
-&lt;p&gt;编程思路：&lt;/p&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="Hadoop" scheme="https://superlova.github.io/tags/Hadoop/"/>
-    
-    <category term="Word Count" scheme="https://superlova.github.io/tags/Word-Count/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【学习笔记】数据密集性应用系统设计CH1笔记</title>
-    <link href="https://superlova.github.io/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/"/>
-    <id>https://superlova.github.io/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/</id>
-    <published>2021-05-04T13:23:13.000Z</published>
-    <updated>2022-08-02T13:32:34.805Z</updated>
-    
-    <content type="html"><![CDATA[<p>第一章：可靠、可扩展和可维护的应用系统<br><!--more---></p><h3 id="数据密集型问题的挑战："><a href="#数据密集型问题的挑战：" class="headerlink" title="数据密集型问题的挑战："></a>数据密集型问题的挑战：</h3><p>数据量，数据复杂度，数据的快速多变性；</p><h3 id="数据密集型应用包含以下模块："><a href="#数据密集型应用包含以下模块：" class="headerlink" title="数据密集型应用包含以下模块："></a>数据密集型应用包含以下模块：</h3><ul><li>数据库；</li><li>高速缓存；</li><li>索引：用户可以按关键字搜索数据井支持各种过滤操作；</li><li>流式处理：持续发送消息至另一个进程，处理采用异步方式；</li><li>批处理：定期处理大量累计数据。</li></ul><h3 id="数据系统"><a href="#数据系统" class="headerlink" title="数据系统"></a>数据系统</h3><p>本章提出<strong>数据系统</strong>的概念，包括<strong>数据库</strong>、<strong>消息队列</strong>和<strong>高速缓存</strong>等不同类型的系统。这样分类的原因有以下几点：</p><ol><li><p>都能将数据保存一段时间。区别在于访问模式不同，以及由于不同访问模式导致的不同性能。</p></li><li><p>新技术、工具拥有多种功能，系统之间的界限变得模糊。比如redis既能<strong>存储</strong>也能作为<strong>消息队列</strong>，kafka作为<strong>消息队列</strong>也能<strong>持久化存储</strong>。</p></li><li><p>系统也需要细分，原有的但各组件无法满足数据处理与存储需求，三分类概念需要进一步分解。例如，即便是一个简单的数据系统，也可能由很多子组件构成：</p></li></ol><p><img src="/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/一种数据系统架构.png" alt></p><p>这个应用包含缓存层（Memcached）和全文索引服务器（Elasticsearch或者Solr）以及数据库。程序员编写应用代码来控制缓存、索引和数据同步操作。</p><h3 id="数据系统的三种关键特性："><a href="#数据系统的三种关键特性：" class="headerlink" title="数据系统的三种关键特性："></a>数据系统的三种关键特性：</h3><ul><li><p>可靠性（Reliability）：当出现意外情况，如软件、硬件故障，人为操作失误等现象时，系统仍可以正常运转的能力。这里的正常运转，是指牺牲部分性能条件下，提供正确的服务。</p></li><li><p>可扩展性（Scalability）：随着问题规模的增长，比如流量、数据量或者任务复杂度，系统以合理方式匹配这种增长的能力。</p></li><li><p>可维护性（Maintainability）：新的开发或者维护人员上手的容易程度，以及适配新场景的能力。</p></li></ul><h3 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h3><p>什么是可靠性？即使发生了某些错误，系统仍可以继续正常工作的能力。</p><ul><li>故障或错误（fault）：组件偏离正确规格的现象。</li><li>失效（failure）：系统宕机，无法提供服务。</li></ul><p>为保证可靠性，需要设计容错机制（fault-tolerant）来避免故障引发系统失效，而不是避免故障（当然，避免故障也是提升可靠性的手段）。</p><h3 id="可靠性指标"><a href="#可靠性指标" class="headerlink" title="可靠性指标"></a>可靠性指标</h3><h4 id="失效前平均时间（MTTF）"><a href="#失效前平均时间（MTTF）" class="headerlink" title="失效前平均时间（MTTF）"></a>失效前平均时间（MTTF）</h4><p>是针对不可修复系统而言的，是指系统发生失效前的平均工作（或存储） 时间或工作次数。越高越好。</p><h4 id="平均无故障时间（MTBF）"><a href="#平均无故障时间（MTBF）" class="headerlink" title="平均无故障时间（MTBF）"></a>平均无故障时间（MTBF）</h4><p>是针对可修复系统而言的，指两次相邻失效（故障） 之间的工作时间， 而不是指整个系统的报废时间。越高越好。</p><h4 id="平均修复时间（MTTR）"><a href="#平均修复时间（MTTR）" class="headerlink" title="平均修复时间（MTTR）"></a>平均修复时间（MTTR）</h4><p>是对可修复系统而言的，指从出现故障到修复中间的这段时间。越低越好。</p><h4 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h4><p>又称为有效性，一般用可用度来定量计算，公式为</p><script type="math/tex; mode=display">A=\frac{\text{MTBF}}{\text{MTBF}+\text{MTTR}}</script><p>可靠性通常低于可用性。对于不可维修系统， 可用度就仅仅决定于且等于可靠度。</p><h3 id="数据系统可能发生哪些故障？如何提升容错能力？"><a href="#数据系统可能发生哪些故障？如何提升容错能力？" class="headerlink" title="数据系统可能发生哪些故障？如何提升容错能力？"></a>数据系统可能发生哪些故障？如何提升容错能力？</h3><h4 id="1-硬件故障"><a href="#1-硬件故障" class="headerlink" title="1. 硬件故障"></a>1. 硬件故障</h4><p>包括硬盘错误、电源错误、网口接触不良等。</p><p>最耐用的硬盘的MTTF为10~50年，因此一个包括10000个磁盘的存储集群中，一天坏一个也是很正常的（假设购买硬盘在时间上是均匀分布）。</p><p>应对方案是添加冗余，比如上述硬盘问题就可以用RAID，电源用双电源，甚至热插拔CPU等。</p><p>以上是从硬件角度解决硬件故障，其实可以通过软件角度解决硬件故障问题。</p><h4 id="2-软件错误"><a href="#2-软件错误" class="headerlink" title="2. 软件错误"></a>2. 软件错误</h4><p>操作系统内核的Bug，系统依赖的服务突然没有响应，某个组件的失控等。</p><p>软件系统的问题有时没有快速解决的办法，只能通过检查依赖假设和系统交互、进行全面测试等方法来预防，或者允许进程重启、评估运行时表现等应对。</p><h4 id="3-人为失误"><a href="#3-人为失误" class="headerlink" title="3. 人为失误"></a>3. 人为失误</h4><p>人是最不可靠的因素。运维人员配置错误往往是系统下线的主要原因。</p><p>这部分的预防以及应对，更加依赖软件工程领域的知识。</p><h3 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h3><p>可扩展性是用来描述系统应对负载增加的能力的术语。一个系统添加计算单元越容易，添加计算单元后计算能力的增长越多，就称这个系统的可扩展性越强。</p><h3 id="如何度量系统负载"><a href="#如何度量系统负载" class="headerlink" title="如何度量系统负载"></a>如何度量系统负载</h3><p>每秒请求处理次数、数据库中写入的比例、聊天室的同时活动用户数量、缓存命中率等，</p><p>还要注意分析平均值和峰值对性能的影响</p><h3 id="实例：twitter的两个实现版本"><a href="#实例：twitter的两个实现版本" class="headerlink" title="实例：twitter的两个实现版本"></a>实例：twitter的两个实现版本</h3><p>twitter有两个功能（类比微博，为了方便理解我接下来以微博代替推特），根据其2012年的数据，其功能和负载如下：</p><p>发微博：平均每秒4600条发布申请，峰值12000条推特申请发布。</p><p>收微博：平均每秒300,000条收微博的请求。</p><p>twitter第一个版本使用如下系统设计完成微博的收发：</p><p>发送微博：用户发送的微博插入全局微博集合。</p><p>用户申请查看自己的时间线：  </p><ul><li>遍历所有User的关注对象；</li><li>提取所有关注对象的微博；</li><li>按照发表时间排序并合并。</li></ul><p>随着注册用户变多，负载压力与日俱增，因此采取第二种方法：</p><p>每个用户的时间线维护一个缓存。</p><p>用户发表新的微博：</p><ul><li>查询关注对象；</li><li>插入到每个粉丝的时间线缓存。</li></ul><p>方法二的好处是，用户发布微博时多做一些事情可以加速用户接收微博时的性能。而用户接收微博的请求负载比发送负载高两个数量级。</p><p>Twitter针对那些粉丝量特别多的大V采用方法一，针对粉丝量不太大的绝大多数用户使用方法二。</p><h3 id="如何度量系统性能"><a href="#如何度量系统性能" class="headerlink" title="如何度量系统性能"></a>如何度量系统性能</h3><p><strong>吞吐量</strong></p><p>吞吐量是在一个特定时间段内完成的任务的计数，例如：每秒点击数。</p><p>系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间</p><p>并发数： 系统同时处理的request/事务数</p><p>TPS：Transactions Per Second（每秒传输的事物处理个数），即服务器每秒处理的事务数。</p><p>QPS：每秒查询率，即对一个特定的查询服务器在规定时间内所处理流量大小。</p><p><strong>响应时间</strong></p><p>从客户端发送请求到接受响应之间的间隔时长。在线系统通常更看重响应时间，批处理系统更关心吞吐量。</p><p>由于每次请求的响应时间服从一个分布，因此我们更关心平均响应时长，或者<strong>百分位数时长</strong>。将响应时长排序，取50百分位数（中位数）比平均数更有意义。其他有意义的百分位数有95、99和99.9百分位数。</p><p>采用较高的响应时间百分位数很重要，因为他们直接影响用户的总体服务体验。95百分位数的响应时间为1.5秒，意味着100个请求中5个请求慢于1.5秒，但是对于电商平台来说，有可能恰恰是这些顾客购买了更多的商品导致访问变慢。</p><p>排队延迟是影响高百分数响应时间的主要延迟来源。因此，如果在性能测试时，负载生成客户端在服务器处理完之前请求后再发送新的请求，就会忽视了排队造成的延迟。</p><h3 id="长尾效应"><a href="#长尾效应" class="headerlink" title="长尾效应"></a>长尾效应</h3><p>一个服务涉及多个不同的后端调用，则最慢的调用会拖累整个服务的响应时间，这种现象称之为长尾效应。</p><p>用户总是需要等待最慢的那个调用完成。因此即便只有很小比例的请求缓慢，也可能由于某一个用户频繁产生这种调用而导致总体变慢。</p><h3 id="如何应对负载增加，提升可扩展性？"><a href="#如何应对负载增加，提升可扩展性？" class="headerlink" title="如何应对负载增加，提升可扩展性？"></a>如何应对负载增加，提升可扩展性？</h3><p>垂直扩展：升级到更强大的机器。</p><p>水平扩展：将负载分布到更多小机器。</p><p>系统设计时，要在这两种扩展中间作取舍。同时要根据不同的吞吐量、请求方式等做针对性优化。</p><h3 id="可维护性"><a href="#可维护性" class="headerlink" title="可维护性"></a>可维护性</h3><p>软件工程师不喜欢读别人留下的代码，不喜欢维护别人开发的老系统，这已经是众所周知的事实。</p><p>但是换个角度，不如说大多数系统在设计之初就没有考虑令后续开发者方便地维护这一个特性。</p><p>为了提升系统的可维护性，减少维护期间的麻烦，可以遵循软件系统的三个设计原则：</p><p>可运维性、简单性、可演化性。</p><h4 id="可运维性"><a href="#可运维性" class="headerlink" title="可运维性"></a>可运维性</h4><p>目标是令运维人员更轻松。之前讨论过，人是系统中最不稳定的因素。因此简化运维人员的操作，使运维人员能够专注于高附加值的任务，能够提升系统的可维护性。</p><p>可以从以下角度提升可运维性：</p><ul><li>提供系统运行时监控工具，方便监控；</li><li>自动化工具；</li><li>避免绑定特定的机器；</li><li>提供良好的文档；</li><li>提供良好的默认配置；</li><li>尝试自我修复等。</li></ul><h4 id="简单性"><a href="#简单性" class="headerlink" title="简单性"></a>简单性</h4><p>简单性是复杂性的反面。而复杂性有各种各样的表现方式，比如模块紧耦合，状态空间膨胀，依赖关系复杂，命名方法混乱，各种性能trick等。</p><p>消除复杂性的最好手段之一是抽象，通过抽象掩盖大量实现细节，提供干净的接口。</p><h4 id="可演化性"><a href="#可演化性" class="headerlink" title="可演化性"></a>可演化性</h4><p>提升可演化性是令系统易于改变的另一种说法。目标是可以轻松地修改数据系统，使其适应不断变化的需求。</p><p>在组织流程方面，敏捷开发模式为适应变化提供了很好的参考。因此敏捷性与可演化性很类似。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;第一章：可靠、可扩展和可维护的应用系统&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
-&lt;h3 id=&quot;数据密集型问题的挑战：&quot;&gt;&lt;a href=&quot;#数据密集型问题的挑战：&quot; class=&quot;headerlink&quot; title=&quot;数据密集型问题的挑战：&quot;&gt;&lt;/a&gt;数据密集型问题的挑战</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="Big Data" scheme="https://superlova.github.io/tags/Big-Data/"/>
-    
-    <category term="Distributed System" scheme="https://superlova.github.io/tags/Distributed-System/"/>
     
   </entry>
   

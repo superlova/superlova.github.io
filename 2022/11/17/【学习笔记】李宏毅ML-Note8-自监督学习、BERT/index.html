@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Superlova">
   <meta name="keywords" content="">
-  <title>C++字符串高级操作总结 - Superlova</title>
+  <title>【学习笔记】李宏毅ML-Note8-自监督学习、BERT - Superlova</title>
   <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -125,7 +125,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期一, 三月 23日 2020, 11:50 晚上
+                  星期四, 十一月 17日 2022, 4:09 下午
                 </p>
               
 
@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    1.9k 字
+                    1.4k 字
                   </span>
                 
 
@@ -142,7 +142,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      7 分钟
+                      4 分钟
                   </span>
                 
 
@@ -177,127 +177,59 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期二, 八月 2日 2022, 9:32 晚上</p>
+                class="note note-warning">本文最后更新于：星期五, 十一月 18日 2022, 8:48 晚上</p>
             
             <div class="markdown-body">
-              <p>C++的字符串操作非常多，功能也非常多样化，熟练使用标准库提供的字符串操作函数能够高效提升我们编写代码的效率和可读性。除了常用的<string>库中包含的几项基本操作之外，本文总结了几项特别好用而又不为人所知的高级操作。<br><span id="more"></span></string></p>
-<h2 id="常见的基本操作回顾"><a href="#常见的基本操作回顾" class="headerlink" title="常见的基本操作回顾"></a>常见的基本操作回顾</h2><p>必须指明，<string>中字符串方法可以按照输入参数的类型不同调用不同的重载方法，这些函数名相同，但是参数类型和顺序完全不同，返回值也略有差别。</string></p>
-<p>部分函数，包括insert和erase等函数可分为两类，如果输入的位置参数<code>pos</code>为整数<code>int</code>，此时返回值为<strong>被插入字符串</strong>的引用；而输入的位置参数类型为迭代器<code>iterator</code>，则会调用返回迭代器的函数，该迭代器<strong>指向被插入部分的头部</strong>。</p>
-<p>而且<string>部分函数为了兼容C原生字符串，提供了一批适用于C String构造接口，这又产生了一大批只有参数顺序不同的同名函数。比如对于string构造方法上，输入原生string和输入C String的参数含义完全不同。</string></p>
-<p>这些同名、功能相似但不同参数的函数使得C++新人学习标准库时容易产生极大的困扰。</p>
-<h3 id="1-构造string"><a href="#1-构造string" class="headerlink" title="1. 构造string"></a>1. 构造string</h3><pre><code class="lang-cpp">const char * cp = &quot;Hello World!!!&quot;;
-char noNull[] = &#123;&#39;H&#39;, &#39;i&#39;&#125;;
-</code></pre>
-<p>输入一个char类型的指针，以及偏移量。转换从指针开始的偏移量个字符。<br>如果未指定偏移量，则默认转化到碰到’\0’为止。<br>没有’\0’结尾则该行为未定义。  </p>
-<pre><code class="lang-cpp">string s1(cp); // 从C风格字符串转化
-string s2(noNull, 2); // 指定转化的字符个数
-string s3(noNull); // 未定义，因为noNull不是以空字符结尾
-string s4(cp + 6, 5);
-</code></pre>
-<p>拷贝构造函数，从其他string拷贝<br>指定拷贝位置和拷贝字符个数<br>不指定pos则默认从头拷贝<br>不指定len则默认从pos开始全拷贝<br>pos越界则抛出异常<br>len越界没问题，只到’\0’  </p>
-<pre><code class="lang-cpp">string s5(s1, 6, 5);
-string s6(s1, 6);
-string s7(s1, 6, 20);
-string s8(s1, 16);
-</code></pre>
-<p>substr函数，输入pos和len<br>返回由该字符串的第pos位置拷贝len个字符组成的新子串  </p>
-<pre><code class="lang-cpp">string s9 = s1.substr(0, 5);
-</code></pre>
-<h3 id="2-改变string"><a href="#2-改变string" class="headerlink" title="2. 改变string"></a>2. 改变string</h3><p>以insert为例，简单介绍不同参数重载的不同insert。</p>
-<p>insert除了接受迭代器的版本之外，还有直接接受下标的版本。返回值为被插入字符串的引用。<br>s.insert(pos, count, char)<br>s.insert(pos, char_ptr, len)<br>s.insert(pos, string, pos, len)</p>
-<p>第一个位置总会是pos，表示被插入位置；</p>
-<p>第二个参数如果是个数，那么你调用的是第一个insert函数，其含义为重复插入第三个参数char所制定的内容；</p>
-<p>第二个参数如果是C风格字符串，那么第三个参数可以指出插入长度，不指名就默认把该C风格字符串全插到pos的位置；</p>
-<p>第二个参数如果是string，那么你还需在string参数后指定从哪个pos开始插，并且指定len表示插入多少个。相对于插入C风格字符串的insert来说，插入string更灵活。</p>
-<p>其他函数及其说明见下表。</p>
-<p><img src="/2020/03/23/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/2020-03-24-20-38-14.png" srcset="/img/loading.gif" alt><br><img src="/2020/03/23/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/2020-03-25-08-58-36.png" srcset="/img/loading.gif" alt></p>
-<h2 id="搜索字符串"><a href="#搜索字符串" class="headerlink" title="搜索字符串"></a>搜索字符串</h2><p><string>定义了六种不同的搜索方法，每种方法拥有四个重载版本。</string></p>
-<p><img src="/2020/03/23/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/2020-03-25-09-00-50.png" srcset="/img/loading.gif" alt><br><img src="/2020/03/23/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/2020-03-25-09-02-09.png" srcset="/img/loading.gif" alt></p>
-<p>需要注意的有两点：</p>
-<ol>
-<li>搜索函数返回类型为string::size_type，为无符号整数类型。</li>
-<li>搜索失败时，返回string::npos，该值为-1，也就是无符号整数最大的值。</li>
-</ol>
-<h2 id="正则表达式库"><a href="#正则表达式库" class="headerlink" title="正则表达式库"></a>正则表达式库</h2><p>正则表达式是字符串匹配的有力工具。C++11加入了对正则表达式的支持，具体定义位于<regex>头文件中。</regex></p>
-<p>在C++中，正则表达式可以做的工作有：</p>
-<ul>
-<li>Match 将整个输入拿来比对（匹配）某个正则表达式</li>
-<li>Search 查找与正则表达式吻合的子串</li>
-<li>Tokenize 根据正则表达式切分字符串</li>
-<li>Replace 根据正则表达式替换字符串</li>
-</ul>
-<h3 id="第一种应用：Match和Search"><a href="#第一种应用：Match和Search" class="headerlink" title="第一种应用：Match和Search"></a>第一种应用：Match和Search</h3><p>具体流程可概括为：定义、匹配、判断</p>
-<pre><code class="lang-cpp">regex reg(&quot;&lt;.*&gt;.*&lt;/.*&gt;&quot;); // 定义
-bool isExist = regex_match(string, reg); // 匹配整体
-//or
-bool isExist = regex_search(string, reg); // 匹配部分
-cout &lt;&lt; boolalpha &lt;&lt; isExist &lt;&lt; endl; // 判断
-</code></pre>
-<p>你可能已经注意到了，regex_match和regex_search返回的仅仅是一个bool值，表明是否匹配。我们还需要匹配的位置。此时我们需要一个<code>match</code>对象来保存结果。<code>match</code>对象的方法如下所示。</p>
-<pre><code class="lang-cpp">smatch m;
-bool isExist = regex_search(string, m, reg); // 结果保存在m中
-m.empty()
-m.size() // 返回匹配个数
-m.str(i) // 类似于python中group，返回第i个匹配位置的字符串。i=0则返回全部
-m.length(i) // 同上，返回第i个匹配字符串的长度
-m.position(i) // 同上，返回第i个匹配字符串的位置
-m.prefix().str() // 已匹配位置之前的字符串，字符串前缀
-m.suffix().str() // 已匹配位置之后的字符串，字符串后缀
-for (auto pos = m.begin(); pos != m.end(); ++pos) &#123;
-    cout &lt;&lt; *pos &lt;&lt; endl;
-&#125;
-
-代码中的参数i，代表了正则表达式中存在分组，i为提取分组i的被匹配内容。类似python中的group。分组操作是正则表达式的语法，本文不再赘述。
-</code></pre>
-<p><code>match</code>对象根据保存内容类型不同分成</p>
-<ul>
-<li><code>smatch</code> 匹配string</li>
-<li><code>cmatch</code> 匹配C风格字符串</li>
-<li><code>wsmatch</code> 匹配wstring</li>
-<li><code>wcmatch</code> 匹配const wchar_t*</li>
-</ul>
-<h3 id="第二种应用：Regex-Iterator"><a href="#第二种应用：Regex-Iterator" class="headerlink" title="第二种应用：Regex Iterator"></a>第二种应用：Regex Iterator</h3><p>data可能很长，reg可能会多次匹配。为了迭代所有的匹配成果，我们可以使用regex_iterator。根据类型不同，分别是<br><code>sregex_iterator</code><br><code>cregex_iterator</code><br><code>wsregex_iterator</code><br><code>wcregex_iterator</code></p>
-<pre><code class="lang-cpp">regex reg(&quot;...&quot;);
-sregex_iterator pos(data.cbegin(), data.cend(), reg);
-sregex_iterator end;
-for (; pos != end; ++pos) &#123;
-    cout &lt;&lt; pos-&gt;str() &lt;&lt; endl;
-&#125;
-</code></pre>
-<h3 id="第三种应用：Regex-Token-Iterator"><a href="#第三种应用：Regex-Token-Iterator" class="headerlink" title="第三种应用：Regex Token Iterator"></a>第三种应用：Regex Token Iterator</h3><p>你可能关注的不是被匹配的字符串，而是其余的字符串。此时正则表达式串就像是切割刀一样，将data分割成不含被匹配串的几部分。我们可以利用此功能实现C++中一直没能实现的字符串分割函数split。</p>
-<pre><code class="lang-cpp">string data = &quot;qqq www    eee rrr&quot;;
-regex r(&quot;\\s+&quot;);
-sregex_token_iterator pos(data.cbegin(), data.cend(), r, -1); // -1代表你对正则表达式匹配的内容不感兴趣
-sregex_token_iterator end;
-for (; pos != end; ++pos) &#123;
-    cout &lt;&lt; *pos &lt;&lt; endl;
-&#125;
-</code></pre>
-<h3 id="第四种应用：替换"><a href="#第四种应用：替换" class="headerlink" title="第四种应用：替换"></a>第四种应用：替换</h3><p>下面的代码将</p>
-<pre><code class="lang-html">&lt;person&gt;&lt;first&gt;Nico&lt;/first&gt;&lt;/person&gt;
-</code></pre>
-<p>替换成</p>
-<pre><code class="lang-html">&lt;person&gt;&lt;first value=&quot;Nico&quot;/&gt;&lt;/person&gt;
-</code></pre>
-<pre><code class="lang-cpp">string data = &quot;&lt;person&gt;&lt;first&gt;Nico&lt;/first&gt;&lt;/person&gt;&quot;
-regex reg(&quot;&lt;(.*)&gt;(.*)&lt;/(\\1)&gt;&quot;);
-string replace_pattern = &quot;&lt;$1 value=\&quot;$2\&quot;/&gt;&quot;;
-cout &lt;&lt; regex_replace(data, reg, replace_pattern) &lt;&lt; endl;
-</code></pre>
-<p>模式替换串用$n指定第几个匹配部分group(n)<br>$1 value=$2 含义即为原来是group(1)的部分替换成group(2)的内容。</p>
-<p><img src="/2020/03/23/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/2020-03-25-10-21-38.png" srcset="/img/loading.gif" alt></p>
-<h2 id="string-view"><a href="#string-view" class="headerlink" title="string_view"></a>string_view</h2><p>C++17加入了string_view对象，能够避免string类型的复制临时对象操作。</p>
-<ul>
-<li>string_view对象由两部分组成，分别是<strong>数据的起始指针</strong>和<strong>数据的长度</strong>。有点类似于带其他语言表示字符串的方法，不依赖<code>&#39;\0&#39;</code>在结尾，而是通过一个变量记忆长度。</li>
-<li>string_view只读，不能修改。可以很好地作为函数的参数和返回值</li>
-</ul>
-<pre><code class="lang-cpp">//使用string的拷贝操作
-string s(1000, &#39;0&#39;);
-string sub_s = s.substr(100, 200); // O(n)
-//使用view则不需要拷贝
-string_view sv(s); // no copy
-string_view sv2 = sv.substr(100, 200); // O(1)
-</code></pre>
+              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇记录的知识点有：自监督学习、BERT、GPT。</p>
+<!--more--->
+<h2 id="二、自监督学习"><a href="#二、自监督学习" class="headerlink" title="二、自监督学习"></a>二、自监督学习</h2><p>自监督学习由 Yann LeCun 在 2019 年首次提出，模型会从无标签的数据中采取某些方法构建标签，然后进行学习。由于自监督学习不需要人为对数据进行标签，因此自监督学习可以看做无监督学习的一种。</p>
+<p>自监督学习常用于训练大规模的语言模型，比如 BERT、GPT 等。由于这些模型的参数量非常大，因此训练模型所需的数据量也非常大，甚至大到人工标注无法完成的程度。</p>
+<p>BERT 的训练数据包含整个维基百科的无标签号文本的大语料库中（足足有25亿字！） 和图书语料库（有8亿字）；使用自监督学习能更高效、更直接地从数据中学到知识，避免人工标注带来的成本。</p>
+<p>下面介绍几个 BERT 使用到的自监督学习方法。</p>
+<h3 id="1-Masking-Input"><a href="#1-Masking-Input" class="headerlink" title="1. Masking Input"></a>1. Masking Input</h3><p>BERT 的输入是一个句子，句子由若干 token 组成。Masking Input 训练任务就是随机 Mask 句子中的词，来构建 {填空题, 答案} 这样的数据。</p>
+<p>Mask 方法有很多，可以直接替换为 [MSK] 这种全新的特殊符号，或者替换为任意一个其他字。</p>
+<p>到底用哪一种也是随机决定的。在原文中，80%的数据是由 [MSK] 特殊符号替换方法来生成的，10%的数据是以其他词进行替换生成的，还有 10%的数据是保持原样生成的。</p>
+<p>这个过程 BERT 会预测 [MSK] 对应的字是哪一个，把盖住的部分对应的输出向量做线性变换，做 softmax 产出一个分布。由此，变成了一个监督学习的分类任务。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/masking_input.png" srcset="/img/loading.gif" alt></p>
+<p>训练方法：与 ground truth 进行最小化交叉熵。</p>
+<h3 id="2-Next-Sentence-Prediction"><a href="#2-Next-Sentence-Prediction" class="headerlink" title="2. Next Sentence Prediction"></a>2. Next Sentence Prediction</h3><p>选择句子A和B作为预训练样本：B有50%的可能是A的下一句，也有50%的可能是来自语料库的随机句子。</p>
+<pre><code>[cls] w1 w2 [sep] w3 w4 w5
+</code></pre><p>只取 cls 对应的输出，然后预测 yes or no，判断这两个句子是否相接。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/next_sentence_pred.png" srcset="/img/loading.gif" alt></p>
+<p>这一招不太有用，RoBERTa 舍弃了该方法。可能是这个任务太简单了，学不到太有用的东西。</p>
+<h3 id="3-Sentence-Order-Prediction"><a href="#3-Sentence-Order-Prediction" class="headerlink" title="3. Sentence Order Prediction"></a>3. Sentence Order Prediction</h3><p>ALBERT 的训练方法，判断两句的顺序或者逆序。</p>
+<h3 id="4-如何评估学习的效果？"><a href="#4-如何评估学习的效果？" class="headerlink" title="4. 如何评估学习的效果？"></a>4. 如何评估学习的效果？</h3><p>评估方法：GLUE（General Language Understanding Evaluation）</p>
+<p>有九大任务，评估预训练模型的好坏。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/glue_score_9_missions.png" srcset="/img/loading.gif" alt></p>
+<h2 id="三、如何使用-BERT"><a href="#三、如何使用-BERT" class="headerlink" title="三、如何使用 BERT"></a>三、如何使用 BERT</h2><p>预训练模型完成训练后，需要将模型学习到的知识迁移到其他领域。这个迁移的过程叫做微调（fine-tuning）。微调需要一定的标注数据，进行监督学习。根据下游任务不同，所需要的标注数据不同。</p>
+<h3 id="1-文本分类："><a href="#1-文本分类：" class="headerlink" title="1. 文本分类："></a>1. 文本分类：</h3><p>文本分类以一串文本为输入，输出为一个概率分布，表明该串文本被分成各个类别的概率。</p>
+<p>INPUT:</p>
+<pre><code>[cls] w1 w2 w3
+</code></pre><p>OUTPUT:<br>看 [cls] 的输出分布，然后与真实标注进行对比，最小交叉熵。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/bert_classification.png" srcset="/img/loading.gif" alt></p>
+<p>训练时，linear 线性变换矩阵的参数是随机初始化的，预训练的参数是直接下载的。</p>
+<p>fine tuning 时，所有部分的参数都会梯度下降进行优化。</p>
+<h3 id="2-序列标注"><a href="#2-序列标注" class="headerlink" title="2. 序列标注"></a>2. 序列标注</h3><p>输入一个序列，输出另一个序列。</p>
+<pre><code>[cls] w1 w2 w3 w4
+</code></pre><p>BERT 以一个 [cls] 开头的序列为输入，对于每个 token，都会产出向量，并转化为预测该 token 的词性。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/pos_tagging.png" srcset="/img/loading.gif" alt></p>
+<h3 id="3-语义推理"><a href="#3-语义推理" class="headerlink" title="3. 语义推理"></a>3. 语义推理</h3><p>Natural Language Inference ，输入两个句子，输出两个句子的逻辑关系，多分类问题。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/natural_language_inference.png" srcset="/img/loading.gif" alt></p>
+<p>可以扩展到评论立场判断，输入原文+评论，输出读者对此的态度，支持反对还是中立。</p>
+<h3 id="4-问答系统"><a href="#4-问答系统" class="headerlink" title="4. 问答系统"></a>4. 问答系统</h3><p>给定一篇文章+一个问题，机器产出答案在原文中的位置，分别是起始节点和终止节点。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_question_answering.png" srcset="/img/loading.gif" alt></p>
+<p>我们需要将输入整理成 query + document，输出两个位置，start_pos 和 end_pos ，在原文中 [start_pos, end_pos] 内的位置就是模型认为的答案。如果 start_pos 和 end_pos 都为 0，则模型认为没有答案。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_qa_input_output.png" srcset="/img/loading.gif" alt></p>
+<p>在这里唯一需要从头开始训练的模块是如上图所示的<font color="Orange">橙色</font>和<font color="Blue">蓝色</font>向量。</p>
+<p>首先把橙色向量跟每个 document 的 N 个词向量对应的输出向量做点积，算出 N 个数值，然后过一下 softmax 得到概率分布。取最高的值为 start_pos。</p>
+<p><img src="/2022/11/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-Note8-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E3%80%81BERT/extraction_based_qa_input_outout_2.png" srcset="/img/loading.gif" alt></p>
+<p>然后把蓝色向量跟每个 document 的 N 个词向量错对应的输出向量做点积，算出 N 个数值，同样取最大后决定 end_pos。</p>
+<p>这个过程类比 self-attention，就好像我们要训练 query 向量对应的 Q 矩阵。</p>
+<p>实际上 BERT 的输入序列一般为 512，而一整篇文章往往巨长无比，我们一般每次只拿一小段一小段 document 进行训练，只有一个有正例。</p>
+<h3 id="———"><a href="#———" class="headerlink" title="———"></a>———</h3><p>Bert 损失函数组成</p>
+<p>第一部分是来自 Mask-LM 的单词级别分类任务；<br>另一部分是句子级别的分类任务；</p>
+<p>所用的损失函数叫做负对数似然函数</p>
+<p>BERT 则是通过「transformer 编码器」模块构建的。</p>
 
             </div>
             <hr>
@@ -316,13 +248,13 @@ string_view sv2 = sv.substr(100, 200); // O(1)
                   <span>
                 <i class="iconfont icon-tag"></i>
                     
-                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
                     
-                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                      <a class="hover-with-bg" href="/tags/MOOC/">MOOC</a>
                     
-                      <a class="hover-with-bg" href="/tags/string/">string</a>
+                      <a class="hover-with-bg" href="/tags/Self-Supervised-Learning/">Self-Supervised Learning</a>
                     
-                      <a class="hover-with-bg" href="/tags/regex/">regex</a>
+                      <a class="hover-with-bg" href="/tags/BERT/">BERT</a>
                     
                   </span>
                 
@@ -598,7 +530,7 @@ string_view sv2 = sv.substr(100, 200); // O(1)
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "C++字符串高级操作总结&nbsp;",
+        "【学习笔记】李宏毅ML-Note8-自监督学习、BERT&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 90,
@@ -655,6 +587,32 @@ string_view sv2 = sv.substr(100, 200); // O(1)
   </script>
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
 
 
 

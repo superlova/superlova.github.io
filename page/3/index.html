@@ -150,6 +150,113 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——总结与反思"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/">
+        <p class="h4 index-header">【竞赛打卡】数据挖掘实践——总结与反思</p>
+      </a>
+
+      <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">
+这次组队学习确实是自己不太擅长的领域。借着上次NLP组队学习的冲劲，本以为想在不熟悉的领域也能至少学点东西，但确实是小看了这次学习的难度。
+回头来看，组队学习进入到特征工程的时候，我已经完全一脸懵逼了。我很想跟上大家的节奏，但是确实一个是没有时间，另一个是差太多了，已经进入了恐慌区，脑海里也是拒绝的心态。我知道这次组队学习已经彻底失败了。
+唉！内心充满了挫败感。这次组队学习唯一的收获就是，获得了这次比赛的Baseline。自此之后我就要投入到秋招了，我曾参加过CV赛事、NLP赛事，再加上这个结构化赛事，我的比赛经历算是圆满了，接下来的日子就是研究Baseline、好好准备简历了，也该收收心了</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Data-Mining/">Data Mining</a>&nbsp;
+          
+            <a href="/tags/Time-Series-Analysis/">Time Series Analysis</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——建模预测"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/">
+        <p class="h4 index-header">【竞赛打卡】数据挖掘实践——建模预测</p>
+      </a>
+
+      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">我也是加把劲骑士！
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from tensorflow.keras.layers import Input, Conv1D, MaxPooling1D, Dense, Add, Dropout, Flatten, TimeDistributed
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras import activations, optimizers, </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
+          
+            <a href="/tags/Data-Mining/">Data Mining</a>&nbsp;
+          
+            <a href="/tags/Time-Series-Analysis/">Time Series Analysis</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" target="_self">
           <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——特征工程"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1113,120 +1220,6 @@ tf.keras.callb</div>
             <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
           
             <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之注意力机制与预训练模型"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
-        <p class="h4 index-header">【竞赛打卡】新闻文本分类之注意力机制与预训练模型</p>
-      </a>
-
-      <a href="/2020/08/04/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%B8%8E%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">见多了优秀的文章，再写博客的时候就会感叹自己的学识浅薄。
-本章介绍了Bert的原理和使用，具体包括pretrain和finetune两部分。
-基于深度学习的文本分类Transformer原理当用神经网络来处理大量的输入信息时，可以借鉴人脑的注意力机制，只选择一些关键的信息输入进行处理，来提高神经网络的效率。注意力机制可以单独使用，但更多地用作神经网络中的一个组件。基于循环神经网络的序列到序列模型的一个缺点是无法并行计算，为了提高并行计算效率以及捕捉长距离的依赖关系，我们可以使用自注意力模型（Self-Attention Model）来建立一个全连接的网络结构。
-Transformer模型是一个</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-04&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
-          
-            <a href="/tags/Classification/">Classification</a>&nbsp;
-          
-            <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
-          
-            <a href="/tags/attention/">attention</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】新闻文本分类之深度学习Word2Vec"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/">
-        <p class="h4 index-header">【竞赛打卡】新闻文本分类之深度学习Word2Vec</p>
-      </a>
-
-      <a href="/2020/07/31/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B9%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0Word2Vec/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">谦虚使人进步，骄傲使人落后。
-最近课题内容较多时间紧张，同时我认为学习资料非常翔实，遂转发以做笔记。之后会在文章最后总结自己的思路和经验。
-Task5 基于深度学习的文本分类2在上一章节，我们通过FastText快速实现了基于深度学习的文本分类模型，但是这个模型并不是最优的。在本章我们将继续深入。
-基于深度学习的文本分类本章将继续学习基于深度学习的文本分类。
-学习目标
-学习Word2Vec的使用和基础原理
-学习使用TextCNN、TextRNN进行文本表示
-学习使用HAN网络结构完成文本分类
-
-文本表示方法 Part3词向量本节通过word2vec学习词向量。word2vec模型背后的基本思想</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-31&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
-          
-            <a href="/tags/Classification/">Classification</a>&nbsp;
-          
-            <a href="/tags/Deep-Learning/">Deep Learning</a>&nbsp;
-          
-            <a href="/tags/word2vec/">word2vec</a>&nbsp;
           
         
       </div>

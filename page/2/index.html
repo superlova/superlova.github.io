@@ -150,6 +150,122 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/" target="_self">
+          <img src="/img/hadoop.jpg" srcset="/img/loading.gif" alt="【学习笔记】用Hadoop实现Word Count"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/">
+        <p class="h4 index-header">【学习笔记】用Hadoop实现Word Count</p>
+      </a>
+
+      <a href="/2021/05/06/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%94%A8Hadoop%E5%AE%9E%E7%8E%B0Word-Count/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">好像不管什么Hadoop学习都是从Word Count开始，跨越语言的Word Count
+
+Word Count是MapReduce 的经典入门案例，其目标是统计给定一系列文本文件的单词出现次数。
+编程思路：
+map阶段：把输入的数据进行分词，并将其组合成键值对的形式，key是单词，value全部标记为1。
+shuffle 阶段：经过默认的排序分区分组，key相同的单词会作为一组数据构成新的键值对。
+reduce阶段：处理 shuffle 完的一组数据，该组数据就是该单词所有的键值对。
+
+Map类的编写/**
+ * @description: WordCount Mapper类，对应MapT</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2021-05-06&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Hadoop/">Hadoop</a>&nbsp;
+          
+            <a href="/tags/Word-Count/">Word Count</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/" target="_self">
+          <img src="/img/ddia.jpg" srcset="/img/loading.gif" alt="【学习笔记】数据密集性应用系统设计CH1笔记"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/">
+        <p class="h4 index-header">【学习笔记】数据密集性应用系统设计CH1笔记</p>
+      </a>
+
+      <a href="/2021/05/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E6%80%A7%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1CH1%E7%AC%94%E8%AE%B0/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">第一章：可靠、可扩展和可维护的应用系统
+数据密集型问题的挑战：数据量，数据复杂度，数据的快速多变性；
+数据密集型应用包含以下模块：
+数据库；
+高速缓存；
+索引：用户可以按关键字搜索数据井支持各种过滤操作；
+流式处理：持续发送消息至另一个进程，处理采用异步方式；
+批处理：定期处理大量累计数据。
+
+数据系统本章提出数据系统的概念，包括数据库、消息队列和高速缓存等不同类型的系统。这样分类的原因有以下几点：
+
+都能将数据保存一段时间。区别在于访问模式不同，以及由于不同访问模式导致的不同性能。
+
+新技术、工具拥有多种功能，系统之间的界限变得模糊。比如redis既能存储也能作为消息队列，kafka作为消息</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2021-05-04&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Big-Data/">Big Data</a>&nbsp;
+          
+            <a href="/tags/Distributed-System/">Distributed System</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2021/05/04/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91MapReduce-Simplified-Data-Processing-on-Large-Clusters/" target="_self">
           <img src="/img/MapReduce.png" srcset="/img/loading.gif" alt="【论文阅读笔记】MapReduce: Simplified Data Processing on Large Clusters"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1137,113 +1253,6 @@ public:
             <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
           
             <a href="/tags/search/">search</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——总结与反思"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/">
-        <p class="h4 index-header">【竞赛打卡】数据挖掘实践——总结与反思</p>
-      </a>
-
-      <a href="/2020/08/25/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">
-这次组队学习确实是自己不太擅长的领域。借着上次NLP组队学习的冲劲，本以为想在不熟悉的领域也能至少学点东西，但确实是小看了这次学习的难度。
-回头来看，组队学习进入到特征工程的时候，我已经完全一脸懵逼了。我很想跟上大家的节奏，但是确实一个是没有时间，另一个是差太多了，已经进入了恐慌区，脑海里也是拒绝的心态。我知道这次组队学习已经彻底失败了。
-唉！内心充满了挫败感。这次组队学习唯一的收获就是，获得了这次比赛的Baseline。自此之后我就要投入到秋招了，我曾参加过CV赛事、NLP赛事，再加上这个结构化赛事，我的比赛经历算是圆满了，接下来的日子就是研究Baseline、好好准备简历了，也该收收心了</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-25&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
-          
-            <a href="/tags/Data-Mining/">Data Mining</a>&nbsp;
-          
-            <a href="/tags/Time-Series-Analysis/">Time Series Analysis</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/" target="_self">
-          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【竞赛打卡】数据挖掘实践——建模预测"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/">
-        <p class="h4 index-header">【竞赛打卡】数据挖掘实践——建模预测</p>
-      </a>
-
-      <a href="/2020/08/24/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%BB%BA%E6%A8%A1%E9%A2%84%E6%B5%8B/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">我也是加把劲骑士！
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-from tensorflow.keras.layers import Input, Conv1D, MaxPooling1D, Dense, Add, Dropout, Flatten, TimeDistributed
-from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras import activations, optimizers, </div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-24&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Datawhale/">Datawhale</a>&nbsp;
-          
-            <a href="/tags/Data-Mining/">Data Mining</a>&nbsp;
-          
-            <a href="/tags/Time-Series-Analysis/">Time Series Analysis</a>&nbsp;
           
         
       </div>
