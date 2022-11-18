@@ -6,7 +6,7 @@
   <link href="https://superlova.github.io/atom.xml" rel="self"/>
   
   <link href="https://superlova.github.io/"/>
-  <updated>2022-11-18T17:22:18.415Z</updated>
+  <updated>2022-11-18T18:34:19.697Z</updated>
   <id>https://superlova.github.io/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="https://superlova.github.io/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E2%80%94%E2%80%94%E8%B7%A8%E6%A8%A1%E6%80%81%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/"/>
     <id>https://superlova.github.io/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E2%80%94%E2%80%94%E8%B7%A8%E6%A8%A1%E6%80%81%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/</id>
     <published>2022-11-18T16:58:52.000Z</published>
-    <updated>2022-11-18T17:22:18.415Z</updated>
+    <updated>2022-11-18T18:34:19.697Z</updated>
     
-    <content type="html"><![CDATA[<p>第三篇：跨模态模型介绍</p><!--more---><h2 id="一、CLIP-模型"><a href="#一、CLIP-模型" class="headerlink" title="一、CLIP 模型"></a>一、CLIP 模型</h2><h2 id="二、多模态与跨模态"><a href="#二、多模态与跨模态" class="headerlink" title="二、多模态与跨模态"></a>二、多模态与跨模态</h2>]]></content>
+    <content type="html"><![CDATA[<p>第三篇：跨模态模型介绍</p><!--more---><h2 id="一、CLIP-模型"><a href="#一、CLIP-模型" class="headerlink" title="一、CLIP 模型"></a>一、CLIP 模型</h2><p>CLIP模型将原有的图像标签替换为图像的文本描述信息，来监督视觉任务的训练，在下游任务中得到了较好的zero-shot的结果。</p><p>该模型将图像分类问题转换为图文匹配问题，在下游任务（以图像分类为例）的实现中，我们需要先基于图像标签集合，构造 text prompt 并将其通过 clip 的 text encoder 获得文本编码向量，之后，将图片通过 image encoder 获得图像编码向量。</p><p>对于每张图片，我们需要计算它与所有 text prompt 之间的距离（通过计算图像编码向量与文本编码向量之间的余弦相似度或点积得到），选择距离最近的 text prompt 所对应的标签作为该张图片的分类标签。这样的转换使得模型在 zero-shot 场景下可以获得与监督学习比肩的效果，除此之外，clip 模型可广泛应用到图像检索，视频理解，图像生成等其他领域。接下来我们对 CLIP 模型进行简单的介绍。</p><h3 id="1-CLIP-原理"><a href="#1-CLIP-原理" class="headerlink" title="1. CLIP 原理"></a>1. CLIP 原理</h3><p>CLIP将图像的分类任务转化为了图文匹配的任务，将图像信息和语义信息映射到同一多模态语义空间下，再使用对比学习的方法进行训练。</p><p>在预训练阶段，模型的数据来源为从互联网上搜集的4亿个（图像，文本）对。假设batch中有N个（图像，文本）对，那么我们便可以得到N个文本向量，记为：t1,t2,…,tn,以及N个图像向量，记为img1,img2,…,imgn。我们需要做的就是让t(i)与img(i)之间的语义距离尽可能接近，而与其他的img之间的距离尽可能拉远。如果我们将其看为一个矩阵，其中横轴方向为文本，纵轴方向为图像，且文本、图像的标号均按照次序排列，那么我们就可以得到一个N * N的方阵，方阵的每个元素(i,j)的位置为t(i)与img(j)之间的语义相似度，相似度可通过余弦或点积的方式获得。我们的优化目标就是让对角线上的元素的值尽可能的大，而其余部分的值尽可能地小。</p><p>在zero shot阶段，我们可以根据上下文语义建立prompt模板，并将标签集合映射到该模板中，得到prompt text模板。比方说，现在我们需要做对(大象，冰箱，蚂蚁)的三分类任务，prompt模板为 “这是一张有关{类别}的照片”，将分类标签映射到prompt模板后可以得到集合：{“这是一张有关大象的照片”“这是一张有关冰箱的照片”“这是一张有关蚂蚁的照片”}。对集合中的文本，通过clip的text encoder之后，便可以得到三个类别对应的文本特征向量，之后，对于每一张需要分类的图片，我们只需要比较该图片的特征向量与三个类别对应的文本特征向量之间的语义距离，并选择最近的那一条文本所对应的标签作为图像的分类结果。 具体细节可参考论文《Learning transferable visual models from natural language supervision》。</p><h3 id="2-其他多模态模型"><a href="#2-其他多模态模型" class="headerlink" title="2. 其他多模态模型"></a>2. 其他多模态模型</h3><p>在图文生成领域，广为人知的模型有VAE，GAN等。最近大火的diffusion model则使用了一种非常有趣的思想来做生成任务。</p><h2 id="二、多模态与跨模态的应用：新的交互方式"><a href="#二、多模态与跨模态的应用：新的交互方式" class="headerlink" title="二、多模态与跨模态的应用：新的交互方式"></a>二、多模态与跨模态的应用：新的交互方式</h2><p>多模态应用允许我们通过利用每种方式的优势来结合不同的模态。例如，我们可以在对话中同时使用口语和书面语言，以确保我们相互理解。我们还可以使用图片或视频等作为视觉辅助工具，来帮助解释仅用文字难以描述的事物。</p><p>跨模态应用针对的是来自不同模态（如视觉和听觉）的输入和输出。它通过使用一种感官的信息来增强另一种感官，使用户体验比传统应用更上一层楼。比如说，我们可以通过触摸的方式来帮助我们理解在触觉地图或盲文文本中看到的内容。我们还可以使用声音来帮助我们定位环境中的事物，一般通过声纳或雷达来完成。</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://medium.com/jina-ai/multimodal-and-crossmodal-applications-the-new-way-to-interact-d73d3e932990">https://medium.com/jina-ai/multimodal-and-crossmodal-applications-the-new-way-to-interact-d73d3e932990</a></p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;第三篇：跨模态模型介绍&lt;/p&gt;
 &lt;!--more---&gt;
-&lt;h2 id=&quot;一、CLIP-模型&quot;&gt;&lt;a href=&quot;#一、CLIP-模型&quot; class=&quot;headerlink&quot; title=&quot;一、CLIP 模型&quot;&gt;&lt;/a&gt;一、CLIP 模型&lt;/h2&gt;&lt;h2 id=&quot;二、多模态</summary>
+&lt;h2 id=&quot;一、CLIP-模型&quot;&gt;&lt;a href=&quot;#一、CLIP-模型&quot; class=&quot;headerlink&quot; title=&quot;一、CLIP 模型&quot;&gt;&lt;/a&gt;一、CLIP 模型&lt;/h2&gt;&lt;p&gt;CLIP模型将原有的</summary>
       
     
     

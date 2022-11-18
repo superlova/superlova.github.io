@@ -169,7 +169,9 @@
         <div class="index-excerpt" >
           <div class="index-text mb-1">第三篇：跨模态模型介绍
 
-一、CLIP 模型二、多模态与跨模态</div>
+一、CLIP 模型CLIP模型将原有的图像标签替换为图像的文本描述信息，来监督视觉任务的训练，在下游任务中得到了较好的zero-shot的结果。
+该模型将图像分类问题转换为图文匹配问题，在下游任务（以图像分类为例）的实现中，我们需要先基于图像标签集合，构造 text prompt 并将其通过 clip 的 text encoder 获得文本编码向量，之后，将图片通过 image encoder 获得图像编码向量。
+对于每张图片，我们需要计算它与所有 text prompt 之间的距离（通过计算图像编码向量与文本编码向量之间的余弦相似度或点积得到），选择距离最近的 te</div>
         </div>
       </a>
 
