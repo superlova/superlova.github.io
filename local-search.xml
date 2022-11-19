@@ -254,9 +254,9 @@
       
       <tag>MOOC</tag>
       
-      <tag>Deep Learning</tag>
-      
       <tag>Backpropagation</tag>
+      
+      <tag>Deep Learning</tag>
       
     </tags>
     
@@ -1670,11 +1670,11 @@
     
     <tags>
       
+      <tag>Deep Learning</tag>
+      
       <tag>Datawhale</tag>
       
       <tag>Classification</tag>
-      
-      <tag>Deep Learning</tag>
       
       <tag>attention</tag>
       
@@ -1701,11 +1701,11 @@
     
     <tags>
       
+      <tag>Deep Learning</tag>
+      
       <tag>Datawhale</tag>
       
       <tag>Classification</tag>
-      
-      <tag>Deep Learning</tag>
       
       <tag>word2vec</tag>
       
@@ -1732,11 +1732,11 @@
     
     <tags>
       
+      <tag>Deep Learning</tag>
+      
       <tag>Datawhale</tag>
       
       <tag>Classification</tag>
-      
-      <tag>Deep Learning</tag>
       
       <tag>FastText</tag>
       
@@ -1970,9 +1970,9 @@
     
     <tags>
       
-      <tag>RNN</tag>
-      
       <tag>LSTM</tag>
+      
+      <tag>RNN</tag>
       
       <tag>Keras</tag>
       
@@ -2177,9 +2177,9 @@
       
       <tag>Robustness</tag>
       
-      <tag>Adversarial Attacks</tag>
-      
       <tag>Deep Neural Networks</tag>
+      
+      <tag>Adversarial Attacks</tag>
       
       <tag>survey</tag>
       
@@ -2237,13 +2237,13 @@
     
     <tags>
       
-      <tag>Data Augmentation</tag>
-      
       <tag>NLP</tag>
       
-      <tag>Deep Neural Networks</tag>
+      <tag>Data Augmentation</tag>
       
       <tag>Text Classification</tag>
+      
+      <tag>Deep Neural Networks</tag>
       
     </tags>
     

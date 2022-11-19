@@ -275,9 +275,9 @@
     
     <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
     
-    <category term="Deep Learning" scheme="https://superlova.github.io/tags/Deep-Learning/"/>
-    
     <category term="Backpropagation" scheme="https://superlova.github.io/tags/Backpropagation/"/>
+    
+    <category term="Deep Learning" scheme="https://superlova.github.io/tags/Deep-Learning/"/>
     
   </entry>
   
