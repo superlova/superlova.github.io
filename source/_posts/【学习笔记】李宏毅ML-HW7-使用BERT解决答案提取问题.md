@@ -22,9 +22,13 @@ categories:
 
 ![](【学习笔记】李宏毅ML-HW7-使用BERT解决答案提取问题/extractive_question_answering.png)
 
+本次作业的 baseline 使用了 BERT 作为预训练模型。具体地，使用 [SEP] 的这个特殊单词，将 Query 和 Document 一起作为输入。然后在 Bert 中获取良好的 embedding(词向量)，然后将这个embedding的结果接入一个分类器，分别得到答案在文章中位置的id和结束位置的id。
+
+因为数据集中的答案是可以直接在文章中抽取出来，所以得到答案起始位置的id和结束位置的id可以直接抽取出正确的答案。
+
 ## 二、数据分析
 
-本次数据集是繁体中文的阅读理解数据集。
+本次数据集是繁体中文的阅读理解数据集。类似的数据集还有很多，比如 [SQuAD 数据集](https://rajpurkar.github.io/SQuAD-explorer/)、[中文 SQuAD](https://github.com/pluto-junzeng/ChineseSquad)
 
 首先我们来分析下数据集。从 [kaggle 的对应链接](https://www.kaggle.com/competitions/ml2021-spring-hw7/data) 就能下载本次作业所需的数据集。
 
