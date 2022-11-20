@@ -177,17 +177,17 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期日, 十一月 20日 2022, 3:28 下午</p>
+                class="note note-warning">本文最后更新于：星期日, 十一月 20日 2022, 3:34 下午</p>
             
             <div class="markdown-body">
               <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇会试着完成作业 7，以及分析问答模型的建模方法和优化方法。</p>
 <!--more--->
 <p>本篇博客记录课程作业 7 的做法。</p>
-<h2 id="任务目标"><a href="#任务目标" class="headerlink" title="任务目标"></a>任务目标</h2><p>抽取式问答（Extractive Question Answering）任务是指：从一段文本中提取对应问题的答案。</p>
+<h2 id="一、任务目标"><a href="#一、任务目标" class="headerlink" title="一、任务目标"></a>一、任务目标</h2><p>抽取式问答（Extractive Question Answering）任务是指：从一段文本中提取对应问题的答案。</p>
 <p>一般而言，模型的输入为文本（Document）和问题（Question），输出答案在文本中的位置。如果模型认为文本中没有答案，则输出一个特定的占位符，比如“无答案（NoAnswer）”。</p>
 <p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/extractive_question_answering.png" srcset="/img/loading.gif" alt></p>
-<h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><p>本次数据集是繁体中文的阅读理解数据集。</p>
-<p>首先我们来分析下数据集。从 <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/ml2021-spring-hw7/data">kaggle 的对应链接</a>就能下载本次作业所需的数据集。</p>
+<h2 id="二、数据分析"><a href="#二、数据分析" class="headerlink" title="二、数据分析"></a>二、数据分析</h2><p>本次数据集是繁体中文的阅读理解数据集。</p>
+<p>首先我们来分析下数据集。从 <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/ml2021-spring-hw7/data">kaggle 的对应链接</a> 就能下载本次作业所需的数据集。</p>
 <p>数据集由三个文件组成，分别是训练集，测试集和验证集。每个文件都是一段 json 文本，可以由以下 python 代码读取：</p>
 <pre><code class="lang-py"># 将 训练集 读入内存，并整理成 dict 的数据结构
 def load_file(filename):
@@ -232,10 +232,10 @@ Train Data Para Num: 8014
 Test Data Para Num: 1000
 Dev Data Para Num: 1000
 </code></pre><p>测试集 test_data 则没有答案，answer 相关字段全部为 None 。</p>
-<h2 id="输出格式要求和得分标准"><a href="#输出格式要求和得分标准" class="headerlink" title="输出格式要求和得分标准"></a>输出格式要求和得分标准</h2><p>如果想要验证自己的模型效果，则提交到 kaggle 系统中进行自动评判即可。需要使用模型给出 test 测试集的所有推理结果，并将其整理成 <code>ID,Answer</code> 的 csv 文本，然后上传。</p>
+<h2 id="三、输出格式要求和得分标准"><a href="#三、输出格式要求和得分标准" class="headerlink" title="三、输出格式要求和得分标准"></a>三、输出格式要求和得分标准</h2><p>如果想要验证自己的模型效果，则提交到 kaggle 系统中进行自动评判即可。需要使用模型给出 test 测试集的所有推理结果，并将其整理成 <code>ID,Answer</code> 的 csv 文本，然后上传。</p>
 <p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/output_standard.png" srcset="/img/loading.gif" alt></p>
 <p>如果最终成绩能达到 0.84 以上，则说明成绩已经非常优秀。</p>
-<h2 id="上分技巧"><a href="#上分技巧" class="headerlink" title="上分技巧"></a>上分技巧</h2><h3 id="1-使用滑动窗口截取多段文本解决长文本问题"><a href="#1-使用滑动窗口截取多段文本解决长文本问题" class="headerlink" title="1. 使用滑动窗口截取多段文本解决长文本问题"></a>1. 使用滑动窗口截取多段文本解决长文本问题</h3><p>模型的输入长度为 问题长度 + 篇章长度 + 3（特殊字符个数）。对于 BERT 模型而言，最长输入长度为 512。这是由 self-attention 的计算量限制的。</p>
+<h2 id="四、上分技巧"><a href="#四、上分技巧" class="headerlink" title="四、上分技巧"></a>四、上分技巧</h2><h3 id="1-使用滑动窗口截取多段文本解决长文本问题"><a href="#1-使用滑动窗口截取多段文本解决长文本问题" class="headerlink" title="1. 使用滑动窗口截取多段文本解决长文本问题"></a>1. 使用滑动窗口截取多段文本解决长文本问题</h3><p>模型的输入长度为 问题长度 + 篇章长度 + 3（特殊字符个数）。对于 BERT 模型而言，最长输入长度为 512。这是由 self-attention 的计算量限制的。</p>
 <p>下面是对训练集的 paragraphs 部分的长度直方图：</p>
 <p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/length_of_paragraphs.png" srcset="/img/loading.gif" alt></p>
 <p>因此使用整篇文章作为输入是不现实的。</p>
