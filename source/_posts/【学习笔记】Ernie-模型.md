@@ -1,7 +1,7 @@
 ---
 title: 【学习笔记】Ernie 模型
 date: 2022-11-20 16:42:47
-index_img: /img/ernie.jpg
+index_img: /img/ernie.png
 tags: ['Ernie', 'BERT']
 mathjax: true
 math: true
