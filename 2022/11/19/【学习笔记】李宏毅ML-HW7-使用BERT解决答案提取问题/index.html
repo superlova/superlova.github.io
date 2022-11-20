@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    1.6k 字
+                    1.8k 字
                   </span>
                 
 
@@ -177,7 +177,7 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期日, 十一月 20日 2022, 3:34 下午</p>
+                class="note note-warning">本文最后更新于：星期日, 十一月 20日 2022, 3:58 下午</p>
             
             <div class="markdown-body">
               <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇会试着完成作业 7，以及分析问答模型的建模方法和优化方法。</p>
@@ -186,7 +186,9 @@
 <h2 id="一、任务目标"><a href="#一、任务目标" class="headerlink" title="一、任务目标"></a>一、任务目标</h2><p>抽取式问答（Extractive Question Answering）任务是指：从一段文本中提取对应问题的答案。</p>
 <p>一般而言，模型的输入为文本（Document）和问题（Question），输出答案在文本中的位置。如果模型认为文本中没有答案，则输出一个特定的占位符，比如“无答案（NoAnswer）”。</p>
 <p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/extractive_question_answering.png" srcset="/img/loading.gif" alt></p>
-<h2 id="二、数据分析"><a href="#二、数据分析" class="headerlink" title="二、数据分析"></a>二、数据分析</h2><p>本次数据集是繁体中文的阅读理解数据集。</p>
+<p>本次作业的 baseline 使用了 BERT 作为预训练模型。具体地，使用 [SEP] 的这个特殊单词，将 Query 和 Document 一起作为输入。然后在 Bert 中获取良好的 embedding(词向量)，然后将这个embedding的结果接入一个分类器，分别得到答案在文章中位置的id和结束位置的id。</p>
+<p>因为数据集中的答案是可以直接在文章中抽取出来，所以得到答案起始位置的id和结束位置的id可以直接抽取出正确的答案。</p>
+<h2 id="二、数据分析"><a href="#二、数据分析" class="headerlink" title="二、数据分析"></a>二、数据分析</h2><p>本次数据集是繁体中文的阅读理解数据集。类似的数据集还有很多，比如 <a target="_blank" rel="noopener" href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD 数据集</a>、<a target="_blank" rel="noopener" href="https://github.com/pluto-junzeng/ChineseSquad">中文 SQuAD</a></p>
 <p>首先我们来分析下数据集。从 <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/ml2021-spring-hw7/data">kaggle 的对应链接</a> 就能下载本次作业所需的数据集。</p>
 <p>数据集由三个文件组成，分别是训练集，测试集和验证集。每个文件都是一段 json 文本，可以由以下 python 代码读取：</p>
 <pre><code class="lang-py"># 将 训练集 读入内存，并整理成 dict 的数据结构
