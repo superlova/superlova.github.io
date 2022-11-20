@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><!-- hexo injector head_begin start --><!--Google tag(gtag.js)--><script async src="https://www.googletagmanager.com/gtag/js?id=G-6Q0B58X6TL"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-6Q0B58X6TL");</script><!-- hexo injector head_begin end -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Superlova">
+  <meta name="keywords" content="">
+  <title>【学习笔记】李宏毅ML-HW7-使用BERT解决答案提取问题 - Superlova</title>
+  <meta name="google-site-verification" content="CPvPw8mUZw65A1ALJ8uRzsYECq4mXgE4_eCq40VIhPM" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Superlova" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Superlova</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/cover_2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期六, 十一月 19日 2022, 6:24 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.6k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      6 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p
+                class="note note-warning">本文最后更新于：星期日, 十一月 20日 2022, 3:28 下午</p>
+            
+            <div class="markdown-body">
+              <p>李宏毅老师主讲的机器学习MOOC课程的笔记，本篇会试着完成作业 7，以及分析问答模型的建模方法和优化方法。</p>
+<!--more--->
+<p>本篇博客记录课程作业 7 的做法。</p>
+<h2 id="任务目标"><a href="#任务目标" class="headerlink" title="任务目标"></a>任务目标</h2><p>抽取式问答（Extractive Question Answering）任务是指：从一段文本中提取对应问题的答案。</p>
+<p>一般而言，模型的输入为文本（Document）和问题（Question），输出答案在文本中的位置。如果模型认为文本中没有答案，则输出一个特定的占位符，比如“无答案（NoAnswer）”。</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/extractive_question_answering.png" srcset="/img/loading.gif" alt></p>
+<h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><p>本次数据集是繁体中文的阅读理解数据集。</p>
+<p>首先我们来分析下数据集。从 <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/ml2021-spring-hw7/data">kaggle 的对应链接</a>就能下载本次作业所需的数据集。</p>
+<p>数据集由三个文件组成，分别是训练集，测试集和验证集。每个文件都是一段 json 文本，可以由以下 python 代码读取：</p>
+<pre><code class="lang-py"># 将 训练集 读入内存，并整理成 dict 的数据结构
+def load_file(filename):
+    with open(filename, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:
+        data = json.loads(f.read())
+    return data
+
+train_file = &quot;../data/hw7_train.json&quot;
+test_file = &quot;../data/hw7_test.json&quot;
+dev_file = &quot;../data/hw7_dev.json&quot;
+
+train_data = load_file(train_file)
+test_data = load_file(test_file)
+dev_data = load_file(dev_file)
+
+print(&quot;Train Data Num: &#123;0&#125;\nTest Data Num: &#123;1&#125;\nDev Data Num: &#123;2&#125;&quot;.format(len(train_data[&quot;questions&quot;]), len(test_data[&quot;questions&quot;]), len(dev_data[&quot;questions&quot;])))
+</code></pre>
+<p>以训练数据为例，数据被分成了两部分：questions 和 paragraphs 。</p>
+<pre><code class="lang-py">train_data.keys()
+# [OUT]: dict_keys([&#39;questions&#39;, &#39;paragraphs&#39;])
+
+train_data[&quot;questions&quot;][0]
+# [OUT]: 
+#  &#123;&#39;id&#39;: 0,
+#  &#39;paragraph_id&#39;: 3884,
+#  &#39;question_text&#39;: &#39;羅馬教皇利奧三世在800年正式加冕誰為羅馬人的皇帝?&#39;,
+#  &#39;answer_text&#39;: &#39;查理大帝&#39;,
+#  &#39;answer_start&#39;: 141,
+#  &#39;answer_end&#39;: 144&#125;
+
+train_data[&quot;paragraphs&quot;][3884]
+#[OUT]: &#39;利奧三世開創的伊蘇里亞王朝在8世紀末期走上了末路...&#39;
+</code></pre>
+<p>questions 部分储存了问题的编号，以及对应的文章储存在 paragraphs 中的下标。由于 questions 和 paragraphs 的数目不相等，有多个问题对应一篇文章，因此 questions 需要指定查找的文章。</p>
+<p>questions 部分还储存有问题的文本，以及答案的文本，以及答案在文档中的开始位置和起始位置。如果要提取 paragraphs 的答案，直接使用 <code>train_data[&quot;paragraphs&quot;][3884][answer_start:answer_end+1]</code> 即可。</p>
+<p>paragraphs 部分则是纯文本。</p>
+<p>训练集、测试集和验证集的大小如下所示：</p>
+<pre><code>Train Data Question Num: 26936
+Test Data Question Num: 3493
+Dev Data Question Num: 3524
+Train Data Para Num: 8014
+Test Data Para Num: 1000
+Dev Data Para Num: 1000
+</code></pre><p>测试集 test_data 则没有答案，answer 相关字段全部为 None 。</p>
+<h2 id="输出格式要求和得分标准"><a href="#输出格式要求和得分标准" class="headerlink" title="输出格式要求和得分标准"></a>输出格式要求和得分标准</h2><p>如果想要验证自己的模型效果，则提交到 kaggle 系统中进行自动评判即可。需要使用模型给出 test 测试集的所有推理结果，并将其整理成 <code>ID,Answer</code> 的 csv 文本，然后上传。</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/output_standard.png" srcset="/img/loading.gif" alt></p>
+<p>如果最终成绩能达到 0.84 以上，则说明成绩已经非常优秀。</p>
+<h2 id="上分技巧"><a href="#上分技巧" class="headerlink" title="上分技巧"></a>上分技巧</h2><h3 id="1-使用滑动窗口截取多段文本解决长文本问题"><a href="#1-使用滑动窗口截取多段文本解决长文本问题" class="headerlink" title="1. 使用滑动窗口截取多段文本解决长文本问题"></a>1. 使用滑动窗口截取多段文本解决长文本问题</h3><p>模型的输入长度为 问题长度 + 篇章长度 + 3（特殊字符个数）。对于 BERT 模型而言，最长输入长度为 512。这是由 self-attention 的计算量限制的。</p>
+<p>下面是对训练集的 paragraphs 部分的长度直方图：</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/length_of_paragraphs.png" srcset="/img/loading.gif" alt></p>
+<p>因此使用整篇文章作为输入是不现实的。</p>
+<p>但是如果假定文章的大部分信息对回答问题没有帮助，我们可以只使用局部的信息进行训练。</p>
+<p>具体做法是：训练时，在篇章的答案附近，仅截取一个固定长度的窗口内的所有文本，该窗口尽可能大，比如 32 个字符。</p>
+<p>推理时，由于我们不知道答案到底在哪里，因此在篇章上滑动窗口切分多段文本，令模型在每段文本中寻找答案，最后 total_score 评分最高的就是最终的输出。</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/example_of_sliding_window.png" srcset="/img/loading.gif" alt></p>
+<p>以上图的两个窗口举例， window_1 的答案中 start_position 的模型评分为 0.5， end_score 为 0.4，加起来为 0.9，低于 window_2 的 1.0，因此最终选择 window_2 的 start_pos 和 end_pos。</p>
+<h3 id="2-动态调整学习率"><a href="#2-动态调整学习率" class="headerlink" title="2. 动态调整学习率"></a>2. 动态调整学习率</h3><p>手工调整学习率：</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/learning_rate_decay.png" srcset="/img/loading.gif" alt></p>
+<p><a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main_classes/optimizer_schedules#transformers.get_linear_schedule_with_warmup">https://huggingface.co/docs/transformers/main_classes/optimizer_schedules#transformers.get_linear_schedule_with_warmup</a></p>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate">https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate</a></p>
+<h3 id="3-修改滑动窗口的步进字符数"><a href="#3-修改滑动窗口的步进字符数" class="headerlink" title="3. 修改滑动窗口的步进字符数"></a>3. 修改滑动窗口的步进字符数</h3><p>doc_stride 指滑动窗口每次移动的字符个数。</p>
+<p>实际使用模型做测试时，如果答案在窗口附近，横跨两个窗口的话，答案会被截断，模型会看不到正确答案。为了防止答案被截断，滑动窗口的步进个数必须比滑动窗口本身要小，下一个截取的字符串要与上一个有一定重合，即 overlapping window 。</p>
+<p>应该减小 doc_stride ，才能做到重叠窗口的效果。默认的 doc_stride 为 150，我们可以减半为 75，以减少答案被截断的概率。</p>
+<h3 id="4-滑动窗口切分位置的优化"><a href="#4-滑动窗口切分位置的优化" class="headerlink" title="4. 滑动窗口切分位置的优化"></a>4. 滑动窗口切分位置的优化</h3><p>baseline 中默认将答案的中点作为切分窗口的中点，导致切分出来的训练集大部分都是 <code>无用文本+答案+无用文本</code> ，模型学习到了很多无用文本。</p>
+<p>实际上答案并不总在窗口的中间，在测试阶段窗口的划分是随机的，答案可能出现在窗口的前半部分或者后半部分。因此我们需要对训练集的窗口切分方式做优化，比如引入随机性。</p>
+<h3 id="5-使用其他的预训练模型"><a href="#5-使用其他的预训练模型" class="headerlink" title="5. 使用其他的预训练模型"></a>5. 使用其他的预训练模型</h3><p><a target="_blank" rel="noopener" href="https://huggingface.co/models">https://huggingface.co/models</a></p>
+<h3 id="6-模型后处理"><a href="#6-模型后处理" class="headerlink" title="6. 模型后处理"></a>6. 模型后处理</h3><p>我们可以通过添加规则，来规避模型的显著错误，比如 start_pos &gt; end_pos 的情况显然是不可能的。</p>
+<h3 id="7-自动混合精度"><a href="#7-自动混合精度" class="headerlink" title="7. 自动混合精度"></a>7. 自动混合精度</h3><p>Pytorch 训练模型默认使用 float32 精度的浮点数。自动混合精度（Automatic mixed precision）能够允许你使用半精度浮点数 float16 来加速模型的训练过程。这个操作只在 T4/V100 等 GPU 上有用。</p>
+<p><img src="/2022/11/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9D%8E%E5%AE%8F%E6%AF%85ML-HW7-%E4%BD%BF%E7%94%A8BERT%E8%A7%A3%E5%86%B3%E7%AD%94%E6%A1%88%E6%8F%90%E5%8F%96%E9%97%AE%E9%A2%98/automatic_mixed_precision.png" srcset="/img/loading.gif" alt></p>
+<p><a target="_blank" rel="noopener" href="https://huggingface.co/docs/accelerate/index">https://huggingface.co/docs/accelerate/index</a></p>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/blog/accelerating-training-on-nvidia-gpus-with-pytorch-automatic-mixed-precision/">https://pytorch.org/blog/accelerating-training-on-nvidia-gpus-with-pytorch-automatic-mixed-precision/</a></p>
+<h3 id="8-梯度累加"><a href="#8-梯度累加" class="headerlink" title="8. 梯度累加"></a>8. 梯度累加</h3><p>当我们希望使用更大的 batch_size 但是显存不够时，可以使用梯度累加（Gradient Accumulation）的方法来节约显存。</p>
+<p><a target="_blank" rel="noopener" href="https://kozodoi.me/python/deep%20learning/pytorch/tutorial/2021/02/19/gradient-accumulation.html">https://kozodoi.me/python/deep%20learning/pytorch/tutorial/2021/02/19/gradient-accumulation.html</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/notes/">notes</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MOOC/">MOOC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/BERT/">BERT</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Extraction-based-Question-Answering/">Extraction-based Question Answering</a>
+                    
+                      <a class="hover-with-bg" href="/tags/homework/">homework</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="superlova / superlova.github.io"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2017 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+<p id="hitokoto">:D 获取中...</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1040bcc5d25d5f4a9cb5e9855eb2c6db";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【学习笔记】李宏毅ML-HW7-使用BERT解决答案提取问题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 90,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+      });
+
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+      });
+
+    </script>
+
+    <script  src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
