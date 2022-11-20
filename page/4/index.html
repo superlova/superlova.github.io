@@ -150,6 +150,61 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】通过TensorBoard可视化词嵌入空间"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/">
+        <p class="h4 index-header">【学习笔记】通过TensorBoard可视化词嵌入空间</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第五篇，讲述的是如何使用TensorBoard对词嵌入空间可视化。
+TensorBoard可以将词嵌入空间二维化，方便我们理解词嵌入空间的含义。
+from tensorboard.plugins import projector
+
+引入IMDb数据集。tensorflow_datasets是tensorflow的官方数据集库。
+import tensorflow_datasets as tfds
+
+(train_data, test_data), info = tfds.load(
+    &quot;imdb_reviews/subwords8k&quot;,</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E8%B0%83%E6%95%B4%E8%B6%85%E5%8F%82%E6%95%B0/" target="_self">
           <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】通过TensorBoard调整超参数"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1204,60 +1259,6 @@ from ctypes import POINTER</div>
             <a href="/tags/Windows/">Windows</a>&nbsp;
           
             <a href="/tags/PowerOff/">PowerOff</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/06/03/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91TensorFlow%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BF%9D%E5%AD%98/" target="_self">
-          <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【经验分享】TensorFlow模型训练和保存"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/06/03/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91TensorFlow%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BF%9D%E5%AD%98/">
-        <p class="h4 index-header">【经验分享】TensorFlow模型训练和保存</p>
-      </a>
-
-      <a href="/2020/06/03/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91TensorFlow%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BF%9D%E5%AD%98/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">使用LSTM训练最简单的IMDB影评分类任务，总结文本分类任务常见流程。
-1. 模型训练和保存1.1 训练结束时保存训练模型，使用fit函数。fit函数的参数如下。
-fit(
-    x=None, y=None, batch_size=None, epochs=1, verbose=1, callbacks=None,
-    validation_split=0.0, validation_data=None, shuffle=True, class_weight=None,
-    sample_weight=None, initial_epoch=0, steps_per_epoch=</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-03&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Python/">Python</a>&nbsp;
-          
-            <a href="/tags/TensorFlow/">TensorFlow</a>&nbsp;
-          
-            <a href="/tags/SaveModel/">SaveModel</a>&nbsp;
           
         
       </div>
