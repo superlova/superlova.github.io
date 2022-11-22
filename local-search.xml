@@ -47,9 +47,9 @@
     
     <tags>
       
-      <tag>BERT</tag>
-      
       <tag>Ernie</tag>
+      
+      <tag>BERT</tag>
       
     </tags>
     
@@ -74,9 +74,9 @@
     
     <tags>
       
-      <tag>NLP</tag>
-      
       <tag>Data Augmentation</tag>
+      
+      <tag>NLP</tag>
       
     </tags>
     
@@ -89,7 +89,7 @@
     <link href="/2022/11/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%AB%9E%E8%B5%9B%E2%80%94%E2%80%94%E9%97%AE%E7%AD%94%E6%8A%BD%E5%8F%96%E8%B5%9B%E9%81%93/"/>
     <url>/2022/11/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%AB%9E%E8%B5%9B%E2%80%94%E2%80%94%E9%97%AE%E7%AD%94%E6%8A%BD%E5%8F%96%E8%B5%9B%E9%81%93/</url>
     
-    <content type="html"><![CDATA[<!--more---><p>11 月至 12 月 15 作品提交</p><p>给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline paddleNLP 在 github</p><p>baseline：<br>赛道 1 的 baseline 5043272 4960090<br>赛道 2 的 baseline TensorRT 5007642</p><p>序列标注任务的思路、QA 的思路</p><h2 id="思路-1：使用抽取式问答思路"><a href="#思路-1：使用抽取式问答思路" class="headerlink" title="思路 1：使用抽取式问答思路"></a>思路 1：使用抽取式问答思路</h2><h3 id="baseline1-水哥"><a href="#baseline1-水哥" class="headerlink" title="baseline1: 水哥"></a>baseline1: 水哥</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1">https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1</a></p><p>notebook逻辑</p><pre><code>1. 按照。分句，需要统计还可以按照什么进行分句切割2. 删除文档中存在单句超长的文档，该部分可以提升，可以看一些 case 决定是由于分词不佳还是数据质量低3. 对输入数据进行编码，3.1 问题+答案长度超过 512 的会被跳过3.2 调用 tokenizer.encode 接口，参数 1 是 query，参数 2 是 sentence3.3 确认 start_pos 和 end_pos产出的数据为&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;seq_len&#39;, &#39;attention_mask&#39;, &#39;position_ids&#39;, &#39;start_positions&#39;, &#39;end_positions&#39;4. 数据批量打包，使用 batch_size = 6，这里可以使用其他的 batch_size5. 设置 SGD 优化器，learning rate = 0.0005，这里可以使用其他的优化器以及learning rate损失函数设置为 CrossEntropyLoss6. 开始训练7. 导出结果</code></pre><p>步骤：</p><ol><li>先跑通 Fine tune 中文预训练模型</li><li>调试一些超参数，batch_size/learning rate/epoch/等</li><li>应用学习率的一些 trick，adam/学习率衰减等</li><li>提升数据预处理的效果，不同切分方法、不同建模目标、数据增强等；</li><li>尝试使用其他预训练模型，做模型调研并修改；</li><li>提升数据后处理的效果，模型融合等；</li></ol><p>会议提到的其他思想</p><p>数据整理手段：</p><ol><li>。分段</li><li>滑动窗口</li></ol><p>ErnieForQuestionAnswering<br>ErnieTokenizer<br>Ernie 结构</p><p>预处理方法调研<br>不同模型、不同框架调研<br>模型融合调研</p><p>SEO 的思路应用在数据增强<br>混合精度<br>warm up</p><p>optimizer<br>xgboost/lightgbm<br>bert 参数个数</p><p>水哥的优化思路：<br>1、他的方案只使用了 5000 条训练数据，后续可以使用全量数据；<br>2、数据预处理的改进，分割 sentences 的方式、正负样本比例的采样方式、句子长度改小一点方便训练等；<br>3、预训练模型，使用更 large 的模型；<br>4、集成模型，使用多折数据，或者不同文本处理方法来训练不同模型，然后集成；<br>5、标题信息可能会有用，不同类别的帖子中包含答案的概率不同；把标题、domain 等信息作为树模型的输入进行分类；<br>6、不同的建模方式，可以使用 query-answer 匹配的思路（nsp）来做？本思路是传统的 QA 方式进行建模的，提供 start 和 end<br>7、水哥的效果再 0.4~0.46，官方基线会更好，因为官方用到了更大的模型以及更多的数据；<br>8、必须用 paddle 开发。</p><h3 id="baseline2"><a href="#baseline2" class="headerlink" title="baseline2:"></a>baseline2:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/4960090">https://aistudio.baidu.com/aistudio/projectdetail/4960090</a></p><h3 id="baseline3"><a href="#baseline3" class="headerlink" title="baseline3:"></a>baseline3:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5043272">https://aistudio.baidu.com/aistudio/projectdetail/5043272</a></p><p>默认回答：【】详情请看视频回答】，重复越高可能问题越大<br>长度过短：Noanswer 越可能<br>Noanswer：数据占 1/3，可以把 haveanswer 作为二分类，或者多任务学习方法</p><p>多片段抽取详见参考资料，框架应该支持；无答案？<br>官方的 baseline 优化的比较底层<br>对抗训练</p><h2 id="思路-2：使用序列标注思路"><a href="#思路-2：使用序列标注思路" class="headerlink" title="思路 2：使用序列标注思路"></a>思路 2：使用序列标注思路</h2><h3 id="baseline4"><a href="#baseline4" class="headerlink" title="baseline4:"></a>baseline4:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5030168">https://aistudio.baidu.com/aistudio/projectdetail/5030168</a></p><h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p>滑窗要提前处理</p><p>没有答案就少滑窗，答案短就划得快，答案长过滑动窗口的大小，则以滑动窗口的上下标为start、end</p><p>focal loss 损失函数</p><p>标注 0-1 改造成高斯分布</p><p>分层任务，先预测是否存在答案，然后预测答案的开始和结束</p><p>分词按照 [，。【】、] 等等</p><p>查看水哥的代码，检验 badcase；answer list 有好多个答案的情况，他们如何对答案进行建模的？</p><p>序列标注问题</p><p>doc_stride 小的情况下，正负样本如何决定？如果 window 内只有部分答案，能算作正样本还是负样本？</p><p>CRF</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>算力如何获取？大家算力充足吗</p><ol><li>公开代码？代码仓库</li><li>时间表；分工</li></ol><p>关键时间节点：<br>调研模型、挖掘 baseline 思想、数据预处理，数据增强结束<br>提交第一版模型，预计分数<br>不同数据训练出来不同的模型，多个高水平模型进行投票集成</p><p><strong>11 月至 12 月 15 作品提交</strong></p><p>11 月 21 日——11 月 27 日</p><p>11 月 28 日——12 月 4 日</p><p>12 月 5 日——12 月 11 日</p><p>12 月 12 日——12 月 15 日</p>]]></content>
+    <content type="html"><![CDATA[<p>先占坑，等比赛结束记录模型的思想</p><!--more---><p>11 月至 12 月 15 作品提交</p><p>给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline paddleNLP 在 github</p><p>baseline：<br>赛道 1 的 baseline 5043272 4960090<br>赛道 2 的 baseline TensorRT 5007642</p><p>序列标注任务的思路、QA 的思路</p><h2 id="思路-1：使用抽取式问答思路"><a href="#思路-1：使用抽取式问答思路" class="headerlink" title="思路 1：使用抽取式问答思路"></a>思路 1：使用抽取式问答思路</h2><h3 id="baseline1-水哥"><a href="#baseline1-水哥" class="headerlink" title="baseline1: 水哥"></a>baseline1: 水哥</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1">https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1</a></p><p>notebook逻辑</p><pre><code>1. 按照。分句，需要统计还可以按照什么进行分句切割2. 删除文档中存在单句超长的文档，该部分可以提升，可以看一些 case 决定是由于分词不佳还是数据质量低3. 对输入数据进行编码，3.1 问题+答案长度超过 512 的会被跳过3.2 调用 tokenizer.encode 接口，参数 1 是 query，参数 2 是 sentence3.3 确认 start_pos 和 end_pos产出的数据为&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;seq_len&#39;, &#39;attention_mask&#39;, &#39;position_ids&#39;, &#39;start_positions&#39;, &#39;end_positions&#39;4. 数据批量打包，使用 batch_size = 6，这里可以使用其他的 batch_size5. 设置 SGD 优化器，learning rate = 0.0005，这里可以使用其他的优化器以及learning rate损失函数设置为 CrossEntropyLoss6. 开始训练7. 导出结果</code></pre><p>步骤：</p><ol><li>先跑通 Fine tune 中文预训练模型</li><li>调试一些超参数，batch_size/learning rate/epoch/等</li><li>应用学习率的一些 trick，adam/学习率衰减等</li><li>提升数据预处理的效果，不同切分方法、不同建模目标、数据增强等；</li><li>尝试使用其他预训练模型，做模型调研并修改；</li><li>提升数据后处理的效果，模型融合等；</li></ol><p>会议提到的其他思想</p><p>数据整理手段：</p><ol><li>。分段</li><li>滑动窗口</li></ol><p>ErnieForQuestionAnswering<br>ErnieTokenizer<br>Ernie 结构</p><p>预处理方法调研<br>不同模型、不同框架调研<br>模型融合调研</p><p>SEO 的思路应用在数据增强<br>混合精度<br>warm up</p><p>optimizer<br>xgboost/lightgbm<br>bert 参数个数</p><p>水哥的优化思路：<br>1、他的方案只使用了 5000 条训练数据，后续可以使用全量数据；<br>2、数据预处理的改进，分割 sentences 的方式、正负样本比例的采样方式、句子长度改小一点方便训练等；<br>3、预训练模型，使用更 large 的模型；<br>4、集成模型，使用多折数据，或者不同文本处理方法来训练不同模型，然后集成；<br>5、标题信息可能会有用，不同类别的帖子中包含答案的概率不同；把标题、domain 等信息作为树模型的输入进行分类；<br>6、不同的建模方式，可以使用 query-answer 匹配的思路（nsp）来做？本思路是传统的 QA 方式进行建模的，提供 start 和 end<br>7、水哥的效果再 0.4~0.46，官方基线会更好，因为官方用到了更大的模型以及更多的数据；<br>8、必须用 paddle 开发。</p><h3 id="baseline2"><a href="#baseline2" class="headerlink" title="baseline2:"></a>baseline2:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/4960090">https://aistudio.baidu.com/aistudio/projectdetail/4960090</a></p><h3 id="baseline3"><a href="#baseline3" class="headerlink" title="baseline3:"></a>baseline3:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5043272">https://aistudio.baidu.com/aistudio/projectdetail/5043272</a></p><p>默认回答：【】详情请看视频回答】，重复越高可能问题越大<br>长度过短：Noanswer 越可能<br>Noanswer：数据占 1/3，可以把 haveanswer 作为二分类，或者多任务学习方法</p><p>多片段抽取详见参考资料，框架应该支持；无答案？<br>官方的 baseline 优化的比较底层<br>对抗训练</p><h2 id="思路-2：使用序列标注思路"><a href="#思路-2：使用序列标注思路" class="headerlink" title="思路 2：使用序列标注思路"></a>思路 2：使用序列标注思路</h2><h3 id="baseline4"><a href="#baseline4" class="headerlink" title="baseline4:"></a>baseline4:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5030168">https://aistudio.baidu.com/aistudio/projectdetail/5030168</a></p><h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p>滑窗要提前处理</p><p>没有答案就少滑窗，答案短就划得快，答案长过滑动窗口的大小，则以滑动窗口的上下标为start、end</p><p>focal loss 损失函数</p><p>标注 0-1 改造成高斯分布</p><p>分层任务，先预测是否存在答案，然后预测答案的开始和结束</p><p>分词按照 [，。【】、] 等等</p><p>查看水哥的代码，检验 badcase；answer list 有好多个答案的情况，他们如何对答案进行建模的？</p><p>序列标注问题</p><p>doc_stride 小的情况下，正负样本如何决定？如果 window 内只有部分答案，能算作正样本还是负样本？</p><p>CRF</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>算力如何获取？大家算力充足吗</p><ol><li>公开代码？代码仓库</li><li>时间表；分工</li></ol><p>关键时间节点：<br>调研模型、挖掘 baseline 思想、数据预处理，数据增强结束<br>提交第一版模型，预计分数<br>不同数据训练出来不同的模型，多个高水平模型进行投票集成</p><p><strong>11 月至 12 月 15 作品提交</strong></p><p>11 月 21 日——11 月 27 日</p><p>11 月 28 日——12 月 4 日</p><p>12 月 5 日——12 月 11 日</p><p>12 月 12 日——12 月 15 日</p>]]></content>
     
     
     <categories>
@@ -128,11 +128,11 @@
     
     <tags>
       
+      <tag>BERT</tag>
+      
       <tag>Machine Learning</tag>
       
       <tag>MOOC</tag>
-      
-      <tag>BERT</tag>
       
       <tag>Extraction-based Question Answering</tag>
       
@@ -188,13 +188,13 @@
     
     <tags>
       
+      <tag>BERT</tag>
+      
       <tag>Machine Learning</tag>
       
       <tag>MOOC</tag>
       
       <tag>Self-Supervised Learning</tag>
-      
-      <tag>BERT</tag>
       
     </tags>
     
@@ -570,6 +570,39 @@
   
   
   <entry>
+    <title>【学习笔记】机器学习之集成方法，随机森林和梯度提升树</title>
+    <link href="/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/"/>
+    <url>/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<p>本文会介绍集成方法，bagging 和 boosting 两种思路，以及两种思路的代表性模型：随机森林和梯度提升树。</p><!--more---><h2 id="1-投票分类器"><a href="#1-投票分类器" class="headerlink" title="1. 投票分类器"></a>1. 投票分类器</h2><p>三个臭皮匠顶一个诸葛亮。即便是很多预测准确率仅强于随机的个体学习器的组合，经过一定的安排，也可以发挥令人惊讶的效果。在机器学习中，这种看起来没什么含金量的学习策略称之为<strong>集成学习</strong>。</p><p>集成学习首先需要一系列的个体学习器。之后采用某些策略结合它们的判断。</p><p>集成学习的要求：</p><ul><li>构成集成学习器的个体学习器，其性能不能太差，至少要为强于随机的<strong>弱学习器</strong>。</li></ul><p>当然强学习器更好。在最后的结果汇总阶段，也会更多听取强学习器的意见。</p><ul><li>个体学习器要具有一定的多样性。</li></ul><p>广泛吸收各种不同学习器的意见，做出的决策才有代表性。在机器学习中，体现出的要求就是模型之间的差别要尽可能的大。一方面可以通过划分不同的数据集，独立训练来得到差异性；另一方面我们也可以选取不同的训练模型，比如SVM、决策树、逻辑回归。</p><p>集成学习法的准确率比集成学习中表现最好的分类器准确率还高，这究竟是为什么？难道那一些不入流的臭鱼烂虾机器学习法，它们存在的意义就是提升集成学习中的准确率的吗？</p><p>我们来打个比方。假设我有一枚硬币，这枚硬币经过加工处理，正面朝上的可能性比背面要高那么一点点，51%的可能性是正面。问，如果我投掷1000次硬币，正面朝上次数大于背面朝上次数的可能性占比多少？一万次呢？</p><p>事实上，1000次投掷，最后正面次数比背面多的概率就达到了0.72，如果投掷10000次，那么就是0.94，几乎是必然事件。</p><p>将其类比到集成学习中来，如果相互独立的个体学习器足够多，那么我们得到正确结论的概率将大大提升。不过这里有一个最关键的点：<strong>模型之间相互独立</strong>。这个要求其实是蛮难达到的，因为即便是不同的机器学习模型，如果采用相同或者相似的数据集进行训练，那么他们之间必然存在某种相关性。更不用说连模型都是一模一样的情况了。</p><h2 id="2-Boosting算法"><a href="#2-Boosting算法" class="headerlink" title="2. Boosting算法"></a>2. Boosting算法</h2><p>Boosting算法的核心思想是分割训练集，用同一种机器学习算法得到差异化的一系列模型。</p><p>先从初始训练集训练出一个基学习器，再根据基学习器的表现对训练样本的分布进行调整，是的先前基学习器做错的训练样本在后续收到更多地关注。然后基于调整后的样本分布来训练下一个基学习器。如此反复进行，训练T个基学习器，最终加权投票。</p><p><img src="/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-03.png" alt></p><p><img src="/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-17.png" alt></p><h3 id="梯度提升树"><a href="#梯度提升树" class="headerlink" title="梯度提升树"></a>梯度提升树</h3><h3 id="梯度提升树的实现：XGBoost"><a href="#梯度提升树的实现：XGBoost" class="headerlink" title="梯度提升树的实现：XGBoost"></a>梯度提升树的实现：XGBoost</h3><h3 id="LightGBM"><a href="#LightGBM" class="headerlink" title="LightGBM"></a>LightGBM</h3><h2 id="3-Bagging算法"><a href="#3-Bagging算法" class="headerlink" title="3. Bagging算法"></a>3. Bagging算法</h2><p>有放回采样被称为Bagging。采用Bagging的方法我们可以得到很多的可能有重复样本的数据子集。我们在之前的文章中已经提到，对于每个选取的子集，平均下来只有63%的训练实例被采样，剩下的37%正好当做测试集。</p><p>随机森林就采用了Bagging采样方法来训练很多的决策树。如果你观察单一的决策树，重要的特征会出现在更靠近根部的位置，不重要的特征会经常出现在靠近叶子的位置。因此我们可以通过计算一个特征在森林的全部树中出现的平均深度来预测特征的重要性。</p><h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>notes</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>machine learning</tag>
+      
+      <tag>boosting</tag>
+      
+      <tag>bagging</tag>
+      
+      <tag>random forest</tag>
+      
+      <tag>GBDT</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【竞赛打卡】科大讯飞-非标准化疾病诉求的简单分诊挑战赛</title>
     <link href="/2022/06/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%A7%91%E5%A4%A7%E8%AE%AF%E9%A3%9E-%E9%9D%9E%E6%A0%87%E5%87%86%E5%8C%96%E7%96%BE%E7%97%85%E8%AF%89%E6%B1%82%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E8%AF%8A%E6%8C%91%E6%88%98%E8%B5%9B/"/>
     <url>/2022/06/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%A7%91%E5%A4%A7%E8%AE%AF%E9%A3%9E-%E9%9D%9E%E6%A0%87%E5%87%86%E5%8C%96%E7%96%BE%E7%97%85%E8%AF%89%E6%B1%82%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E8%AF%8A%E6%8C%91%E6%88%98%E8%B5%9B/</url>
@@ -614,6 +647,33 @@
     <tags>
       
       <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【学习笔记】机器学习之决策树算法</title>
+    <link href="/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/"/>
+    <url>/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>决策树算法是一类经典的监督学习算法，它的实现简单、可解释性强、能适应多种类型的输入数据，并且多颗决策树可以集成为强大的模型。常用于复杂问题的 baseline 解决方案，以及分析特征重要程度。</p><!--more---><h2 id="1-树的划分流程：原理与思想"><a href="#1-树的划分流程：原理与思想" class="headerlink" title="1. 树的划分流程：原理与思想"></a>1. 树的划分流程：原理与思想</h2><h3 id="1-1-决策树的工作原理"><a href="#1-1-决策树的工作原理" class="headerlink" title="1.1 决策树的工作原理"></a>1.1 决策树的工作原理</h3><p>决策树是广泛用于分类和回归任务的模型。本质上，它从一层层的if/else 问题中进行学习，并得出结论。</p><p><img src="/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/2019-05-22-21-00-49.png" alt="区分几种动物的决策树"></p><p>在这张图中，树的每个结点代表一个问题或一个包含答案的终结点（也叫叶结点）。树的边将问题的答案与将问的下一个问题连接起来。</p><p>用机器学习的语言来说就是，为了区分四类动物（鹰、企鹅、海豚和熊），我们利用三个特征（“有没有羽毛”“会不会飞”和“有没有鳍”）来构建一个模型。我们可以利用监督学习从数据中学习模型，而无需人为构建模型。</p><h3 id="1-2-决策树的思想"><a href="#1-2-决策树的思想" class="headerlink" title="1.2 决策树的思想"></a>1.2 决策树的思想</h3><p>原则上讲，对于给定的属性集，可以构造的决策树的数目达指数级。尽管某些决策树比其他决策树更准确，但是由于搜索空间是指数规模的，遍历找出最佳决策树在计算上是不可行的。</p><p>尽管如此，人们还是开发出了一写有效的算法，这些算法通常基于贪心策略，在选择划分数据的属性时，采取一系列局部最优决策来构造决策树。</p><p>一种朴素的构建决策树的思路如下：</p><ol><li>如果某节点中所有记录都为同一类别，则无需分类，该节点为叶子结点；</li><li>如果某节点中包含多个类别的记录，则按照某个特征的大小为参考，令节点分裂为多个子节点；比如该特征大于某值则令记录进入子节点 1，否则进入子节点 2；</li><li>对所有子节点递归调用该算法，直到该节点内的所有记录都属于同一个类别，或者所有记录的选定特征都相同。</li></ol><p>该算法会引出两个关键问题：</p><ol><li><strong>如何选择特征进行分裂</strong>？需要建立一种评估方法，评估不同特征对该节点的分类能力，并优先选择分类效果好的特征；</li><li><strong>如何停止分裂</strong>？数据本身存在噪声，递归分裂过深会导致过拟合，如何剪枝来保证模型的泛化能力？</li></ol><h2 id="2-如何选择特征进行分裂？"><a href="#2-如何选择特征进行分裂？" class="headerlink" title="2. 如何选择特征进行分裂？"></a>2. 如何选择特征进行分裂？</h2><p>决策树最关键的是选择合适的划分方法，来使得问题的规模最大程度的简化。</p><p>一般来说，我们希望优先选择那些能够最大程度简化问题的特征。对于二分类任务，如果存在某个特征，大于某值的记录全都是类别 1，小于某值的记录全是类别 2，则该特征就能最大程度简化问题。</p><p>举例来说，男女性别分类任务，”有没有喉结“就是一个好特征，”头发长度“、”身高“则相对分类能力不那么强。</p><h3 id="2-1-信息熵"><a href="#2-1-信息熵" class="headerlink" title="2.1 信息熵"></a>2.1 信息熵</h3><p>为此，我们需要一个物理量，来度量某节点内的所有记录的类别单纯程度。如果一个节点中的记录全都是同一类别，则我们认为该节点十分纯洁。</p><p>然后判断特征的优劣，只需求目前的纯度，然后根据该特征进行分裂，再计算一遍纯度，则纯度下降的值，就可以用来度量该特征的分类能力了。</p><p><strong>纯度（purity）</strong> 的定义有很多方法，比如信息熵（information entropy）。假设 $Y$ 为类别集合，$D$ 为节点中的样本集合，$p_k$ 为当前集合 $D$ 中第 $k$ 类样本占比，则信息熵的定义为：</p><script type="math/tex; mode=display">\text{Entropy}(D)=-\sum_{k=1}^{|Y|} p_k\ln{p_k}</script><p>假设叶子结点有 10 个样本，它们的类别分别为： {1,2,2,3,3,3,3,3,3,3}，则此时该特征对应的信息熵为：</p><script type="math/tex; mode=display">\text{Entropy}=-(\frac{1}{10}\ln{\frac{1}{10}}+\frac{2}{10}\ln{\frac{2}{10}}+\frac{7}{10}\ln{\frac{7}{10}})\approx0.8</script><p>对于样本集合 {1,1,1,2,2,2,3,3,3,3}，则此时的信息熵为：</p><script type="math/tex; mode=display">\text{Entropy}=-(\frac{3}{10}\ln{\frac{3}{10}}+\frac{3}{10}\ln{\frac{3}{10}}+\frac{4}{10}\ln{\frac{4}{10}})\approx1.09</script><p>比较上述两个样本集合，集合 1 大部分样本是类别 3，集合 2 的类别分布比较均匀，则集合 1 的信息熵比集合 2 的要小，这说明集合 1 更纯。</p><h3 id="2-2-信息增益"><a href="#2-2-信息增益" class="headerlink" title="2.2 信息增益"></a>2.2 信息增益</h3><p>接下来我们需要选定特征，比如身高这个特征，可能产出三种分支节点：[0m, 1m), [1m, 2m], [2m, +inf] ，每个分支节点内部都对应了一些人。则身高这个特征划分节点后的信息熵之和，与未划分时的信息熵之差，就是<strong>信息增益（ information gain）</strong>。</p><p>假定特征 a 有 V 种取值，则对应 V 种叶子结点，每个节点包含的样本集合为 $D_v$ 。则 $D_v$ 的信息熵为：$\text{Entropy}(D_v)$，此时全部样本按照特征 a 进行分裂的信息增益为:</p><script type="math/tex; mode=display">\text{Gain}(D, a)=\text{Entropy}(D)-\sum^{V}_{v=1}\frac{|D_v|}{|D|}\text{Entropy}(D_v)</script><p>信息增益越大，则意味着使用属性 a 来进行划分所获得的”纯度提升“越大。通过遍历所有特征，取当前节点对应的信息增益最大的特征进行分裂，这种做法就是 ID3 决策树生成算法 所采用的。</p><h3 id="2-3-信息增益率"><a href="#2-3-信息增益率" class="headerlink" title="2.3 信息增益率"></a>2.3 信息增益率</h3><p>在实际使用中，我们发现单纯使用信息增益进行分裂，则决策树总是试图先使用那些取值数目较丰富的特征。假如样本存在编号，并把编号当做分类特征（这个特征当然没有意义），那么 ID3 将总会选择 编号特征作为叶片的分裂特征。因此需要惩罚那些具有过多取值的特征。</p><p>具体地，对每个特征的信息增益，除以固有值（intrinsic value），就得到了<strong>信息增益率</strong>（gain ratio）:</p><script type="math/tex; mode=display">\text{Gain Ratio}(D, a)=\frac{\text{Gain}(D, a)}{\text{IV}(a)}</script><p>其中</p><script type="math/tex; mode=display">\text{IV}(a)=-\sum^{V}_{v=1}\frac{|D_v|}{|D|}\log{\frac{|D_v|}{|D|}}</script><p>C4.5 决策树生成算法采用了该思想，并做了一定优化：先从候选特征集合中，选择那些信息增益高于平均水平的特征，再从中选择信息增益率最高的。这是为了防止一上来就选择信息增益率最大的特征，导致算法滑向另一个极端：总是选取可取值数目较少的那些特征。</p><h3 id="2-4-基尼系数"><a href="#2-4-基尼系数" class="headerlink" title="2.4 基尼系数"></a>2.4 基尼系数</h3><p>除了使用信息熵作为衡量节点纯度的方法，我们还可以使用基尼值来衡量。数据集的<strong>基尼系数（Gini）</strong>可以定义为：</p><script type="math/tex; mode=display">\begin{align*}\text{Gini}(D) &= \sum^{|Y|}_{k=1}\sum_{k'\neq k}p_k p_{k'} \\               &= 1-\sum^{|Y|}_{k=1}p_k^{2}\end{align*}</script><p>直观来说，$\text{Gini}(D)$ 反映了从数据集 D 中随机抽取两个样本，其类别标签不一致的概率。$\text{Gini}(D)$ 越小，数据集的纯度越高。</p><p>则选择特征时，只需遍历特征并选择能够令节点的基尼系数最小的特征作为分裂特征即可。</p><script type="math/tex; mode=display">\text{Gini Index}(D, a)=\sum_{v=1}^{V}\frac{|D_v|}{|D|}\text{Gini}(D_v)</script><p>该思想被应用在 CART 算法中，CART决策树的全称为Classification and Regression Tree，可以应用于分类和回归。</p><h2 id="3-如何停止分裂？"><a href="#3-如何停止分裂？" class="headerlink" title="3. 如何停止分裂？"></a>3. 如何停止分裂？</h2><p>随着节点划分递归进行，决策树分支变得过多，甚至每个样本对应 1 个叶子。如果不对分裂过程加以干预，可能导致训练样本准确率 100%，但是实际预测时效果极差，这就是过拟合（overfitting）现象。</p><p>为了规避过拟合现象，我们可以提前终止分裂，或者在生成完毕的树结构上修剪部分分支。</p><h3 id="3-1-预剪枝（提前终于规则）："><a href="#3-1-预剪枝（提前终于规则）：" class="headerlink" title="3.1 预剪枝（提前终于规则）："></a>3.1 预剪枝（提前终于规则）：</h3><p>停止生长的方法有很多，比如可以当观察到的不纯性度量的增益低于某个确定的阈值时就停止扩展叶结点；当分裂后的准确率下降时停止分裂；或者干脆限制树的高度等。</p><p>通过这种方法，限制产出过于复杂的子树，减少了训练时间。在 Sklearn 中有具体的实现。</p><blockquote><p><strong>Sklearn 中的预剪枝操作</strong></p></blockquote><p>Sklearn 是 python 的一个机器学习工具包，可以很方便地实现各种机器学习算法。在 Sklearn 中，决策树有如下参数，控制预剪枝过程：</p><ol><li>max_depth， 最常用，限制树的最大深度。在样本量较少时很有用。</li><li>min_samples_leaf， 每个结点包含的最少样本量。如果分裂后，存在一个子叶，样本量过少，则没必要分裂。</li><li>min_samples_split， 每个节点包含的最少样本量。如果分裂前，节点包含过少的样本，则没必要分裂。和上个参数的含义相同。</li><li>max_features， 限制分裂时考虑的特征个数，超过限制个数的特征都会被舍弃。该参数比较暴力，使用频率较低。</li><li>min_impurity_decrease， 限制信息增益的大小，信息增益小于设定数值的分裂不会发生。</li></ol><h3 id="3-2-后剪枝："><a href="#3-2-后剪枝：" class="headerlink" title="3.2 后剪枝："></a>3.2 后剪枝：</h3><p>初始决策树按照最大规模生长，然后进行剪枝的步骤，按照自底向上的方式修剪完全增长然后修剪。</p><p>修剪有两种做法：</p><ol><li>用新的叶子节点替换子树，该叶结点的类标号由子树下记录中的多数类决定。子树替换</li><li>用子树中最常使用的分支代替子树。当模型不能再改进时终止剪枝步骤。子树提升</li></ol><p>后剪枝的泛化性能往往强于只使用预剪枝的决策树，但是后剪枝需要先产出完整的树再剪枝，时间和空间成本要更高。另外，Sklearn 中没有专门针对后剪枝的实现方法。</p><h2 id="4-如何处理连续、缺失值"><a href="#4-如何处理连续、缺失值" class="headerlink" title="4. 如何处理连续、缺失值"></a>4. 如何处理连续、缺失值</h2><p>决策树的一大优势是可以不加预处理地应对离散和连续两种输入，并能够灵活应对数据集中部分样本的特征缺失情况，这令决策树算法的适用场景十分宽广。</p><p>需要提前声明，不同决策树生成算法会采用不同的处理策略，下面举的例子如果没有单独声明，都是 C4.5 算法的处理策略。</p><h3 id="4-1-连续值如何划分？"><a href="#4-1-连续值如何划分？" class="headerlink" title="4.1 连续值如何划分？"></a>4.1 连续值如何划分？</h3><p>如果我们要以”身高“为特征进行分裂，但是“身高”是一个连续值，无法枚举所有情况，如何分裂呢？</p><p>转换一下思路，虽然“身高”无法枚举，但是数据集是可以遍历的。将该节点内的所有数据的身高取出来，按照大小排序，然后遍历所有潜在的分裂点，依次计算纯度即可将连续值划分为两段不连续的区间，取最高的纯度为区间分割点，进而分裂为两个不同的节点。</p><h3 id="4-2-如何处理特征缺失？"><a href="#4-2-如何处理特征缺失？" class="headerlink" title="4.2 如何处理特征缺失？"></a>4.2 如何处理特征缺失？</h3><p><img src="/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/数据缺失.png" alt></p><p>数据的特征缺失现象很普遍，常见的缺失数据处理方法有：</p><p><strong>1）抛弃缺失值</strong></p><p>抛弃极少量的缺失值的样本对决策树的创建影响不是太大。但是如果属性缺失值较多或是关键属性值缺失，创建的决策树将是不完全的，同时可能给用户造成知识上的大量错误信息，所以抛弃缺失值一般不采用。</p><p>只有在数据库具有极少量的缺失值同时缺失值不是关键的属性值时，且为了加快创建决策树的速度，才采用抛弃属性缺失值的方式创建决策树。</p><p>ID3 生成算法无法应对缺失值，因此要想使用 ID3 算法生成决策树就只能抛弃缺失值。</p><p><strong>2）补充缺失值</strong></p><p>可以使用一个常量来填充缺失值，比如“Unknown”或者 0；但是更常见的是使用缺失数值所在行或列的均值、中位数、众数来替代缺失值。后者这种方法称为插值法（Imputation），被应用在 QUEST、CRUISE 等决策树生成算法中。</p><p>缺失值较少时按照我们上面的补充规则是可行的。但如果数据库的数据较大、缺失值较多，这样根据填充后的数据库创建的决策树可能和根据正确值创建的决策树有很大变化。</p><p><strong>3）概率化缺失值</strong></p><p>概率权重（Probability weights），是 C4.5 算法所采纳的。</p><p>它的思想是对缺失值的样本赋予该属性所有属性值的概率分布，即将缺失值按照其所在属性已知值的相对概率分布来创建决策树。</p><p>首先需要选择最优特征。一共 1000 个西瓜，如果只知道 500 个的西瓜的品种，其他 500 个不知道，则该特征最终计算出来的信息增益率，就要乘上 500/1000=0.5。</p><p>其他特征如果存在缺失值，也是先忽略所有缺失值，计算出来信息增益率之后，乘上 1-缺失值占比。</p><p>但如果最优特征也存在缺失值，如何选择分裂点呢？</p><p>则我们需要降低缺失值在计算中的权重，不把缺失值当做一个完整的样本看待。</p><p>假设存在 1000 个样本，其中 500 个样本缺少该特征，剩余 500 个完整的样本。这 500 个完整的样本最终会分裂成五个子节点，分别对应 100/100/100/100/100个样本，则缺失的每个 500 个样本的权重就是 1/5。</p><p>除了该方法之外，还有很多其他的方法：</p><p><strong>4）替代法（Alternate/Surrogate Splits）</strong></p><p>该方法是 CART 决策树使用的方法。</p><p>在选择特征时，CART 使用和 C4.5 类似的方法，即最终的基尼系数乘以 1-缺失值占比，来选择分裂特征。</p><p>但是当决定分裂特征后，如果该特征存在缺失值，CART 会查找其他不存在缺失值的特征，选择一个与该特征分裂后基尼增益最接近的特征，借助该特征进行分裂。</p><p>但是如果没有不存在缺失值的特征，或者本特征与其他特征的基尼增益相差过大的情况，缺失值默认进入样本最多的叶子结点。</p><p>这样做的缺点是计算量非常大，我们需要遍历其他所有特征来决定选择哪个特征作为代理。</p><p>另外，sklearn 实现的 CART 树无法处理缺失值。</p><h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><div class="table-container"><table><thead><tr><th>决策树算法</th><th>分类方法</th><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>ID3</td><td>信息增益</td><td></td><td>总是试图先使用那些取值数目较丰富的特征；<br>无剪枝策略，容易过拟合；<br>只能处理离散数据；<br>只能处理分类问题；<br>没有考虑缺失值</td></tr><tr><td>C4.5</td><td>信息增益率</td><td>改进了 ID3 对取值丰富的特征的偏好；<br>引入了剪枝的概念（悲观剪枝）；<br>引入了对连续值的二分处理；<br>引入了对缺失值的处理</td><td>多叉树效率低；<br>增益的计算只能针对类别标签，因此只能用于分类；<br>计算熵的对数运算、连续值的排序很耗时</td></tr><tr><td>CART</td><td>基尼系数</td><td>使用二叉树，分裂效率高；可以处理连续和离散值；gini可以处理分类和回归问题；gini 计算量低</td><td>缺失值处理时需要遍历其他所有特征，计算量很大，但是效果提升有限</td></tr></tbody></table></div><p>本篇笔记整理了决策树的经典生成算法，包括 ID3、C4.5、CART，比较了他们的异同，并单独讨论了剪枝和连续值、缺失值处理操作。</p><p>实际上在实际应用中，我们更多的是使用集成学习算法，整合多颗决策树，构建性能更好的模型，比如随机森林、梯度提升树等。</p><p>后续会介绍 随机森林、GBDT、XGBoost、LightGBM 。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>notes</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>machine learning</tag>
+      
+      <tag>decision tree</tag>
       
     </tags>
     
@@ -2111,9 +2171,9 @@
     
     <tags>
       
-      <tag>LSTM</tag>
-      
       <tag>RNN</tag>
+      
+      <tag>LSTM</tag>
       
       <tag>Keras</tag>
       
@@ -2318,9 +2378,9 @@
       
       <tag>Robustness</tag>
       
-      <tag>Deep Neural Networks</tag>
-      
       <tag>Adversarial Attacks</tag>
+      
+      <tag>Deep Neural Networks</tag>
       
       <tag>survey</tag>
       
@@ -2378,13 +2438,13 @@
     
     <tags>
       
-      <tag>NLP</tag>
-      
       <tag>Data Augmentation</tag>
       
-      <tag>Text Classification</tag>
+      <tag>NLP</tag>
       
       <tag>Deep Neural Networks</tag>
+      
+      <tag>Text Classification</tag>
       
     </tags>
     
@@ -3168,39 +3228,6 @@
   
   
   <entry>
-    <title>【学习笔记】机器学习之集成方法，随机森林和梯度提升树</title>
-    <link href="/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/"/>
-    <url>/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/</url>
-    
-    <content type="html"><![CDATA[<p>本文会介绍集成方法，bagging 和 boosting 两种思路，以及两种思路的代表性模型：随机森林和梯度提升树。</p><!--more---><h2 id="1-投票分类器"><a href="#1-投票分类器" class="headerlink" title="1. 投票分类器"></a>1. 投票分类器</h2><p>三个臭皮匠顶一个诸葛亮。即便是很多预测准确率仅强于随机的个体学习器的组合，经过一定的安排，也可以发挥令人惊讶的效果。在机器学习中，这种看起来没什么含金量的学习策略称之为<strong>集成学习</strong>。</p><p>集成学习首先需要一系列的个体学习器。之后采用某些策略结合它们的判断。</p><p>集成学习的要求：</p><ul><li>构成集成学习器的个体学习器，其性能不能太差，至少要为强于随机的<strong>弱学习器</strong>。</li></ul><p>当然强学习器更好。在最后的结果汇总阶段，也会更多听取强学习器的意见。</p><ul><li>个体学习器要具有一定的多样性。</li></ul><p>广泛吸收各种不同学习器的意见，做出的决策才有代表性。在机器学习中，体现出的要求就是模型之间的差别要尽可能的大。一方面可以通过划分不同的数据集，独立训练来得到差异性；另一方面我们也可以选取不同的训练模型，比如SVM、决策树、逻辑回归。</p><p>集成学习法的准确率比集成学习中表现最好的分类器准确率还高，这究竟是为什么？难道那一些不入流的臭鱼烂虾机器学习法，它们存在的意义就是提升集成学习中的准确率的吗？</p><p>我们来打个比方。假设我有一枚硬币，这枚硬币经过加工处理，正面朝上的可能性比背面要高那么一点点，51%的可能性是正面。问，如果我投掷1000次硬币，正面朝上次数大于背面朝上次数的可能性占比多少？一万次呢？</p><p>事实上，1000次投掷，最后正面次数比背面多的概率就达到了0.72，如果投掷10000次，那么就是0.94，几乎是必然事件。</p><p>将其类比到集成学习中来，如果相互独立的个体学习器足够多，那么我们得到正确结论的概率将大大提升。不过这里有一个最关键的点：<strong>模型之间相互独立</strong>。这个要求其实是蛮难达到的，因为即便是不同的机器学习模型，如果采用相同或者相似的数据集进行训练，那么他们之间必然存在某种相关性。更不用说连模型都是一模一样的情况了。</p><h2 id="2-Boosting算法"><a href="#2-Boosting算法" class="headerlink" title="2. Boosting算法"></a>2. Boosting算法</h2><p>Boosting算法的核心思想是分割训练集，用同一种机器学习算法得到差异化的一系列模型。</p><p>先从初始训练集训练出一个基学习器，再根据基学习器的表现对训练样本的分布进行调整，是的先前基学习器做错的训练样本在后续收到更多地关注。然后基于调整后的样本分布来训练下一个基学习器。如此反复进行，训练T个基学习器，最终加权投票。</p><p><img src="/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-03.png" alt></p><p><img src="/2019/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/2019-06-27-21-57-17.png" alt></p><h3 id="梯度提升树"><a href="#梯度提升树" class="headerlink" title="梯度提升树"></a>梯度提升树</h3><h3 id="梯度提升树的实现：XGBoost"><a href="#梯度提升树的实现：XGBoost" class="headerlink" title="梯度提升树的实现：XGBoost"></a>梯度提升树的实现：XGBoost</h3><h3 id="LightGBM"><a href="#LightGBM" class="headerlink" title="LightGBM"></a>LightGBM</h3><h2 id="3-Bagging算法"><a href="#3-Bagging算法" class="headerlink" title="3. Bagging算法"></a>3. Bagging算法</h2><p>有放回采样被称为Bagging。采用Bagging的方法我们可以得到很多的可能有重复样本的数据子集。我们在之前的文章中已经提到，对于每个选取的子集，平均下来只有63%的训练实例被采样，剩下的37%正好当做测试集。</p><p>随机森林就采用了Bagging采样方法来训练很多的决策树。如果你观察单一的决策树，重要的特征会出现在更靠近根部的位置，不重要的特征会经常出现在靠近叶子的位置。因此我们可以通过计算一个特征在森林的全部树中出现的平均深度来预测特征的重要性。</p><h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3>]]></content>
-    
-    
-    <categories>
-      
-      <category>notes</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>machine learning</tag>
-      
-      <tag>boosting</tag>
-      
-      <tag>bagging</tag>
-      
-      <tag>random forest</tag>
-      
-      <tag>GBDT</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>NLP学习笔记2</title>
     <link href="/2019/06/24/NLP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"/>
     <url>/2019/06/24/NLP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</url>
@@ -3492,33 +3519,6 @@
       
     </categories>
     
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>【学习笔记】机器学习之决策树算法</title>
-    <link href="/2019/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/"/>
-    <url>/2019/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/</url>
-    
-    <content type="html"><![CDATA[<p>决策树算法是一类经典的监督学习算法，它的实现简单、可解释性强、能适应多种类型的输入数据，并且多颗决策树可以集成为强大的模型。常用于复杂问题的 baseline 解决方案，以及分析特征重要程度。</p><!--more---><h2 id="1-树的划分流程：原理与思想"><a href="#1-树的划分流程：原理与思想" class="headerlink" title="1. 树的划分流程：原理与思想"></a>1. 树的划分流程：原理与思想</h2><h3 id="1-1-决策树的工作原理"><a href="#1-1-决策树的工作原理" class="headerlink" title="1.1 决策树的工作原理"></a>1.1 决策树的工作原理</h3><p>决策树是广泛用于分类和回归任务的模型。本质上，它从一层层的if/else 问题中进行学习，并得出结论。</p><p><img src="/2019/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/2019-05-22-21-00-49.png" alt="区分几种动物的决策树"></p><p>在这张图中，树的每个结点代表一个问题或一个包含答案的终结点（也叫叶结点）。树的边将问题的答案与将问的下一个问题连接起来。</p><p>用机器学习的语言来说就是，为了区分四类动物（鹰、企鹅、海豚和熊），我们利用三个特征（“有没有羽毛”“会不会飞”和“有没有鳍”）来构建一个模型。我们可以利用监督学习从数据中学习模型，而无需人为构建模型。</p><h3 id="1-2-决策树的思想"><a href="#1-2-决策树的思想" class="headerlink" title="1.2 决策树的思想"></a>1.2 决策树的思想</h3><p>原则上讲，对于给定的属性集，可以构造的决策树的数目达指数级。尽管某些决策树比其他决策树更准确，但是由于搜索空间是指数规模的，遍历找出最佳决策树在计算上是不可行的。</p><p>尽管如此，人们还是开发出了一写有效的算法，这些算法通常基于贪心策略，在选择划分数据的属性时，采取一系列局部最优决策来构造决策树。</p><p>一种朴素的构建决策树的思路如下：</p><ol><li>如果某节点中所有记录都为同一类别，则无需分类，该节点为叶子结点；</li><li>如果某节点中包含多个类别的记录，则按照某个特征的大小为参考，令节点分裂为多个子节点；比如该特征大于某值则令记录进入子节点 1，否则进入子节点 2；</li><li>对所有子节点递归调用该算法，直到该节点内的所有记录都属于同一个类别，或者所有记录的选定特征都相同。</li></ol><p>该算法会引出两个关键问题：</p><ol><li><strong>如何选择特征进行分裂</strong>？需要建立一种评估方法，评估不同特征对该节点的分类能力，并优先选择分类效果好的特征；</li><li><strong>如何停止分裂</strong>？数据本身存在噪声，递归分裂过深会导致过拟合，如何剪枝来保证模型的泛化能力？</li></ol><h2 id="2-如何选择特征进行分裂？"><a href="#2-如何选择特征进行分裂？" class="headerlink" title="2. 如何选择特征进行分裂？"></a>2. 如何选择特征进行分裂？</h2><p>决策树最关键的是选择合适的划分方法，来使得问题的规模最大程度的简化。</p><p>一般来说，我们希望优先选择那些能够最大程度简化问题的特征。对于二分类任务，如果存在某个特征，大于某值的记录全都是类别 1，小于某值的记录全是类别 2，则该特征就能最大程度简化问题。</p><p>举例来说，男女性别分类任务，”有没有喉结“就是一个好特征，”头发长度“、”身高“则相对分类能力不那么强。</p><h3 id="2-1-信息熵"><a href="#2-1-信息熵" class="headerlink" title="2.1 信息熵"></a>2.1 信息熵</h3><p>为此，我们需要一个物理量，来度量某节点内的所有记录的类别单纯程度。如果一个节点中的记录全都是同一类别，则我们认为该节点十分纯洁。</p><p>然后判断特征的优劣，只需求目前的纯度，然后根据该特征进行分裂，再计算一遍纯度，则纯度下降的值，就可以用来度量该特征的分类能力了。</p><p><strong>纯度（purity）</strong> 的定义有很多方法，比如信息熵（information entropy）。假设 $Y$ 为类别集合，$D$ 为节点中的样本集合，$p_k$ 为当前集合 $D$ 中第 $k$ 类样本占比，则信息熵的定义为：</p><script type="math/tex; mode=display">\text{Entropy}(D)=-\sum_{k=1}^{|Y|} p_k\ln{p_k}</script><p>假设叶子结点有 10 个样本，它们的类别分别为： {1,2,2,3,3,3,3,3,3,3}，则此时该特征对应的信息熵为：</p><script type="math/tex; mode=display">\text{Entropy}=-(\frac{1}{10}\ln{\frac{1}{10}}+\frac{2}{10}\ln{\frac{2}{10}}+\frac{7}{10}\ln{\frac{7}{10}})\approx0.8</script><p>对于样本集合 {1,1,1,2,2,2,3,3,3,3}，则此时的信息熵为：</p><script type="math/tex; mode=display">\text{Entropy}=-(\frac{3}{10}\ln{\frac{3}{10}}+\frac{3}{10}\ln{\frac{3}{10}}+\frac{4}{10}\ln{\frac{4}{10}})\approx1.09</script><p>比较上述两个样本集合，集合 1 大部分样本是类别 3，集合 2 的类别分布比较均匀，则集合 1 的信息熵比集合 2 的要小，这说明集合 1 更纯。</p><h3 id="2-2-信息增益"><a href="#2-2-信息增益" class="headerlink" title="2.2 信息增益"></a>2.2 信息增益</h3><p>接下来我们需要选定特征，比如身高这个特征，可能产出三种分支节点：[0m, 1m), [1m, 2m], [2m, +inf] ，每个分支节点内部都对应了一些人。则身高这个特征划分节点后的信息熵之和，与未划分时的信息熵之差，就是<strong>信息增益（ information gain）</strong>。</p><p>假定特征 a 有 V 种取值，则对应 V 种叶子结点，每个节点包含的样本集合为 $D_v$ 。则 $D_v$ 的信息熵为：$\text{Entropy}(D_v)$，此时全部样本按照特征 a 进行分裂的信息增益为:</p><script type="math/tex; mode=display">\text{Gain}(D, a)=\text{Entropy}(D)-\sum^{V}_{v=1}\frac{|D_v|}{|D|}\text{Entropy}(D_v)</script><p>信息增益越大，则意味着使用属性 a 来进行划分所获得的”纯度提升“越大。通过遍历所有特征，取当前节点对应的信息增益最大的特征进行分裂，这种做法就是 ID3 决策树生成算法 所采用的。</p><h3 id="2-3-信息增益率"><a href="#2-3-信息增益率" class="headerlink" title="2.3 信息增益率"></a>2.3 信息增益率</h3><p>在实际使用中，我们发现单纯使用信息增益进行分裂，则决策树总是试图先使用那些取值数目较丰富的特征。假如样本存在编号，并把编号当做分类特征（这个特征当然没有意义），那么 ID3 将总会选择 编号特征作为叶片的分裂特征。因此需要惩罚那些具有过多取值的特征。</p><p>具体地，对每个特征的信息增益，除以固有值（intrinsic value），就得到了<strong>信息增益率</strong>（gain ratio）:</p><script type="math/tex; mode=display">\text{Gain Ratio}(D, a)=\frac{\text{Gain}(D, a)}{\text{IV}(a)}</script><p>其中</p><script type="math/tex; mode=display">\text{IV}(a)=-\sum^{V}_{v=1}\frac{|D_v|}{|D|}\log{\frac{|D_v|}{|D|}}</script><p>C4.5 决策树生成算法采用了该思想，并做了一定优化：先从候选特征集合中，选择那些信息增益高于平均水平的特征，再从中选择信息增益率最高的。这是为了防止一上来就选择信息增益率最大的特征，导致算法滑向另一个极端：总是选取可取值数目较少的那些特征。</p><h3 id="2-4-基尼系数"><a href="#2-4-基尼系数" class="headerlink" title="2.4 基尼系数"></a>2.4 基尼系数</h3><p>除了使用信息熵作为衡量节点纯度的方法，我们还可以使用基尼值来衡量。数据集的<strong>基尼系数（Gini）</strong>可以定义为：</p><script type="math/tex; mode=display">\begin{align*}\text{Gini}(D) &= \sum^{|Y|}_{k=1}\sum_{k'\neq k}p_k p_{k'} \\               &= 1-\sum^{|Y|}_{k=1}p_k^{2}\end{align*}</script><p>直观来说，$Gini(D)$ 反映了从数据集 D 中随机抽取两个样本，其类别标签不一致的概率。$Gini(D)$ 越小，数据集的纯度越高。</p><p>则选择特征时，只需遍历特征并选择能够令节点的基尼系数最小的特征作为分裂特征即可。</p><script type="math/tex; mode=display">\text{Gini Index}(D, a)=\sum_{v=1}^{V}\frac{|D_v|}{|D|}\text{Gini}(D_v)</script><p>该思想被应用在 CART 算法中，CART决策树的全称为Classification and Regression Tree，可以应用于分类和回归。</p><h2 id="3-如何停止分裂？"><a href="#3-如何停止分裂？" class="headerlink" title="3. 如何停止分裂？"></a>3. 如何停止分裂？</h2><p>随着节点划分递归进行，决策树分支变得过多，甚至每个样本对应 1 个叶子。如果不对分裂过程加以干预，可能导致训练样本准确率 100%，但是实际预测时效果极差，这就是过拟合（overfitting）现象。</p><p>为了规避过拟合现象，我们可以提前终止分裂，或者在生成完毕的树结构上修剪部分分支。</p><h3 id="3-1-预剪枝（提前终于规则）："><a href="#3-1-预剪枝（提前终于规则）：" class="headerlink" title="3.1 预剪枝（提前终于规则）："></a>3.1 预剪枝（提前终于规则）：</h3><p>停止生长的方法有很多，比如可以当观察到的不纯性度量的增益低于某个确定的阈值时就停止扩展叶结点；当分裂后的准确率下降时停止分裂；或者干脆限制树的高度等。</p><p>通过这种方法，限制产出过于复杂的子树，减少了训练时间。在 Sklearn 中有具体的实现。</p><blockquote><p><strong>Sklearn 中的预剪枝操作</strong></p></blockquote><p>Sklearn 是 python 的一个机器学习工具包，可以很方便地实现各种机器学习算法。在 Sklearn 中，决策树有如下参数，控制预剪枝过程：</p><ol><li>max_depth， 最常用，限制树的最大深度。在样本量较少时很有用。</li><li>min_samples_leaf， 每个结点包含的最少样本量。如果分裂后，存在一个子叶，样本量过少，则没必要分裂。</li><li>min_samples_split， 每个节点包含的最少样本量。如果分裂前，节点包含过少的样本，则没必要分裂。和上个参数的含义相同。</li><li>max_features， 限制分裂时考虑的特征个数，超过限制个数的特征都会被舍弃。该参数比较暴力，使用频率较低。</li><li>min_impurity_decrease， 限制信息增益的大小，信息增益小于设定数值的分裂不会发生。</li></ol><h3 id="3-2-后剪枝："><a href="#3-2-后剪枝：" class="headerlink" title="3.2 后剪枝："></a>3.2 后剪枝：</h3><p>初始决策树按照最大规模生长，然后进行剪枝的步骤，按照自底向上的方式修剪完全增长然后修剪。</p><p>修剪有两种做法：</p><ol><li>用新的叶子节点替换子树，该叶结点的类标号由子树下记录中的多数类决定。子树替换</li><li>用子树中最常使用的分支代替子树。当模型不能再改进时终止剪枝步骤。子树提升</li></ol><p>后剪枝的泛化性能往往强于只使用预剪枝的决策树，但是后剪枝需要先产出完整的树再剪枝，时间和空间成本要更高。另外，Sklearn 中没有专门针对后剪枝的实现方法。</p><h2 id="4-如何处理连续、缺失值"><a href="#4-如何处理连续、缺失值" class="headerlink" title="4. 如何处理连续、缺失值"></a>4. 如何处理连续、缺失值</h2><p>决策树的一大优势是可以不加预处理地应对离散和连续两种输入，并能够灵活应对数据集中部分样本的特征缺失情况，这令决策树算法的适用场景十分宽广。</p><p>需要提前声明，不同决策树生成算法会采用不同的处理策略，下面举的例子如果没有单独声明，都是 C4.5 算法的处理策略。</p><h3 id="4-1-连续值如何划分？"><a href="#4-1-连续值如何划分？" class="headerlink" title="4.1 连续值如何划分？"></a>4.1 连续值如何划分？</h3><p>如果我们要以”身高“为特征进行分裂，但是“身高”是一个连续值，无法枚举所有情况，如何分裂呢？</p><p>转换一下思路，虽然“身高”无法枚举，但是数据集是可以遍历的。将该节点内的所有数据的身高取出来，按照大小排序，然后遍历所有潜在的分裂点，依次计算纯度即可将连续值划分为两段不连续的区间，取最高的纯度为区间分割点，进而分裂为两个不同的节点。</p><h3 id="4-2-如何处理特征缺失？"><a href="#4-2-如何处理特征缺失？" class="headerlink" title="4.2 如何处理特征缺失？"></a>4.2 如何处理特征缺失？</h3><p><img src="/2019/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/数据缺失.png" alt></p><p>数据的特征缺失现象很普遍，常见的缺失数据处理方法有：</p><p><strong>1）抛弃缺失值</strong></p><p>抛弃极少量的缺失值的样本对决策树的创建影响不是太大。但是如果属性缺失值较多或是关键属性值缺失，创建的决策树将是不完全的，同时可能给用户造成知识上的大量错误信息，所以抛弃缺失值一般不采用。只有在数据库具有极少量的缺失值同时缺失值不是关键的属性值时，且为了加快创建决策树的速度，才采用抛弃属性缺失值的方式创建决策树。</p><p><strong>2）补充缺失值</strong></p><p>缺失值较少时按照我们上面的补充规则是可行的。但如果数据库的数据较大,缺失值较多(当然,这样获取的数据库在现实中使用的意义已不大,同时在信息获取方面基本不会出现这样的数据库),这样根据填充后的数据库创建的决策树可能和根据正确值创建的决策树有很大变化。</p><p><strong>3）概率化缺失值</strong></p><p>对缺失值的样本赋予该属性所有属性值的概率分布，即将缺失值按照其所在属性已知值的相对概率分布来创建决策树。</p><p>用系数F进行合理的修正计算的信息量，</p><p>F=数据库中缺失值所在的属性值样本数量去掉缺失值样本数量/数据库中样本数量的总和，</p><p>即F表示所给属性具有已知值样本的概率。</p><p>上述的缺失值处理算法是 C4.5 算法所采纳的，除了该方法之外，还有很多其他的方法：</p><ul><li>插值法（Imputation）： QUEST，CRUISE</li><li>替代法（Alternate/Surrogate Splits）：CART，CRUISE</li><li>缺失值单独分支（Missing value branch）：CHAID，GUIDE</li><li>概率权重（Probability weights）： C4.5</li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>notes</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>machine learning</tag>
-      
-      <tag>decision tree</tag>
-      
-    </tags>
     
   </entry>
   

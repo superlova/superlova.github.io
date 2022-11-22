@@ -66,9 +66,9 @@
     <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
     
     
-    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
-    
     <category term="Ernie" scheme="https://superlova.github.io/tags/Ernie/"/>
+    
+    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
     
   </entry>
   
@@ -93,9 +93,9 @@
     <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
     
     
-    <category term="NLP" scheme="https://superlova.github.io/tags/NLP/"/>
-    
     <category term="Data Augmentation" scheme="https://superlova.github.io/tags/Data-Augmentation/"/>
+    
+    <category term="NLP" scheme="https://superlova.github.io/tags/NLP/"/>
     
   </entry>
   
@@ -104,17 +104,17 @@
     <link href="https://superlova.github.io/2022/11/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%AB%9E%E8%B5%9B%E2%80%94%E2%80%94%E9%97%AE%E7%AD%94%E6%8A%BD%E5%8F%96%E8%B5%9B%E9%81%93/"/>
     <id>https://superlova.github.io/2022/11/20/%E3%80%90%E7%AB%9E%E8%B5%9B%E6%89%93%E5%8D%A1%E3%80%91%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%AB%9E%E8%B5%9B%E2%80%94%E2%80%94%E9%97%AE%E7%AD%94%E6%8A%BD%E5%8F%96%E8%B5%9B%E9%81%93/</id>
     <published>2022-11-20T07:58:37.000Z</published>
-    <updated>2022-11-20T16:59:39.980Z</updated>
+    <updated>2022-11-22T03:16:43.755Z</updated>
     
-    <content type="html"><![CDATA[<!--more---><p>11 月至 12 月 15 作品提交</p><p>给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline paddleNLP 在 github</p><p>baseline：<br>赛道 1 的 baseline 5043272 4960090<br>赛道 2 的 baseline TensorRT 5007642</p><p>序列标注任务的思路、QA 的思路</p><h2 id="思路-1：使用抽取式问答思路"><a href="#思路-1：使用抽取式问答思路" class="headerlink" title="思路 1：使用抽取式问答思路"></a>思路 1：使用抽取式问答思路</h2><h3 id="baseline1-水哥"><a href="#baseline1-水哥" class="headerlink" title="baseline1: 水哥"></a>baseline1: 水哥</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1">https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1</a></p><p>notebook逻辑</p><pre><code>1. 按照。分句，需要统计还可以按照什么进行分句切割2. 删除文档中存在单句超长的文档，该部分可以提升，可以看一些 case 决定是由于分词不佳还是数据质量低3. 对输入数据进行编码，3.1 问题+答案长度超过 512 的会被跳过3.2 调用 tokenizer.encode 接口，参数 1 是 query，参数 2 是 sentence3.3 确认 start_pos 和 end_pos产出的数据为&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;seq_len&#39;, &#39;attention_mask&#39;, &#39;position_ids&#39;, &#39;start_positions&#39;, &#39;end_positions&#39;4. 数据批量打包，使用 batch_size = 6，这里可以使用其他的 batch_size5. 设置 SGD 优化器，learning rate = 0.0005，这里可以使用其他的优化器以及learning rate损失函数设置为 CrossEntropyLoss6. 开始训练7. 导出结果</code></pre><p>步骤：</p><ol><li>先跑通 Fine tune 中文预训练模型</li><li>调试一些超参数，batch_size/learning rate/epoch/等</li><li>应用学习率的一些 trick，adam/学习率衰减等</li><li>提升数据预处理的效果，不同切分方法、不同建模目标、数据增强等；</li><li>尝试使用其他预训练模型，做模型调研并修改；</li><li>提升数据后处理的效果，模型融合等；</li></ol><p>会议提到的其他思想</p><p>数据整理手段：</p><ol><li>。分段</li><li>滑动窗口</li></ol><p>ErnieForQuestionAnswering<br>ErnieTokenizer<br>Ernie 结构</p><p>预处理方法调研<br>不同模型、不同框架调研<br>模型融合调研</p><p>SEO 的思路应用在数据增强<br>混合精度<br>warm up</p><p>optimizer<br>xgboost/lightgbm<br>bert 参数个数</p><p>水哥的优化思路：<br>1、他的方案只使用了 5000 条训练数据，后续可以使用全量数据；<br>2、数据预处理的改进，分割 sentences 的方式、正负样本比例的采样方式、句子长度改小一点方便训练等；<br>3、预训练模型，使用更 large 的模型；<br>4、集成模型，使用多折数据，或者不同文本处理方法来训练不同模型，然后集成；<br>5、标题信息可能会有用，不同类别的帖子中包含答案的概率不同；把标题、domain 等信息作为树模型的输入进行分类；<br>6、不同的建模方式，可以使用 query-answer 匹配的思路（nsp）来做？本思路是传统的 QA 方式进行建模的，提供 start 和 end<br>7、水哥的效果再 0.4~0.46，官方基线会更好，因为官方用到了更大的模型以及更多的数据；<br>8、必须用 paddle 开发。</p><h3 id="baseline2"><a href="#baseline2" class="headerlink" title="baseline2:"></a>baseline2:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/4960090">https://aistudio.baidu.com/aistudio/projectdetail/4960090</a></p><h3 id="baseline3"><a href="#baseline3" class="headerlink" title="baseline3:"></a>baseline3:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5043272">https://aistudio.baidu.com/aistudio/projectdetail/5043272</a></p><p>默认回答：【】详情请看视频回答】，重复越高可能问题越大<br>长度过短：Noanswer 越可能<br>Noanswer：数据占 1/3，可以把 haveanswer 作为二分类，或者多任务学习方法</p><p>多片段抽取详见参考资料，框架应该支持；无答案？<br>官方的 baseline 优化的比较底层<br>对抗训练</p><h2 id="思路-2：使用序列标注思路"><a href="#思路-2：使用序列标注思路" class="headerlink" title="思路 2：使用序列标注思路"></a>思路 2：使用序列标注思路</h2><h3 id="baseline4"><a href="#baseline4" class="headerlink" title="baseline4:"></a>baseline4:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5030168">https://aistudio.baidu.com/aistudio/projectdetail/5030168</a></p><h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p>滑窗要提前处理</p><p>没有答案就少滑窗，答案短就划得快，答案长过滑动窗口的大小，则以滑动窗口的上下标为start、end</p><p>focal loss 损失函数</p><p>标注 0-1 改造成高斯分布</p><p>分层任务，先预测是否存在答案，然后预测答案的开始和结束</p><p>分词按照 [，。【】、] 等等</p><p>查看水哥的代码，检验 badcase；answer list 有好多个答案的情况，他们如何对答案进行建模的？</p><p>序列标注问题</p><p>doc_stride 小的情况下，正负样本如何决定？如果 window 内只有部分答案，能算作正样本还是负样本？</p><p>CRF</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>算力如何获取？大家算力充足吗</p><ol><li>公开代码？代码仓库</li><li>时间表；分工</li></ol><p>关键时间节点：<br>调研模型、挖掘 baseline 思想、数据预处理，数据增强结束<br>提交第一版模型，预计分数<br>不同数据训练出来不同的模型，多个高水平模型进行投票集成</p><p><strong>11 月至 12 月 15 作品提交</strong></p><p>11 月 21 日——11 月 27 日</p><p>11 月 28 日——12 月 4 日</p><p>12 月 5 日——12 月 11 日</p><p>12 月 12 日——12 月 15 日</p>]]></content>
+    <content type="html"><![CDATA[<p>先占坑，等比赛结束记录模型的思想</p><!--more---><p>11 月至 12 月 15 作品提交</p><p>给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline paddleNLP 在 github</p><p>baseline：<br>赛道 1 的 baseline 5043272 4960090<br>赛道 2 的 baseline TensorRT 5007642</p><p>序列标注任务的思路、QA 的思路</p><h2 id="思路-1：使用抽取式问答思路"><a href="#思路-1：使用抽取式问答思路" class="headerlink" title="思路 1：使用抽取式问答思路"></a>思路 1：使用抽取式问答思路</h2><h3 id="baseline1-水哥"><a href="#baseline1-水哥" class="headerlink" title="baseline1: 水哥"></a>baseline1: 水哥</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1">https://aistudio.baidu.com/aistudio/projectdetail/5029712?forkThirdPart=1</a></p><p>notebook逻辑</p><pre><code>1. 按照。分句，需要统计还可以按照什么进行分句切割2. 删除文档中存在单句超长的文档，该部分可以提升，可以看一些 case 决定是由于分词不佳还是数据质量低3. 对输入数据进行编码，3.1 问题+答案长度超过 512 的会被跳过3.2 调用 tokenizer.encode 接口，参数 1 是 query，参数 2 是 sentence3.3 确认 start_pos 和 end_pos产出的数据为&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;seq_len&#39;, &#39;attention_mask&#39;, &#39;position_ids&#39;, &#39;start_positions&#39;, &#39;end_positions&#39;4. 数据批量打包，使用 batch_size = 6，这里可以使用其他的 batch_size5. 设置 SGD 优化器，learning rate = 0.0005，这里可以使用其他的优化器以及learning rate损失函数设置为 CrossEntropyLoss6. 开始训练7. 导出结果</code></pre><p>步骤：</p><ol><li>先跑通 Fine tune 中文预训练模型</li><li>调试一些超参数，batch_size/learning rate/epoch/等</li><li>应用学习率的一些 trick，adam/学习率衰减等</li><li>提升数据预处理的效果，不同切分方法、不同建模目标、数据增强等；</li><li>尝试使用其他预训练模型，做模型调研并修改；</li><li>提升数据后处理的效果，模型融合等；</li></ol><p>会议提到的其他思想</p><p>数据整理手段：</p><ol><li>。分段</li><li>滑动窗口</li></ol><p>ErnieForQuestionAnswering<br>ErnieTokenizer<br>Ernie 结构</p><p>预处理方法调研<br>不同模型、不同框架调研<br>模型融合调研</p><p>SEO 的思路应用在数据增强<br>混合精度<br>warm up</p><p>optimizer<br>xgboost/lightgbm<br>bert 参数个数</p><p>水哥的优化思路：<br>1、他的方案只使用了 5000 条训练数据，后续可以使用全量数据；<br>2、数据预处理的改进，分割 sentences 的方式、正负样本比例的采样方式、句子长度改小一点方便训练等；<br>3、预训练模型，使用更 large 的模型；<br>4、集成模型，使用多折数据，或者不同文本处理方法来训练不同模型，然后集成；<br>5、标题信息可能会有用，不同类别的帖子中包含答案的概率不同；把标题、domain 等信息作为树模型的输入进行分类；<br>6、不同的建模方式，可以使用 query-answer 匹配的思路（nsp）来做？本思路是传统的 QA 方式进行建模的，提供 start 和 end<br>7、水哥的效果再 0.4~0.46，官方基线会更好，因为官方用到了更大的模型以及更多的数据；<br>8、必须用 paddle 开发。</p><h3 id="baseline2"><a href="#baseline2" class="headerlink" title="baseline2:"></a>baseline2:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/4960090">https://aistudio.baidu.com/aistudio/projectdetail/4960090</a></p><h3 id="baseline3"><a href="#baseline3" class="headerlink" title="baseline3:"></a>baseline3:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5043272">https://aistudio.baidu.com/aistudio/projectdetail/5043272</a></p><p>默认回答：【】详情请看视频回答】，重复越高可能问题越大<br>长度过短：Noanswer 越可能<br>Noanswer：数据占 1/3，可以把 haveanswer 作为二分类，或者多任务学习方法</p><p>多片段抽取详见参考资料，框架应该支持；无答案？<br>官方的 baseline 优化的比较底层<br>对抗训练</p><h2 id="思路-2：使用序列标注思路"><a href="#思路-2：使用序列标注思路" class="headerlink" title="思路 2：使用序列标注思路"></a>思路 2：使用序列标注思路</h2><h3 id="baseline4"><a href="#baseline4" class="headerlink" title="baseline4:"></a>baseline4:</h3><p><a href="https://aistudio.baidu.com/aistudio/projectdetail/5030168">https://aistudio.baidu.com/aistudio/projectdetail/5030168</a></p><h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p>滑窗要提前处理</p><p>没有答案就少滑窗，答案短就划得快，答案长过滑动窗口的大小，则以滑动窗口的上下标为start、end</p><p>focal loss 损失函数</p><p>标注 0-1 改造成高斯分布</p><p>分层任务，先预测是否存在答案，然后预测答案的开始和结束</p><p>分词按照 [，。【】、] 等等</p><p>查看水哥的代码，检验 badcase；answer list 有好多个答案的情况，他们如何对答案进行建模的？</p><p>序列标注问题</p><p>doc_stride 小的情况下，正负样本如何决定？如果 window 内只有部分答案，能算作正样本还是负样本？</p><p>CRF</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>算力如何获取？大家算力充足吗</p><ol><li>公开代码？代码仓库</li><li>时间表；分工</li></ol><p>关键时间节点：<br>调研模型、挖掘 baseline 思想、数据预处理，数据增强结束<br>提交第一版模型，预计分数<br>不同数据训练出来不同的模型，多个高水平模型进行投票集成</p><p><strong>11 月至 12 月 15 作品提交</strong></p><p>11 月 21 日——11 月 27 日</p><p>11 月 28 日——12 月 4 日</p><p>12 月 5 日——12 月 11 日</p><p>12 月 12 日——12 月 15 日</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;!--more---&gt;
+    <summary type="html">&lt;p&gt;先占坑，等比赛结束记录模型的思想&lt;/p&gt;
+&lt;!--more---&gt;
 &lt;p&gt;11 月至 12 月 15 作品提交&lt;/p&gt;
-&lt;p&gt;给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline paddleNLP 在 github&lt;/p&gt;
-&lt;</summary>
+&lt;p&gt;给看课程的同学算力，100 小时；fork 项目、创建项目，提升用户等级，从而获取免费时长；相当多实际项目；其他比赛；其他项目的 baseline </summary>
       
     
     
@@ -151,11 +151,11 @@
     <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
     
     
+    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
+    
     <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
     
     <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
-    
-    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
     
     <category term="Extraction-based Question Answering" scheme="https://superlova.github.io/tags/Extraction-based-Question-Answering/"/>
     
@@ -213,13 +213,13 @@
     <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
     
     
+    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
+    
     <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
     
     <category term="MOOC" scheme="https://superlova.github.io/tags/MOOC/"/>
     
     <category term="Self-Supervised Learning" scheme="https://superlova.github.io/tags/Self-Supervised-Learning/"/>
-    
-    <category term="BERT" scheme="https://superlova.github.io/tags/BERT/"/>
     
   </entry>
   

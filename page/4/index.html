@@ -150,6 +150,109 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【学习笔记】tf.data基本使用"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        <p class="h4 index-header">【学习笔记】tf.data基本使用</p>
+      </a>
+
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">使用 tf.data API 可以轻松处理大量数据，支持多样化的数据格式，还可以方便执行复杂的转换。本文介绍了不同类别源数据转化为 tf.data.Dataset 的方法，以及 Dataset 常见的预处理方法。
+概览最近几年我们在机器学习的加速计算领域取得了一些突破。虽然我们进行指标运算和矩阵运算所需的时间大大减少了，但是提供数据加速的CPU却没能跟上相应的步伐，这就成为了预处理中的瓶颈。我们本以为可以通过构建更复杂的模型来减少对硬件的需求，但是CPU的效率还是取决于他们拥有多少RAM。
+
+对于一些数据集很大的问题，解决问题的方法除了提升CPU的性能之外，还有对数据集进行分批次处理，但是分批</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-15&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/" target="_self">
+          <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】使用TensorBoard分析模型性能"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/">
+        <p class="h4 index-header">【学习笔记】使用TensorBoard分析模型性能</p>
+      </a>
+
+      <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8TensorBoard%E5%88%86%E6%9E%90%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">这是TensorBoard笔记的第六篇，讲述的是如何使用TensorBoard分析模型的性能，优化模型的资源消耗。
+TensorBoard可以监控模型的各个组分运行过程中的时间消耗和资源消耗，并根据这些数据对模型下一步优化提出建议。
+首先我们安装性能分析的插件
+!pip install -U tensorboard_plugin_profile
+
+定义TensorBoard的回调函数（数据预处理和模型定义略去不表），注意这里新的参数profile_batch只监控第500到520之间的20个Batch，避免监控过多导致模型运行效率过低。
+# Create a TensorBoard callb</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/TensorBoard/">TensorBoard</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/08/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%8D%E5%B5%8C%E5%85%A5%E7%A9%BA%E9%97%B4/" target="_self">
           <img src="/img/tensorboard.png" srcset="/img/loading.gif" alt="【学习笔记】通过TensorBoard可视化词嵌入空间"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1018,9 +1121,9 @@ LSTM 网络引入一个新的内部状态（internal state） $\bol</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/LSTM/">LSTM</a>&nbsp;
-          
             <a href="/tags/RNN/">RNN</a>&nbsp;
+          
+            <a href="/tags/LSTM/">LSTM</a>&nbsp;
           
             <a href="/tags/Keras/">Keras</a>&nbsp;
           
@@ -1144,121 +1247,6 @@ LSTM 网络引入一个新的内部状态（internal state） $\bol</div>
             <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
           
             <a href="/tags/IMDb/">IMDb</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/" target="_self">
-          <img src="/img/imdb.png" srcset="/img/loading.gif" alt="【经验分享】IMDb数据集的预处理"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/">
-        <p class="h4 index-header">【经验分享】IMDb数据集的预处理</p>
-      </a>
-
-      <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">IMDb从官网下载与从keras直接调用的处理方法是不同的。
-一、IMDb数据集的处理方法1. 官网下载法import pandas as pd
-import numpy as np
-from sklearn.datasets import load_files
-
-!wget http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
-!tar -zxvf aclImdb_v1.tar.gz
-!ls
-
-对于 v1.0 版数据，其训练集大小是 75 000，而不是 25 000，因为其中还包含 50 000 个用于无监督学习的无标</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-09&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Python/">Python</a>&nbsp;
-          
-            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
-          
-            <a href="/tags/IMDb/">IMDb</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/" target="_self">
-          <img src="/img/poweroff.jpg" srcset="/img/loading.gif" alt="【经验分享】停电了怎么办？Python获取Windows电源连接信息"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/">
-        <p class="h4 index-header">【经验分享】停电了怎么办？Python获取Windows电源连接信息</p>
-      </a>
-
-      <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">一旦停电，就令笔记本电脑发出响声、发送信息……。看似简单的功能，该如何利用Python实现呢？
-采用笔记本电脑办公的好处是不必害怕突然停电。然而笔记本电脑不可能使用电池工作太久，此时必须尽快通知管理人员，恢复供电。
-看似简单的功能，只需在Windows中注册一个HANDLE，负责接收电源适配器更改这一事件即可。但是本人没有Windows编程和系统编程的经验，只对Python熟悉。如何实现这一功能？
-废话不多说，下面是代码。
-import win32con
-import win32api
-import win32gui
-import time
-from ctypes import POINTER</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-08&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Python/">Python</a>&nbsp;
-          
-            <a href="/tags/Windows/">Windows</a>&nbsp;
-          
-            <a href="/tags/PowerOff/">PowerOff</a>&nbsp;
           
         
       </div>

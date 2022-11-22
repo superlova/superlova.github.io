@@ -150,6 +150,121 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/" target="_self">
+          <img src="/img/imdb.png" srcset="/img/loading.gif" alt="【经验分享】IMDb数据集的预处理"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/">
+        <p class="h4 index-header">【经验分享】IMDb数据集的预处理</p>
+      </a>
+
+      <a href="/2020/06/09/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91IMDb%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">IMDb从官网下载与从keras直接调用的处理方法是不同的。
+一、IMDb数据集的处理方法1. 官网下载法import pandas as pd
+import numpy as np
+from sklearn.datasets import load_files
+
+!wget http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+!tar -zxvf aclImdb_v1.tar.gz
+!ls
+
+对于 v1.0 版数据，其训练集大小是 75 000，而不是 25 000，因为其中还包含 50 000 个用于无监督学习的无标</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-09&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/record/">record</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
+          
+            <a href="/tags/IMDb/">IMDb</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/" target="_self">
+          <img src="/img/poweroff.jpg" srcset="/img/loading.gif" alt="【经验分享】停电了怎么办？Python获取Windows电源连接信息"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/">
+        <p class="h4 index-header">【经验分享】停电了怎么办？Python获取Windows电源连接信息</p>
+      </a>
+
+      <a href="/2020/06/08/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91%E5%81%9C%E7%94%B5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9FPython%E8%8E%B7%E5%8F%96Windows%E7%94%B5%E6%BA%90%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">一旦停电，就令笔记本电脑发出响声、发送信息……。看似简单的功能，该如何利用Python实现呢？
+采用笔记本电脑办公的好处是不必害怕突然停电。然而笔记本电脑不可能使用电池工作太久，此时必须尽快通知管理人员，恢复供电。
+看似简单的功能，只需在Windows中注册一个HANDLE，负责接收电源适配器更改这一事件即可。但是本人没有Windows编程和系统编程的经验，只对Python熟悉。如何实现这一功能？
+废话不多说，下面是代码。
+import win32con
+import win32api
+import win32gui
+import time
+from ctypes import POINTER</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-08&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/record/">record</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/Windows/">Windows</a>&nbsp;
+          
+            <a href="/tags/PowerOff/">PowerOff</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/06/03/%E3%80%90%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E3%80%91TensorFlow%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BF%9D%E5%AD%98/" target="_self">
           <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【经验分享】TensorFlow模型训练和保存"
                class="index-img img-fluid rounded index-thumbnails">
@@ -306,9 +421,9 @@ X部分的每条影评都被编码为一个整数列表。另外，每个单词�
           
             <a href="/tags/Robustness/">Robustness</a>&nbsp;
           
-            <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
-          
             <a href="/tags/Adversarial-Attacks/">Adversarial Attacks</a>&nbsp;
+          
+            <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
           
             <a href="/tags/survey/">survey</a>&nbsp;
           
@@ -421,13 +536,13 @@ reduce the average DNN training time by 25%, while still improving robust accura
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/NLP/">NLP</a>&nbsp;
-          
             <a href="/tags/Data-Augmentation/">Data Augmentation</a>&nbsp;
           
-            <a href="/tags/Text-Classification/">Text Classification</a>&nbsp;
+            <a href="/tags/NLP/">NLP</a>&nbsp;
           
             <a href="/tags/Deep-Neural-Networks/">Deep Neural Networks</a>&nbsp;
+          
+            <a href="/tags/Text-Classification/">Text Classification</a>&nbsp;
           
         
       </div>
@@ -1148,104 +1263,6 @@ print(A)
             <a href="/tags/Python/">Python</a>&nbsp;
           
             <a href="/tags/decorator/">decorator</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/05/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C%E7%AB%99%E8%B0%83%E7%A0%94-%E7%BB%93%E5%90%88%E6%94%BF%E5%BA%9C%E9%87%87%E8%B4%AD%E7%BD%91%E4%BF%A1%E6%81%AF/" target="_self">
-          <img src="/img/pcie.png" srcset="/img/loading.gif" alt="深度学习工作站调研--结合政府采购网信息"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/05/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C%E7%AB%99%E8%B0%83%E7%A0%94-%E7%BB%93%E5%90%88%E6%94%BF%E5%BA%9C%E9%87%87%E8%B4%AD%E7%BD%91%E4%BF%A1%E6%81%AF/">
-        <p class="h4 index-header">深度学习工作站调研--结合政府采购网信息</p>
-      </a>
-
-      <a href="/2020/05/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C%E7%AB%99%E8%B0%83%E7%A0%94-%E7%BB%93%E5%90%88%E6%94%BF%E5%BA%9C%E9%87%87%E8%B4%AD%E7%BD%91%E4%BF%A1%E6%81%AF/">
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">本文结合北京市政府采购网信息，介绍了深度学习主机需要的性能指标，介绍了核心厂家的工作站型号，总结了显卡的类别。...</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/PCIe/">PCIe</a>&nbsp;
-          
-            <a href="/tags/%E6%98%BE%E5%8D%A1/">显卡</a>&nbsp;
-          
-            <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%AB%99/">工作站</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/05/11/chrome%E5%8D%87%E7%BA%A7%E7%89%88%E6%9C%AC%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_self">
-          <img src="/img/chrome.png" srcset="/img/loading.gif" alt="chrome升级版本失败解决办法"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/05/11/chrome%E5%8D%87%E7%BA%A7%E7%89%88%E6%9C%AC%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-        <p class="h4 index-header">chrome升级版本失败解决办法</p>
-      </a>
-
-      <a href="/2020/05/11/chrome%E5%8D%87%E7%BA%A7%E7%89%88%E6%9C%AC%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">错误描述：在Win7电脑上试图将Chrome从32位的72版本升级到64位的80版本时发生问题，升级进度到62%报错：Chrome安装 未知错误导致安装失败  “0x80040902”
-从chrome官网下载“chromesetup.exe”，打开梯子之后下载成功，在安装过程中也出现未知错误。从Chrome官网下载“Chromestandalonesetup64.exe”，即离线安装包，最后也出现同样的错误。重新启动、进入安全模式、试图结束所有有关google的进程的方法对我都没用。
-最后有效的方法：把原来的Chrome从控制面板的“添加删除程序”中卸载；
-按住windows+R，在“开始”运</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/chrome/">chrome</a>&nbsp;
           
         
       </div>
