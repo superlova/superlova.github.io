@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://superlova.github.io/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://superlova.github.io/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/</loc>
     
     <lastmod>2022-11-22</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://superlova.github.io/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/</loc>
+    <loc>https://superlova.github.io/2022/05/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/</loc>
     
     <lastmod>2022-11-22</lastmod>
     
@@ -1707,27 +1707,6 @@
   </url>
   
   <url>
-    <loc>https://superlova.github.io/tags/boosting/</loc>
-    <lastmod>2022-11-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://superlova.github.io/tags/bagging/</loc>
-    <lastmod>2022-11-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://superlova.github.io/tags/random-forest/</loc>
-    <lastmod>2022-11-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://superlova.github.io/tags/GBDT/</loc>
     <lastmod>2022-11-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -2282,6 +2261,27 @@
   
   <url>
     <loc>https://superlova.github.io/tags/java/</loc>
+    <lastmod>2022-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://superlova.github.io/tags/Random-Forest/</loc>
+    <lastmod>2022-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://superlova.github.io/tags/XGBoost/</loc>
+    <lastmod>2022-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://superlova.github.io/tags/LightGBM/</loc>
     <lastmod>2022-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
