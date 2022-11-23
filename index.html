@@ -150,6 +150,63 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2022/11/23/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E5%90%8E%E7%AB%AF%E9%80%BB%E8%BE%91/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【学习笔记】通过文字检索视频片段：VCED之后端逻辑"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2022/11/23/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E5%90%8E%E7%AB%AF%E9%80%BB%E8%BE%91/">
+        <p class="h4 index-header">【学习笔记】通过文字检索视频片段：VCED之后端逻辑</p>
+      </a>
+
+      <a href="/2022/11/23/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E5%90%8E%E7%AB%AF%E9%80%BB%E8%BE%91/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本篇文章是跨模态检索工具 VCED 介绍的第五篇，前面介绍了前端部分，本篇来研究后端部分。
+
+一、概览项目后端共由四个文件组成，其中 VideoLoader 负责对上传的视频进行关键帧提取，CustomClipText 负责将上传的图片转换为向量数据，CustomClipImage 负责将提取的关键帧转换为向量数据，SimpleIndexer 负责向量数据的检索。
+
+VideoLoader
+CustomClipText
+CustomClipImage
+SimpleIndexer
+
+二、VideoLoaderVideoLoader 继承自 Executor，在整个后端中执行抽帧操作。
+这里简单介</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2022-11-23&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/VCED/">VCED</a>&nbsp;
+          
+            <a href="/tags/multimodal/">multimodal</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2022/11/21/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E2%80%94%E2%80%94Streamlit%E5%89%8D%E7%AB%AF%E7%AE%80%E4%BB%8B/" target="_self">
           <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【学习笔记】通过文字检索视频片段：VCED——Streamlit前端简介"
                class="index-img img-fluid rounded index-thumbnails">
@@ -167,14 +224,12 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">第四篇：介绍一个 Web 应用程序框架Streamlit。
+          <div class="index-text mb-1">本篇文章是跨模态检索工具 VCED 介绍的第四篇，即将揭晓第一篇中 demo 的前端部分是如何实现的，以及如何利用 python + Streamlit 工具快速开发一个前端界面。
 
 Streamlit 是一个基于 Python 的 Web 应用程序框架。Streamlit 基于 Python，开发者无需学习其他就可以搭建一个较为完整的系统。因此此次教程，VCED项目就通过 Streamlit + Jina 构建了一套系统。
 1. 安装pip install streamlit
 2. 使用 Streamlit 构建 Web appimport pandas as pd
-import numpy as np
-import streamlit as st
-st.set_page_config(page_title=&</div>
+import numpy</div>
         </div>
       </a>
 
@@ -461,11 +516,11 @@ baseline：赛道 1 的 baseline 5043272 4960090赛道 2 的 baseline TensorRT 5
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">第三篇：跨模态模型介绍
+          <div class="index-text mb-1">本篇是 VCED 跨模态检索工具介绍的第三篇，介绍 VCED 实现跨模态检索的核心模型和算法。本篇文章只能说浅尝辄止，更深入的思考还需后续补充。
 
 一、CLIP 模型CLIP模型将原有的图像标签替换为图像的文本描述信息，来监督视觉任务的训练，在下游任务中得到了较好的zero-shot的结果。
 该模型将图像分类问题转换为图文匹配问题，在下游任务（以图像分类为例）的实现中，我们需要先基于图像标签集合，构造 text prompt 并将其通过 clip 的 text encoder 获得文本编码向量，之后，将图片通过 image encoder 获得图像编码向量。
-对于每张图片，我们需要计算它与所有 text prompt 之间的距离（通过计算图像编码向量与文本编码向量之间的余弦相似度或点积得到），选择距离最近的 te</div>
+对于每张图片，我们需要计算它与所有</div>
         </div>
       </a>
 
@@ -567,15 +622,15 @@ BERT 的训练数据包含整个维基百科的无标签号文本的大语料库
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">第二篇：核心组件 Jina 介绍
+          <div class="index-text mb-1">这是 VCED 跨模态检索介绍的第二篇，本篇将介绍 VCED 工具背后的关键框架：Jina。
+
 Jina 是一个能够将非结构化数据例如图像，文档视频等，转换为向量数据的工具。利用该工具，可以快速实现多模态的检索任务。另外，Jina 也是一家新的公司，目前正在优化中。他们的 GitHub Repo。
 
 其实 Jina 公司提供了包括向量化、服务化到实际部署的全部工具，可以支持包括 PDF 检索、视频检索在内的很多检索操作。
 
 1. Jina 安装在 windows 系统上的安装教程：
 https://blog.csdn.net/Jina_AI/article/details/122820646
-本文将记录在 mac 上安装 jina 的过程。
-首先确保自己</div>
+</div>
         </div>
       </a>
 
@@ -622,15 +677,13 @@ https://blog.csdn.net/Jina_AI/article/details/122820646
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">第一篇：环境部署
+          <div class="index-text mb-1">本篇博客记录了笔者在本机（MacOS）部署 VCED 多模态数据检索工具的前端和后端的过程，并尝试使用该工具检索了一个动画短片，取得了令我惊奇的效果。
 
 VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。
 本项目参考自 Datawhale 的 VCED 学习教程。
 环境为 Mac Monterey, Apple M1 Pro 芯片，内存 16GB。
-首先需要安装 docker，在 mac 上安装 docker 只需去官网下载客户端：
-https://docs.docker.com/desktop/install/mac-install/
-
-注意，在 mac 上安装 docker 需要提前安装 </div>
+直接安装 docker 镜像首先需要安装 docker，在 mac 上安装 docker 只需去官网下载客户端：
+</div>
         </div>
       </a>
 
@@ -1168,56 +1221,6 @@ Step1：选择深度学习模型：神经网络（Neural network），神经网�
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2022-07-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
-          
-            <a href="/tags/Compilation/">Compilation</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2022/07/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94Note1/" target="_self">
-          <img src="/img/mlc-logo-with-text-landscape.svg" srcset="/img/loading.gif" alt="【学习笔记】机器学习编译——Note1"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2022/07/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94Note1/">
-        <p class="h4 index-header">【学习笔记】机器学习编译——Note1</p>
-      </a>
-
-      <a href="/2022/07/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94Note1/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">陈天奇老师主讲的机器学习编译相关的课程，回答了机器学习模型是如何从开发状态到部署状态的。整个过程类似源代码到可执行程序的编译过程，因此得名机器学习编译。据他本人所述，这门课是目前全世界第一门主讲机器学习编译的课程。
-《机器学习编译》是陈天奇老师的公开课。目前在Bilibili上更新视频。这里是陈天奇老师在Bilibili的个人主页，如果对课程感兴趣的小伙伴可以免费观摩。
-另外课件地址在这里：Machine Learning Compilation
-一、什么是机器学习编译？学习这门课的意义是什么？机器学习编译 (machine learning compilation, MLC) 是指，将机器学</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2022-07-04&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>

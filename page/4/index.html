@@ -150,6 +150,59 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/" target="_self">
+          <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【学习笔记】使用tf.data对预处理过程优化"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/">
+        <p class="h4 index-header">【学习笔记】使用tf.data对预处理过程优化</p>
+      </a>
+
+      <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E4%BD%BF%E7%94%A8tf-data%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文是关于 tf.data 介绍的第二篇，主要介绍一些数据预处理方面的优化方法，诸如并行化预处理映射函数、使用缓存等。
+构建一个机器学习模型时，由于数据预处理过程不能使用GPU进行加速，因此格外耗时。背后的原因可能是CPU、网络或者缓存等复杂的因素。因此要研究如何提升数据预处理的效率，首先需要控制实验的变量。想实现这一点，构造一个虚假的数据集比较可行。
+通过构建一个虚假的数据集，从tf.data.Dataset继承的类，称为ArtificialDataset。该数据集模拟三件事：
+
+生成num_samples样本（默认为3）
+在第一个模拟打开文件的项目之前睡眠一段时间
+在产生每个项目以模拟从文</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-15&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Tensorflow/">Tensorflow</a>&nbsp;
+          
+            <a href="/tags/preprocessing/">preprocessing</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/08/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91tf-data%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
           <img src="/img/tensorflow.png" srcset="/img/loading.gif" alt="【学习笔记】tf.data基本使用"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1192,61 +1245,6 @@ LSTM 网络引入一个新的内部状态（internal state） $\bol</div>
             <a href="/tags/testing/">testing</a>&nbsp;
           
             <a href="/tags/DNN/">DNN</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2020/06/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%A4%84%E7%90%86%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
-          <img src="/img/imdb.png" srcset="/img/loading.gif" alt="【学习笔记】机器学习中处理文本数据的常用方法"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/06/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%A4%84%E7%90%86%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
-        <p class="h4 index-header">【学习笔记】机器学习中处理文本数据的常用方法</p>
-      </a>
-
-      <a href="/2020/06/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%A4%84%E7%90%86%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">总结词袋模型、Tf-idf等文本特征提取方法
-一、词袋模型文本数据通常被表示为由字符组成的字符串。我们需要先处理数据，然后才能对其应用机器学习算法。
-在文本分析的语境中，数据集通常被称为语料库（corpus），每个由单个文本表示的数据点被称为文档（document）。
-最简单的处理方法，是只计算语料库中每个单词在每个文本中的出现频次。这种文本处理模型称之为词袋模型。
-不考虑词语出现的顺序，每个出现过的词汇单独作为一列特征，这些不重复的特征词汇集合为词表。
-每一个文本都可以在很长的词表上统计出一个很多列的特征向量。如果每个文本都出现的词汇，一般被标记为停用词不计入特征向量。
-为了搞清楚词袋模型，</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-09&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Python/">Python</a>&nbsp;
-          
-            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
-          
-            <a href="/tags/IMDb/">IMDb</a>&nbsp;
           
         
       </div>

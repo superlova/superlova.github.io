@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    304 字
+                    854 字
                   </span>
                 
 
@@ -142,7 +142,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      1 分钟
+                      3 分钟
                   </span>
                 
 
@@ -177,15 +177,15 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期四, 十一月 17日 2022, 1:42 凌晨</p>
+                class="note note-warning">本文最后更新于：星期四, 十一月 24日 2022, 1:15 凌晨</p>
             
             <div class="markdown-body">
-              <p>第一篇：环境部署</p>
+              <p>本篇博客记录了笔者在本机（MacOS）部署 VCED 多模态数据检索工具的前端和后端的过程，并尝试使用该工具检索了一个动画短片，取得了令我惊奇的效果。</p>
 <!--more--->
 <p>VCED: Video Clip Extraction by description, 可以通过你的文字描述来自动识别视频中相符合的片段进行视频剪辑。基于跨模态搜索与向量检索技术搭建。</p>
 <p>本项目参考自 <a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced">Datawhale 的 VCED 学习教程</a>。</p>
 <p>环境为 Mac Monterey, Apple M1 Pro 芯片，内存 16GB。</p>
-<p>首先需要安装 docker，在 mac 上安装 docker 只需去官网下载客户端：</p>
+<h2 id="直接安装-docker-镜像"><a href="#直接安装-docker-镜像" class="headerlink" title="直接安装 docker 镜像"></a>直接安装 docker 镜像</h2><p>首先需要安装 docker，在 mac 上安装 docker 只需去官网下载客户端：</p>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/install/mac-install/">https://docs.docker.com/desktop/install/mac-install/</a></p>
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/mac安装docker.png" srcset="/img/loading.gif" alt></p>
 <p>注意，在 mac 上安装 docker 需要提前安装 rosetta。</p>
@@ -205,7 +205,41 @@ docker run -itd -p 8501:8501 -p 45679:45679 --name vced_arm nil01/vced
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/浏览器交互页面.png" srcset="/img/loading.gif" alt></p>
 <p>启动 docker 进程之后，输入指令 <code>docker ps</code> 查看运行中的 container，输入 <code>docker ps &lt;CONTAINER ID&gt;</code> 即可结束该 container。</p>
 <p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/docker操作.png" srcset="/img/loading.gif" alt></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced/blob/main/README.md">https://github.com/datawhalechina/vced/blob/main/README.md</a></p>
+<h2 id="自行编译"><a href="#自行编译" class="headerlink" title="自行编译"></a>自行编译</h2><p>先安装 rust</p>
+<pre><code class="lang-sh">curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</code></pre>
+<p>在安装时，默认的 rust 版本适配“aarch64-apple-darwin”架构的 mac。因此放心安装即可。</p>
+<p>安装完毕后，需要重启 shell，测试 rustc 命令看看能不能正常执行即可。</p>
+<p>再安装 CLIP：</p>
+<pre><code class="lang-sh">pip install git+https://github.com/openai/CLIP.git
+</code></pre>
+<p>然后 clone 我们所学的代码：</p>
+<pre><code class="lang-sh">git clone &quot;https://github.com/datawhalechina/vced.git&quot;
+</code></pre>
+<p>进入 <code>vced/code/service</code> ，然后执行</p>
+<pre><code class="lang-sh">pip install -r requirements.txt
+</code></pre>
+<p>安装依赖包。这个过程需要下载较长时间。下载安装完毕后，执行</p>
+<pre><code class="lang-sh">python app.py
+</code></pre>
+<p>即可运行后端服务器。</p>
+<p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/demo.png" srcset="/img/loading.gif" alt></p>
+<p>然后我们还需要运行前端，保留原来的 shell 不要关闭，另开一个 shell，进入目录 <code>vced/code/web</code> ，启动前端：</p>
+<pre><code class="lang-sh">streamlit run app.py
+</code></pre>
+<p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/demo_frontend_success.png" srcset="/img/loading.gif" alt></p>
+<p>前端默认在<code>http://localhost:8501/</code>开放。</p>
+<h2 id="测试功能"><a href="#测试功能" class="headerlink" title="测试功能"></a>测试功能</h2><p>随便选一个本地的视频，然后输入一段文本尝试描述你想要节选的视频片段，点击 search 即可等待结果。</p>
+<p>结果默认是一个 10s 的片段，如果没找到，则默认返回开头的 10s。</p>
+<p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/demo_example.png" srcset="/img/loading.gif" alt></p>
+<p>我上传了一段妮露跳舞的视频，试图检索“girl”，输出片段果真是妮露跳舞的视频片段。</p>
+<p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/demo_example2.png" srcset="/img/loading.gif" alt></p>
+<p>此时更换检索词“boy”，真的把空的镜头检索出来了。</p>
+<p>最后我尝试检索“a boy with sadness”这种语法不通的检索词，结果如下：</p>
+<p><img src="/2022/11/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED/final_example.png" srcset="/img/loading.gif" alt></p>
+<p>按照我的标准，已经完全满足需求，真是神器！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本篇博客记录了笔者在本机（MacOS）部署 VCED 多模态数据检索工具的前端和后端的过程，并尝试使用该工具检索了一个动画短片，取得了令我惊奇的效果。后续会针对该工具进行深入研究，探索跨模态检索使用的技术和原理到底是什么，以及掌握前端和后端所使用的技术。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/vced/blob/main/README.md">https://github.com/datawhalechina/vced/blob/main/README.md</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.jina.ai/get-started/install/windows/">https://docs.jina.ai/get-started/install/windows/</a></p>
 
             </div>

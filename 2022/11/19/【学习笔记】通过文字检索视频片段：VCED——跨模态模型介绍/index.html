@@ -177,10 +177,10 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期六, 十一月 19日 2022, 2:34 凌晨</p>
+                class="note note-warning">本文最后更新于：星期四, 十一月 24日 2022, 1:20 凌晨</p>
             
             <div class="markdown-body">
-              <p>第三篇：跨模态模型介绍</p>
+              <p>本篇是 VCED 跨模态检索工具介绍的第三篇，介绍 VCED 实现跨模态检索的核心模型和算法。本篇文章只能说浅尝辄止，更深入的思考还需后续补充。</p>
 <!--more--->
 <h2 id="一、CLIP-模型"><a href="#一、CLIP-模型" class="headerlink" title="一、CLIP 模型"></a>一、CLIP 模型</h2><p>CLIP模型将原有的图像标签替换为图像的文本描述信息，来监督视觉任务的训练，在下游任务中得到了较好的zero-shot的结果。</p>
 <p>该模型将图像分类问题转换为图文匹配问题，在下游任务（以图像分类为例）的实现中，我们需要先基于图像标签集合，构造 text prompt 并将其通过 clip 的 text encoder 获得文本编码向量，之后，将图片通过 image encoder 获得图像编码向量。</p>
