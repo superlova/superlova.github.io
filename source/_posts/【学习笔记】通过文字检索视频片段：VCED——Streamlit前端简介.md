@@ -9,7 +9,7 @@ categories:
 - notes
 ---
 
-第四篇：介绍一个 Web 应用程序框架Streamlit。
+本篇文章是跨模态检索工具 VCED 介绍的第四篇，即将揭晓第一篇中 demo 的前端部分是如何实现的，以及如何利用 python + Streamlit 工具快速开发一个前端界面。
 
 <!--more--->
 

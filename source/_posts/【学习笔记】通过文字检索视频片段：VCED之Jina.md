@@ -9,7 +9,7 @@ categories:
 - notes
 ---
 
-# 第二篇：核心组件 Jina 介绍
+这是 VCED 跨模态检索介绍的第二篇，本篇将介绍 VCED 工具背后的关键框架：Jina。
 
 <!--more--->
 
