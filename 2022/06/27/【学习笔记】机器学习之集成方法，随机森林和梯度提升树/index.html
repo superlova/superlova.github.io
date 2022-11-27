@@ -134,7 +134,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    3.7k 字
+                    2.7k 字
                   </span>
                 
 
@@ -142,7 +142,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      13 分钟
+                      9 分钟
                   </span>
                 
 
@@ -177,7 +177,7 @@
           <div class="post-content mx-auto" id="post">
             
               <p
-                class="note note-warning">本文最后更新于：星期三, 十一月 23日 2022, 6:59 晚上</p>
+                class="note note-warning">本文最后更新于：星期日, 十一月 27日 2022, 8:13 早上</p>
             
             <div class="markdown-body">
               <p>本文会介绍集成方法，bagging 和 boosting 两种思路，以及两种思路的代表性模型：随机森林和梯度提升树。</p>
@@ -237,50 +237,7 @@ L(y,f_{t}(\boldsymbol{x}))=\frac{1}{2}(y-f(\boldsymbol{x}))^{2}</script><p>对�
 <p>然而有些模型的结果不够准确，可能会拉低整体的性能。Stacking 的整体思想就是，额外再训练一个简单模型，以基分类器的结果为输入，输出最终的一个值，作为全部模型的输出。</p>
 <p><img src="/2022/06/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91/stacking.png" srcset="/img/loading.gif" alt></p>
 <p>由简单模型去学习各个基分类器的权重的时候，我们需要注意，采用的训练集必须要是全新的、没有被基分类器使用过的。否则无法发现基分类器的过拟合现象。</p>
-<h2 id="5-成熟的-Boosting-模型"><a href="#5-成熟的-Boosting-模型" class="headerlink" title="5. 成熟的 Boosting 模型"></a>5. 成熟的 Boosting 模型</h2><h3 id="5-1-XGBoost"><a href="#5-1-XGBoost" class="headerlink" title="5.1 XGBoost"></a>5.1 XGBoost</h3><ol>
-<li>XGBoost 修改了 GBDT 的损失函数，实现了预剪枝的操作。</li>
-</ol>
-<p>原始的 GBDT 算法基于经验损失函数的负梯度来构造新的决策树，构造完成后再进行后剪枝。XGBoost 添加了预剪枝操作，它在目标函数中添加了正则项。</p>
-<script type="math/tex; mode=display">
-L_t=\sum_i L(y_i, F_{t-1}(x_i)+f_t(x_i)) + \Omega(f_t)</script><p>其中：</p>
-<script type="math/tex; mode=display">
-\Omega(f_t)=\gamma T+\frac{1}{2}\lambda \sum_{j=1}^{T}w_{j}^2</script><p>其中 T 为这棵树的叶子结点个数，$w_j$表示第 j 个叶子结点的预测值。这是一个正则项，该值能够在一定程度上代表一棵树的复杂程度。XGBoost 添加此项的目的在于控制不要生成过于复杂的子树结构。</p>
-<p>要想优化该目标函数，但是 f 本身不是数值型的函数，不能直接使用梯度下降进行优化。因此在这里对损失函数进行二阶泰勒展开，用作函数的近似：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-L_t &=\sum_i L(y_i, F_{t-1}(x_i)+f_t(x_i)) + \Omega(f_t) \\
-&= \sum_i [L(y_i, F_{t-1}(x_i)) + g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)
-\end{aligned}</script><p>其中 $ g<em>i=\frac{\partial L(y_i, F</em>{t-1}(x<em>i))}{\partial F</em>{t-1}(x<em>i)} $，$ h_i=\frac{\partial^2 L(y_i, F</em>{t-1}(x<em>i))}{\partial^2 F</em>{t-1}(x_i)} $，分别为f 的一阶导数和二阶导数</p>
-<p>对第 t 次迭代来说，$ L(y<em>i, F</em>{t-1}(x_i)) $ 是个常数，因此目标函数可进一步简化为：</p>
-<script type="math/tex; mode=display">
-L_t=\sum_i [g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)</script><p>这样做，只需知道每个样本的损失函数的一阶导数、二阶导数，每个样本在第 t 个分类器的预测结果，叶子结点的个数，叶子结点的输出值，就知道第 t 步的损失函数值了。</p>
-<p>上面的公式，左边的累加是逐样本累加，右边的累加是逐叶子累加，需要把他们合并起来。</p>
-<p>最终得到损失函数形式：</p>
-<script type="math/tex; mode=display">
-L_t=-\frac{1}{2}\sum_{j=1}^T (\frac{G^2_j}{H_j + \lambda}) + \gamma T</script><p>该值越小，越优化。</p>
-<p>XGBoost 在分裂时，会遍历该特征的所有取值，尝试计算分裂前的损失和分裂后的损失。</p>
-<script type="math/tex; mode=display">
-\text{Gain}=\frac{1}{2}[\frac{G^2_L}{H_L + \lambda}+\frac{G^2_R}{H_R + \lambda}-\frac{(G_L + G_R)^2}{H_L + H_R + \lambda}] - \gamma</script><p>其中第一项是左子树分数，第二项是右子树分数，第三项是分裂前的分数，最后的 gamma 是新叶子结点的复杂度。</p>
-<p>gain 值越大，说明分裂后能够更多地让损失函数减小，也就是越好。</p>
-<ol>
-<li>XGBoost 没有定义损失函数本身，因此基学习器可以更换，只要该损失函数能够进行二阶泰勒展开即可。</li>
-</ol>
-<p>XGBoost 默认使用 CART 回归树用作基学习器，但是可以更换为其他学习器，比如线性模型。此时的损失函数需要自行更换。</p>
-<ol>
-<li>XGBoost 在每轮迭代时，可以使用全部数据，也可以使用自助采样的数据。</li>
-</ol>
-<p>这里的思想类似随机森林，每次节点分裂并没有比较所有特征的好坏，而是先随机圈定一部分特征，只使用这部分特征进行比较，从而在生成树时引入了随机性。</p>
-<p>列采样有两种方式，一种是层内随机，一层的所有节点都使用随机圈定的特征；另一种是整颗树随机，即建树伊始就使用随机圈定的特征。</p>
-<p>另外 XGBoost 在决定特征的分裂点是，并没有逐个比较所有情况，而是选用了二阶梯度分位点。</p>
-<ol>
-<li>XGBoost 能够自动学习出缺失值的处理策略。</li>
-</ol>
-<p>缺失值处理策略相对简单，即分别尝试把所有缺失该特征的数据放在左子树和右子树，分别计算增益，来决定缺失数据的归宿。这也就决定了 XGBoost 无法应对 OneHot 编码这种大部分都为 0 的特征。</p>
-<ol>
-<li>XGBoost 在工程实现上的优化</li>
-</ol>
-<p>在选择分裂点时，XGBoost 会首先将样本按照特征进行排序。排序的这个步骤可以进行优化。</p>
-<h3 id="5-2-LightGBM"><a href="#5-2-LightGBM" class="headerlink" title="5.2 LightGBM"></a>5.2 LightGBM</h3><h3 id="5-3-CatBoost"><a href="#5-3-CatBoost" class="headerlink" title="5.3 CatBoost"></a>5.3 CatBoost</h3>
+
             </div>
             <hr>
             <div>

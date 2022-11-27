@@ -150,6 +150,115 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E6%8B%93%E5%B1%95%E4%BC%98%E5%8C%96/" target="_self">
+          <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【学习笔记】通过文字检索视频片段：VCED之拓展优化"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E6%8B%93%E5%B1%95%E4%BC%98%E5%8C%96/">
+        <p class="h4 index-header">【学习笔记】通过文字检索视频片段：VCED之拓展优化</p>
+      </a>
+
+      <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E6%8B%93%E5%B1%95%E4%BC%98%E5%8C%96/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本篇文章是跨模态检索工具 VCED 介绍的第六篇。介绍完 VCED 的核心机制与前后端，本次记录下可以优化的点。
+
+1. 目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以 Faiss 实现的高性能检索库；Faiss是Facebook AI团队开源的针对聚类和相似性搜索库，为稠密向量提供高效相似度搜索和聚类，支持十亿级别向量的搜索。Faiss用C++编写，并提供 Numpy 风格的 Python 接口。
+为了实现 Faiss 的高效检索功能，我们需要改写 SimpleIndexer 类：
+索引初始化时，默认是从本地 sqlite 中进行读取，可以更改为以下读取方</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2022-11-27&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/VCED/">VCED</a>&nbsp;
+          
+            <a href="/tags/multimodal/">multimodal</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8BXGBoost%E3%80%81LightGBM%E3%80%81CatBoost/" target="_self">
+          <img src="/img/algorithm.png" srcset="/img/loading.gif" alt="【学习笔记】机器学习之XGBoost、LightGBM、CatBoost"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8BXGBoost%E3%80%81LightGBM%E3%80%81CatBoost/">
+        <p class="h4 index-header">【学习笔记】机器学习之XGBoost、LightGBM、CatBoost</p>
+      </a>
+
+      <a href="/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8BXGBoost%E3%80%81LightGBM%E3%80%81CatBoost/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文会记录 XGBoost、LightGBM、CatBoost 的原理、区别和使用方法。
+
+XGBoostXGBoost 是 GBDT 算法的一种高效实现方式。
+XGBoost 的原理原始的 GBDT 算法基于经验损失函数的负梯度来构造新的决策树，构造完成后再进行后剪枝。XGBoost 添加了预剪枝操作，它在目标函数中添加了正则项。
+
+L_t=\sum_i L(y_i, F_{t-1}(x_i)+f_t(x_i)) + \Omega(f_t)其中：
+
+\Omega(f_t)=\gamma T+\frac{1}{2}\lambda \sum_{j=1}^{T}w_{j}^2其中 T 为这棵树的叶</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2022-11-27&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
+          
+            <a href="/tags/XGBoost/">XGBoost</a>&nbsp;
+          
+            <a href="/tags/LightGBM/">LightGBM</a>&nbsp;
+          
+            <a href="/tags/CatBoost/">CatBoost</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2022/11/23/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E5%90%8E%E7%AB%AF%E9%80%BB%E8%BE%91/" target="_self">
           <img src="/img/datawhale.jpg" srcset="/img/loading.gif" alt="【学习笔记】通过文字检索视频片段：VCED之后端逻辑"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1119,108 +1228,6 @@ Step1：选择深度学习模型：神经网络（Neural network），神经网�
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2022-09-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
-          
-            <a href="/tags/Compilation/">Compilation</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2022/08/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB/" target="_self">
-          <img src="/img/be-professional.jpeg" srcset="/img/loading.gif" alt="【学习笔记】职业素养"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2022/08/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB/">
-        <p class="h4 index-header">【学习笔记】职业素养</p>
-      </a>
-
-      <a href="/2022/08/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">有关新人培养手册的一些阅读体会和思考
-执行任务并漂亮地完成分析问题、解决问题是工程师的日常工作，如何对待工作、如何执行工作，反映了一个工程师的基本素质。
-不同级别的工程师适合处理不同难度的任务。根据任务难度，可以分类为：
-
-任务已经拆解完毕，我只负责某个简单子任务的执行；
-任务已经拆解完毕，我负责各个步骤的执行，或者其中较困难的部分；
-复杂的事情需要自己做拆解然后执行。
-
-一般我们把简单的执行任务交付给 T5 左右级别工程师去执行，把复杂的任务交给 T7 左右的工程师执行。而 T8 及以上的工程师，我们希望能独立完成任务拆解并执行。T10 以上的工程师，我们希望能够承担一个技术方向上的难题。
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2022-08-01&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Career/">Career</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto">
-        <a href="/2022/07/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9F/" target="_self">
-          <img src="/img/mlc-logo-with-text-landscape.svg" srcset="/img/loading.gif" alt="【学习笔记】如何实现模型的热更新？"
-               class="index-img img-fluid rounded index-thumbnails">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2022/07/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9F/">
-        <p class="h4 index-header">【学习笔记】如何实现模型的热更新？</p>
-      </a>
-
-      <a href="/2022/07/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9F/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">陈天奇老师主讲的机器学习编译相关的课程，回答了机器学习模型是如何从开发状态到部署状态的。整个过程类似源代码到可执行程序的编译过程，因此得名机器学习编译。据他本人所述，这门课是目前全世界第一门主讲机器学习编译的课程。
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2022-07-22&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>

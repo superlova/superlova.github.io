@@ -6,7 +6,7 @@
   <link href="https://superlova.github.io/atom.xml" rel="self"/>
   
   <link href="https://superlova.github.io/"/>
-  <updated>2022-11-23T17:50:38.259Z</updated>
+  <updated>2022-11-27T18:20:04.759Z</updated>
   <id>https://superlova.github.io/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【学习笔记】通过文字检索视频片段：VCED之拓展优化</title>
+    <link href="https://superlova.github.io/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E6%8B%93%E5%B1%95%E4%BC%98%E5%8C%96/"/>
+    <id>https://superlova.github.io/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E9%80%9A%E8%BF%87%E6%96%87%E5%AD%97%E6%A3%80%E7%B4%A2%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5%EF%BC%9AVCED%E4%B9%8B%E6%8B%93%E5%B1%95%E4%BC%98%E5%8C%96/</id>
+    <published>2022-11-27T15:36:31.000Z</published>
+    <updated>2022-11-27T18:20:04.759Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇文章是跨模态检索工具 VCED 介绍的第六篇。介绍完 VCED 的核心机制与前后端，本次记录下可以优化的点。</p><!--more---><h2 id="1-目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以-Faiss-实现的高性能检索库；"><a href="#1-目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以-Faiss-实现的高性能检索库；" class="headerlink" title="1. 目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以 Faiss 实现的高性能检索库；"></a>1. 目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以 Faiss 实现的高性能检索库；</h2><p>Faiss是Facebook AI团队开源的针对聚类和相似性搜索库，为稠密向量提供高效相似度搜索和聚类，支持十亿级别向量的搜索。Faiss用C++编写，并提供 Numpy 风格的 Python 接口。</p><p>为了实现 Faiss 的高效检索功能，我们需要改写 SimpleIndexer 类：</p><p>索引初始化时，默认是从本地 sqlite 中进行读取，可以更改为以下读取方法：</p><pre><code class="lang-py">if cls is DocumentArray:    if storage == &#39;memory&#39;:        from docarray.array.memory import DocumentArrayInMemory        instance = super().__new__(DocumentArrayInMemory)    elif storage == &#39;sqlite&#39;:        from docarray.array.sqlite import DocumentArraySqlite        instance = super().__new__(DocumentArraySqlite)    elif storage == &#39;annlite&#39;:        from docarray.array.annlite import DocumentArrayAnnlite        instance = super().__new__(DocumentArrayAnnlite)    elif storage == &#39;weaviate&#39;:        from docarray.array.weaviate import DocumentArrayWeaviate        instance = super().__new__(DocumentArrayWeaviate)    elif storage == &#39;qdrant&#39;:        from docarray.array.qdrant import DocumentArrayQdrant        instance = super().__new__(DocumentArrayQdrant)    elif storage == &#39;elasticsearch&#39;:        from docarray.array.elastic import DocumentArrayElastic        instance = super().__new__(DocumentArrayElastic)    elif storage == &#39;redis&#39;:        from .redis import DocumentArrayRedis        instance = super().__new__(DocumentArrayRedis)    else:        raise ValueError(f&#39;storage=`&#123;storage&#125;` is not supported.&#39;)</code></pre><p>在 Faiss 里有不同的索引类型可供选择：</p><p>IndexFlatL2、IndexFlatIP、IndexHNSWFlat、IndexIVFFlat、IndexLSH、IndexScalarQuantizer、IndexPQ、IndexIVFScalarQuantizer、IndexIVFPQ、IndexIVFPQR等。</p><h2 id="2-目前跨模态模型这里使用了比较大众的模型，文本与视频的匹配度有待提升，这里可以优化成更加优秀的模型；"><a href="#2-目前跨模态模型这里使用了比较大众的模型，文本与视频的匹配度有待提升，这里可以优化成更加优秀的模型；" class="headerlink" title="2. 目前跨模态模型这里使用了比较大众的模型，文本与视频的匹配度有待提升，这里可以优化成更加优秀的模型；"></a>2. 目前跨模态模型这里使用了比较大众的模型，文本与视频的匹配度有待提升，这里可以优化成更加优秀的模型；</h2><p>TBC</p><h2 id="3-目前-VCED-项目仅能够处理对单个视频的检索，需要对项目改造来实现对多个视频片段的检索。"><a href="#3-目前-VCED-项目仅能够处理对单个视频的检索，需要对项目改造来实现对多个视频片段的检索。" class="headerlink" title="3. 目前 VCED 项目仅能够处理对单个视频的检索，需要对项目改造来实现对多个视频片段的检索。"></a>3. 目前 VCED 项目仅能够处理对单个视频的检索，需要对项目改造来实现对多个视频片段的检索。</h2><p>TBC</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本篇文章是跨模态检索工具 VCED 介绍的第六篇。介绍完 VCED 的核心机制与前后端，本次记录下可以优化的点。&lt;/p&gt;
+&lt;!--more---&gt;
+&lt;h2 id=&quot;1-目前向量检索使用的是最简单的暴力搜索，所以向量检索花费的时间很慢，这里可以优化成以-Faiss-实现的高性</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="VCED" scheme="https://superlova.github.io/tags/VCED/"/>
+    
+    <category term="multimodal" scheme="https://superlova.github.io/tags/multimodal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【学习笔记】机器学习之XGBoost、LightGBM、CatBoost</title>
+    <link href="https://superlova.github.io/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8BXGBoost%E3%80%81LightGBM%E3%80%81CatBoost/"/>
+    <id>https://superlova.github.io/2022/11/27/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8BXGBoost%E3%80%81LightGBM%E3%80%81CatBoost/</id>
+    <published>2022-11-27T00:09:26.000Z</published>
+    <updated>2022-11-27T01:40:23.906Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文会记录 XGBoost、LightGBM、CatBoost 的原理、区别和使用方法。</p><!--more---><h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p>XGBoost 是 GBDT 算法的一种高效实现方式。</p><h3 id="XGBoost-的原理"><a href="#XGBoost-的原理" class="headerlink" title="XGBoost 的原理"></a>XGBoost 的原理</h3><p>原始的 GBDT 算法基于经验损失函数的负梯度来构造新的决策树，构造完成后再进行后剪枝。XGBoost 添加了预剪枝操作，它在目标函数中添加了正则项。</p><script type="math/tex; mode=display">L_t=\sum_i L(y_i, F_{t-1}(x_i)+f_t(x_i)) + \Omega(f_t)</script><p>其中：</p><script type="math/tex; mode=display">\Omega(f_t)=\gamma T+\frac{1}{2}\lambda \sum_{j=1}^{T}w_{j}^2</script><p>其中 T 为这棵树的叶子结点个数，$w_j$表示第 j 个叶子结点的预测值。这是一个正则项，该值能够在一定程度上代表一棵树的复杂程度。因此在建树时，我们可以调整超参数，达到预剪枝的效果， $\gamma$ 越大则不容易分叉，较小则容易分叉。XGBoost 添加此项的目的在于控制不要生成过于复杂的子树结构。</p><p>要想优化该目标函数，但是 f 本身不是数值型的函数，不能直接使用梯度下降进行优化。因此在这里对损失函数进行二阶泰勒展开，用作函数的近似：</p><script type="math/tex; mode=display">\begin{aligned}L_t &=\sum_i L(y_i, F_{t-1}(x_i)+f_t(x_i)) + \Omega(f_t) \\&= \sum_i [L(y_i, F_{t-1}(x_i)) + g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)\end{aligned}</script><p>其中 $ g<em>i=\frac{\partial L(y_i, F</em>{t-1}(x<em>i))}{\partial F</em>{t-1}(x<em>i)} $，$ h_i=\frac{\partial^2 L(y_i, F</em>{t-1}(x<em>i))}{\partial^2 F</em>{t-1}(x_i)} $，分别为f 的一阶导数和二阶导数</p><p>对第 t 次迭代来说，$ L(y<em>i, F</em>{t-1}(x_i)) $ 是个常数，因此目标函数可进一步简化为：</p><script type="math/tex; mode=display">L_t=\sum_i [g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)</script><p>这样做，只需知道每个样本的损失函数的一阶导数、二阶导数，每个样本在第 t 个分类器的预测结果，叶子结点的个数，叶子结点的输出值，就知道第 t 步的损失函数值了。</p><p>上面的公式，有两个 $\sum$ ，在数学上不好处理：左边的 $\sum$ 是逐样本累加，右边的 $\sum$ 是逐叶子累加，需要把他们合并起来。</p><p>如果我们把某个叶子结点 j 上面所有样本的损失函数的一阶导数之和记作 G，二阶导数之和记作 H，则上式可简化。具体地，如果叶子结点 j 上面的样本集合为 $I_j={q(x_i)=j}$ （q(x) 是一个函数，能输入一个样本，输出该样本在树上的节点的下标），则 G、H 的定义如下：</p><script type="math/tex; mode=display">G_j=\sum_{i\in I_j}g_i \\H_j=\sum_{i\in I_j}h_i</script><p>然后我们使用如下变换：</p><script type="math/tex; mode=display">\begin{aligned}L_t&=\sum_{i=1}^{N} [g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda\sum^{T}_{j=1}w^2_j \\&=\sum_{i=1}^N [g_iw_{q(x_i)}+\frac{1}{2}h_iw^2_{q(x_i)}] + \gamma T + \frac{1}{2}\lambda\sum^{T}_{j=1}w^2_j \\&=\sum_{j=1}^T [\sum_{i\in I_j}g_iw_j+\frac{1}{2}\sum_{i\in I_j}h_iw_j^2] + \gamma T + \frac{1}{2}\lambda\sum^{T}_{j=1}w^2_j \\&=\sum_{j=1}^T(G_jw_j+\frac{1}{2}(H_j+\lambda)w_j^2)+\gamma T\end{aligned}</script><p>这就是目标函数的最终结果。</p><p>接下来我们希望能够优化该目标函数，计算第 t 轮时使目标函数最小的叶节点的输出分数 w。我们直接对 w 进行求导并令导数为 0，此时的 w 为：</p><script type="math/tex; mode=display">w_j=-\frac{G_j}{H_j+\lambda}</script><p>最终得到损失函数形式：</p><script type="math/tex; mode=display">L_t=-\frac{1}{2}\sum_{j=1}^T (\frac{G^2_j}{H_j + \lambda}) + \gamma T</script><p>该值越小，目标函数越小。</p><p>XGBoost 在分裂时，会遍历该特征的所有取值，尝试计算分裂前的损失和分裂后的损失。</p><script type="math/tex; mode=display">\text{Gain}=\frac{1}{2}[\frac{G^2_L}{H_L + \lambda}+\frac{G^2_R}{H_R + \lambda}-\frac{(G_L + G_R)^2}{H_L + H_R + \lambda}] - \gamma</script><p>其中第一项是左子树分数，第二项是右子树分数，第三项是分裂前的分数，最后的 gamma 是新叶子结点的复杂度。</p><p>gain 值越大，说明分裂后能够更多地让损失函数减小，也就是越好。</p><h3 id="XGBoost-自定义损失函数"><a href="#XGBoost-自定义损失函数" class="headerlink" title="XGBoost 自定义损失函数"></a>XGBoost 自定义损失函数</h3><p>XGBoost 能够解决二元分类、多元分类、回归问题。对于二元分类问题，最终的预测值会经过 sigmoid 函数后比较输出与 0 或 1 的接近程度；对于多元分类问题，最终的预测值会经过 softmax 函数后得到某一类型的最大概率，输出某一类型的值。</p><p>二元分类器的目标函数：</p><script type="math/tex; mode=display">sigmoid=\frac{1}{1+e^{-x}}</script><pre><code class="lang-py">def sigmoid(x):    return 1.0 / 1 + np.exp(-x)</code></pre><p>损失函数：</p><script type="math/tex; mode=display">logloss=-(y\log(p)+(1-y)\log(1-p))</script><p>将损失函数代入 sigmoid：</p><script type="math/tex; mode=display">logloss(y_i,\hat{y_i})=(y\ln(1+e^{-\hat{y_i}})+(1-y_i)\ln(1+e^{\hat{y_i}}))</script><p>损失函数的一阶导数和二阶导数：</p><script type="math/tex; mode=display">g_i=p_i^{t-1}-y_i \\h_i=p^{t-1}_i (1-p^{t-1}_i)</script><p>多元分类器的目标函数：</p><script type="math/tex; mode=display">\text{softmax}=\frac{e^{\hat{y_i}}}{\sum_j e^{\hat{y_i}}}</script><pre><code class="lang-py">def softmax(x):    e = np.exp(x)    return e / np.sum(e)</code></pre><p>损失函数：</p><script type="math/tex; mode=display">logloss=-\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^M y_{ij}\log(p_{i,j})</script><p>其中 N 为样本数，M 为类别数。 $y<em>{ij}$ 代表第 i 个样本分类为 j 时则为 1，否则为 0； $p</em>{i,j}$ 代表第 i 个样本被预测为第 j 类的概率。</p><p>损失函数的一阶导数和二阶导数，其整体形式仍与二分类一致.</p><p>如果我们想自定义损失函数，比如在二分类问题上，我们对数据较少的那个类别予以更多惩罚，就可以这样实现：</p><pre><code class="lang-py">def weighted_binary_cross_entropy(pred, dtrain, imbalance_alpha=10):    label = dtrain.get_label()    sigmoid_pred = 1.0 / (1.0 + np.exp(-pred))    # 一阶导数    grad = -(imbalance_alpha ** label) * (label - sigmoid_pred)    # 二阶导数    hessian = (imbalance_alpha ** label) * sigmoid_pred* （1.0 - sigmoid_pred）    return grad, hessian</code></pre><h3 id="XGBoost-候选分裂点选取策略"><a href="#XGBoost-候选分裂点选取策略" class="headerlink" title="XGBoost 候选分裂点选取策略"></a>XGBoost 候选分裂点选取策略</h3><h3 id="XGBoost-在工程上的优化"><a href="#XGBoost-在工程上的优化" class="headerlink" title="XGBoost 在工程上的优化"></a>XGBoost 在工程上的优化</h3><p>XGBoost 在选择分裂切分点时，不会一个一个地遍历，而是选择分位数点。</p><p>XGBoost 在生成下一棵树时，所有样本的权重 g 和 h 可以通过当前树的预测值和实际值得到。因此要确定最佳分割点，需要提前对特征值进行排序。xgboost可以在训练下一棵树前预先计算好每个特征在不同切分点的增益，并对数据进行排序，保存为block的结构，迭代中重复使用这个结构，因此各个特征的增益计算就可以多线程并行进行。</p><h3 id="XGBoost-与-GBDT-的区别"><a href="#XGBoost-与-GBDT-的区别" class="headerlink" title="XGBoost 与 GBDT 的区别"></a>XGBoost 与 GBDT 的区别</h3><ol><li><p>基分类器不同。XGBoost 目前支持三种基分类器，分别是 gbtree，gblinear 和 dart，可以使用 <strong>booster</strong> 参数修改。一般情况下 gbtree 就是基于 CART 回归树的 XGBoost，gblinear 是逻辑回归线性分类器，dart 是用了 dropout 的树分类器。</p></li><li><p>导数信息不同，损失函数也不同。XGBoost 对损失函数做了二阶泰勒展开，GBDT 只用了一阶导数信息。</p></li></ol><p>XGBoost 没有定义损失函数本身，只要该损失函数能够进行二阶泰勒展开即可，因此基学习器可以更换。</p><p>XGBoost 默认使用 CART 回归树用作基学习器，但是可以更换为其他学习器，比如线性模型。此时的损失函数需要更换。</p><p>比如分类问题，损失函数一般为 logistics 损失函数</p><ol><li>XGBoost 在每轮迭代时，可以使用全部数据，也可以使用自助采样的数据。</li></ol><p>这里的思想类似随机森林，每次节点分裂并没有比较所有特征的好坏，而是先随机圈定一部分特征，只使用这部分特征进行比较，从而在生成树时引入了随机性。</p><p>列采样有两种方式，一种是层内随机，一层的所有节点都使用随机圈定的特征；另一种是整颗树随机，即建树伊始就使用随机圈定的特征。</p><p>另外 XGBoost 在决定特征的分裂点是，并没有逐个比较所有情况，而是选用了二阶梯度分位点。</p><ol><li>XGBoost 能够自动学习出缺失值的处理策略。</li></ol><p>缺失值处理策略相对简单，即分别尝试把所有缺失该特征的数据放在左子树和右子树，分别计算增益，来决定缺失数据的归宿。这也就决定了 XGBoost 无法应对 OneHot 编码这种大部分都为 0 的特征。</p><ol><li>XGBoost 在工程实现上的优化</li></ol><p>在选择分裂点时，XGBoost 会首先将样本按照特征进行排序。排序的这个步骤可以进行优化。</p><h2 id="LightGBM"><a href="#LightGBM" class="headerlink" title="LightGBM"></a>LightGBM</h2><h2 id="CatBoost"><a href="#CatBoost" class="headerlink" title="CatBoost"></a>CatBoost</h2><h2 id="LambdaMART"><a href="#LambdaMART" class="headerlink" title="LambdaMART"></a>LambdaMART</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/bac6a0dfac2c">https://www.jianshu.com/p/bac6a0dfac2c</a></p><p><a href="https://blog.csdn.net/zwqjoy/article/details/109311133">https://blog.csdn.net/zwqjoy/article/details/109311133</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本文会记录 XGBoost、LightGBM、CatBoost 的原理、区别和使用方法。&lt;/p&gt;
+&lt;!--more---&gt;
+&lt;h2 id=&quot;XGBoost&quot;&gt;&lt;a href=&quot;#XGBoost&quot; class=&quot;headerlink&quot; title=&quot;XGBoost&quot;&gt;&lt;/a&gt;</summary>
+      
+    
+    
+    
+    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
+    
+    <category term="XGBoost" scheme="https://superlova.github.io/tags/XGBoost/"/>
+    
+    <category term="LightGBM" scheme="https://superlova.github.io/tags/LightGBM/"/>
+    
+    <category term="CatBoost" scheme="https://superlova.github.io/tags/CatBoost/"/>
+    
+  </entry>
   
   <entry>
     <title>【学习笔记】通过文字检索视频片段：VCED之后端逻辑</title>
@@ -528,58 +588,6 @@
       
     <summary type="html">&lt;p&gt;陈天奇老师主讲的机器学习编译相关的课程，本节课讨论张量程序抽象以及相关实现。&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
 &lt;p&gt;机器学习编译的过程可以看做是对张量函数的变换过程。&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="Machine Learning" scheme="https://superlova.github.io/tags/Machine-Learning/"/>
-    
-    <category term="Compilation" scheme="https://superlova.github.io/tags/Compilation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【学习笔记】职业素养</title>
-    <link href="https://superlova.github.io/2022/08/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB/"/>
-    <id>https://superlova.github.io/2022/08/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB/</id>
-    <published>2022-08-01T03:26:14.000Z</published>
-    <updated>2022-08-02T13:32:34.818Z</updated>
-    
-    <content type="html"><![CDATA[<p>有关新人培养手册的一些阅读体会和思考<br><!--more---></p><h2 id="执行任务并漂亮地完成"><a href="#执行任务并漂亮地完成" class="headerlink" title="执行任务并漂亮地完成"></a>执行任务并漂亮地完成</h2><p>分析问题、解决问题是工程师的日常工作，如何对待工作、如何执行工作，反映了一个工程师的基本素质。</p><p>不同级别的工程师适合处理不同难度的任务。根据任务难度，可以分类为：</p><ol><li>任务已经拆解完毕，我只负责某个简单子任务的执行；</li><li>任务已经拆解完毕，我负责各个步骤的执行，或者其中较困难的部分；</li><li>复杂的事情需要自己做拆解然后执行。</li></ol><p>一般我们把简单的执行任务交付给 T5 左右级别工程师去执行，把复杂的任务交给 T7 左右的工程师执行。而 T8 及以上的工程师，我们希望能独立完成任务拆解并执行。T10 以上的工程师，我们希望能够承担一个技术方向上的难题。</p><p>无论任务难度如何，工程师还是要根据结果的完成度来评价。根据结果分类：</p><ul><li>最低评价：不能按时完成任务；</li><li>较低评价：按时完成任务，但是质量较差；</li><li>合格评价：按时完成任务，质量合格。</li></ul><h2 id="独立思考"><a href="#独立思考" class="headerlink" title="独立思考"></a>独立思考</h2><p>什么叫做独立思考？工作是由思考和执行两部分组成的，任务的分析和拆解过程、出现问题后的总结和复盘、对现有技术方案的调研，都算是独立思考。</p><p>比如说，当我负责的模块出现 Bug，或者我的团队负责的模块报警时，进行分析问题、总结和复盘的过程，算是独立思考；<br>比如说，项目的技术方案不够完美或存在缺陷，我对现有技术方案进行调研，算是独立思考；<br>比如说，我对问题进行分析和总结，经常反思是否已经无可挑剔、不会被人挑毛病，算是独立思考。</p><p>独立思考代表着三个工程师宝贵的能力：责任心、事业心和硬实力。一个高绩效的工程师，往往有以下特征：</p><ol><li>工作态度上，对业务负责，从来不会消极怠工，负责的模块出现事故很少；</li><li>做事方法上，规范、及时沟通，事情交给他很放心，不会把自己当成工具人；</li><li>做事效率上，想得清楚做得快，紧急问题得交给他，做事不会反反复复；</li><li>技术实力上，此方向的任何问题都可以咨询他。</li></ol><h2 id="协作沟通"><a href="#协作沟通" class="headerlink" title="协作沟通"></a>协作沟通</h2><p>以上几点是工程师个人的能力评价，但是在公司中免不了要与其他工程师打交道，也就是沟通。</p><p>协作沟通时有一些常见的问题，新手工程师可能不太了解，需要琢磨一下；在此我把一些定律列举出来，方便直接照做：</p><ol><li>收到消息必回复，塑造收到消息及时回复的形象；不仅如此，在自己负责通知时，也要确认相关责任人收到消息。</li><li>沟通时先想好诉求，问对了问题是成功的一半；要有礼貌，先带好称呼，再组织语言，逻辑通顺；要确认下解决问题的时间节点，并且将讨论的共识发到群里进行同步；</li><li>要及时跟进问题，就比如说当你找对方要时间节点时，可能会遇到：“还不知道，需要评估”、“事情太多，不好说”、等等类似的无法给出时间点的情况，这个时候就需要及时跟进。及时跟进的做法不是每过一段时间就问一次，那样很招人烦；正确做法是一起拆分问题，对方一旦完成子任务，就通知自己。</li><li>即便你负责的是一个项目里的一小部分，你也需要知道整个项目的计划节奏。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;有关新人培养手册的一些阅读体会和思考&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
-&lt;h2 id=&quot;执行任务并漂亮地完成&quot;&gt;&lt;a href=&quot;#执行任务并漂亮地完成&quot; class=&quot;headerlink&quot; title=&quot;执行任务并漂亮地完成&quot;&gt;&lt;/a&gt;执行任务并漂亮地完成&lt;/h2</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://superlova.github.io/categories/notes/"/>
-    
-    
-    <category term="Career" scheme="https://superlova.github.io/tags/Career/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【学习笔记】如何实现模型的热更新？</title>
-    <link href="https://superlova.github.io/2022/07/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9F/"/>
-    <id>https://superlova.github.io/2022/07/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9F/</id>
-    <published>2022-07-22T03:11:37.000Z</published>
-    <updated>2022-08-02T13:32:34.801Z</updated>
-    
-    <content type="html"><![CDATA[<p>陈天奇老师主讲的机器学习编译相关的课程，回答了机器学习模型是如何从开发状态到部署状态的。整个过程类似源代码到可执行程序的编译过程，因此得名机器学习编译。据他本人所述，这门课是目前全世界第一门主讲机器学习编译的课程。<br><!--more---></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;陈天奇老师主讲的机器学习编译相关的课程，回答了机器学习模型是如何从开发状态到部署状态的。整个过程类似源代码到可执行程序的编译过程，因此得名机器学习编译。据他本人所述，这门课是目前全世界第一门主讲机器学习编译的课程。&lt;br&gt;&lt;!--more---&gt;&lt;/p&gt;
 </summary>
       
     

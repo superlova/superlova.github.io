@@ -150,6 +150,120 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/05/19/numpy%E4%B8%ADaxis%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" target="_self">
+          <img src="/img/numpy.png" srcset="/img/loading.gif" alt="numpy中axis的简单理解"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/19/numpy%E4%B8%ADaxis%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/">
+        <p class="h4 index-header">numpy中axis的简单理解</p>
+      </a>
+
+      <a href="/2020/05/19/numpy%E4%B8%ADaxis%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文将介绍numpy中的axis
+我对于numpy中的axis的理解，一直处于似懂非懂、似是而非的状态。看到网上大神的文章，也只能点个赞之后，该不会还是不会。每次看完博客，都会觉得自己懂了；但是每次使用的时候，又要想老半天才行。因此今天我想借此机会，彻底扫清使用numpy时，axis的障碍。
+在numpy中，数据的基本类型是array。array有个基本的数据属性，是它的维度。
+比如下面的这个array，在逻辑上来看这就是个2维的数据，是一个矩阵。
+A = np.random.randint(0, 19, 9).reshape(3, 3)
+print(A)
+[[12 15  0]
+ [ 3  </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/numpy/">numpy</a>&nbsp;
+          
+            <a href="/tags/axis/">axis</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/05/19/%E9%97%AD%E5%8C%85%E7%9A%84%E8%BF%B7%E6%80%9D/" target="_self">
+          <img src="/img/professional.png" srcset="/img/loading.gif" alt="闭包的迷思"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/19/%E9%97%AD%E5%8C%85%E7%9A%84%E8%BF%B7%E6%80%9D/">
+        <p class="h4 index-header">闭包的迷思</p>
+      </a>
+
+      <a href="/2020/05/19/%E9%97%AD%E5%8C%85%E7%9A%84%E8%BF%B7%E6%80%9D/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">闭包是什么？如果你与我有同样的疑问，敬请阅读。
+什么是闭包？这个问题困扰了我很长时间。
+第一次接触闭包这个概念，是在“形式语言”这门课上。好像“离散数学”这门课上也教过闭包，但是这都不重要，因为我们这里讨论的闭包与数学上的闭包没什么关系。本文讨论的闭包，是程序设计语言中的闭包。
+专业概念：
+闭包是在其词法上下文中引用了自由变量的函数，自由变量是指除局部变量以外的变量。
+又有一种说法是闭包不是函数，而是由函数和与其相关的引用环境组合而成的实体。
+维基百科)的解释：闭包在实现上是一个结构体，它存储了一个函数（通常是其入口地址）和一个关联的环境（相当于一个符号查找表）。
+看到这里我彻底懵逼了。是是是</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/C/">C++</a>&nbsp;
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/closure/">closure</a>&nbsp;
+          
+            <a href="/tags/lambda/">lambda</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/05/18/Python%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E9%9A%BE%E4%BB%A5%E7%90%86%E8%A7%A3/" target="_self">
           <img src="/img/confuse.jpg" srcset="/img/loading.gif" alt="Python装饰器为什么这么难以理解"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1020,101 +1134,6 @@ import numpy as np
             <a href="/tags/machine-learning/">machine learning</a>&nbsp;
           
             <a href="/tags/model-evaluation/">model evaluation</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/06/16/%E4%B8%89%E6%98%9F%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%8D%87%E7%BA%A7%E7%A1%AC%E7%9B%98%E5%AE%9E%E5%BD%95/">
-        <p class="h4 index-header">三星笔记本升级硬盘实录</p>
-      </a>
-
-      <a href="/2019/06/16/%E4%B8%89%E6%98%9F%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%8D%87%E7%BA%A7%E7%A1%AC%E7%9B%98%E5%AE%9E%E5%BD%95/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">这是一篇装机实录，主要内容有：
-
-给老式（2014年左右）无光驱笔记本电脑安装固态硬盘、拆卸机械硬盘；
-重装系统的坑
-固态硬盘体验
-
-旧本盼望新生很早之前就想为自己的古董笔记本提升一下性能了。我的笔记本型号是NP370R5V-S02CN，属于2014年那会儿产的机型。i5的CPU、8G的内存（其中我额外购置了4G内存条），再加上5年的使用习惯，让我对这台机器还比较满意。限制笔记本电脑性能的主要瓶颈就是硬盘了。
-我是一个等等党，平时也不会在自己的电脑上运行特别复杂的程序，大部分都在服务器或者公有云上跑了。所以对笔记本电脑的需求不是那么急切。固态2块钱1G的时候我没有心动，1块钱1G的时候我还是没</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-16&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/hardware/">hardware</a>&nbsp;
-          
-            <a href="/tags/SSD/">SSD</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/06/15/%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
-        <p class="h4 index-header">高级操作系统——分布式系统——课程设计与实现</p>
-      </a>
-
-      <a href="/2019/06/15/%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">实验二一、实验目的尝试实现一个无连接的数据报Socket进程间通信（UDP）
-二、实验内容
-创建两个进程，使用无链接的数据报Socket实现交换一个字符串。一个叫做Sender.java ，用于向一个名为Receiver.java的进程发送一个字符串。
-Sender.java需要一个命令行参数，用于表示传递消息的端口号.
-Receiver.java 需要一个命令行参数用于表示接受消息的端口号。
-接受方需要阻塞直到从发送方收到一个消息。如果发送放在接受运行之前发送出消息，消息会丢失。这种情况在此实验中是允许的。
-消息缓冲可以是定长的。如果发送的消息比消息缓冲长，接受方就看不到完整的消息。这种情况</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-15&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/record/">record</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/distribute-system/">distribute system</a>&nbsp;
-          
-            <a href="/tags/OS/">OS</a>&nbsp;
-          
-            <a href="/tags/java/">java</a>&nbsp;
           
         
       </div>
