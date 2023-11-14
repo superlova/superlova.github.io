@@ -150,6 +150,61 @@
     
     
       <div class="col-12 col-md-4 m-auto">
+        <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
+          <img src="/img/Einstein.jpg" srcset="/img/loading.gif" alt="numpy中的einsum使用方法"
+               class="index-img img-fluid rounded index-thumbnails">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+        <p class="h4 index-header">numpy中的einsum使用方法</p>
+      </a>
+
+      <a href="/2020/05/19/numpy%E4%B8%AD%E7%9A%84einsum%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">本文将介绍爱因斯坦求和约定，以及在numpy中的使用
+numpy里面有很多奇技淫巧，爱因斯坦求和约定就是其中之一。
+爱因斯坦求和约定能够很方便和简介地表示点积、外积、转置、矩阵-向量乘法、矩阵-矩阵乘法等，这在深度学习公式推导中的用处很大。
+其实我不认为einsum在numpy中用处很大，我认为其顶多就是一种统一的矩阵运算写法罢了。这种技巧，是在牺牲可读性基础上，对代码的简化。而且由于numpy对其他运算也有进行优化，所以仅凭借爱因斯坦乘数法还不一定能提升代码执行效率。
+可能是我还没有体会到高维张量相互计算时的痛苦吧。
+先看一下einsum的api：
+np.einsum(equation, *</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/notes/">notes</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Python/">Python</a>&nbsp;
+          
+            <a href="/tags/numpy/">numpy</a>&nbsp;
+          
+            <a href="/tags/einsum/">einsum</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto">
         <a href="/2020/05/19/numpy%E4%B8%ADaxis%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" target="_self">
           <img src="/img/numpy.png" srcset="/img/loading.gif" alt="numpy中axis的简单理解"
                class="index-img img-fluid rounded index-thumbnails">
@@ -1094,57 +1149,11 @@ import numpy as np
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/06/21/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9%E2%80%94%E2%80%94%E5%91%A8%E5%BF%97%E5%8D%8E%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8BCH2/">
-        <p class="h4 index-header">模型评估与选择——周志华《机器学习》CH2</p>
-      </a>
-
-      <a href="/2019/06/21/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9%E2%80%94%E2%80%94%E5%91%A8%E5%BF%97%E5%8D%8E%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8BCH2/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">模型如何评估，选择标准是什么？先让我们了解一下常见的衡量标准
-错误率+精度=1
-误差：训练误差/经验误差 training/empirical error泛化误差 generalization error
-训练误差低，泛化误差不一定低。这其中牵扯到过拟合和欠拟合的问题。
-过拟合：过分学习，将训练样本中不属于规律的的噪声也一并学习的现象。防止过拟合，一般采用将数据集分成训练集和测试集，利用训练集训练模型，利用测试集拟合泛化误差的办法。
-测试误差 testing error
-划分数据集的方法样本划分之留出法 hold-out将样本分成互斥的两部分S,T用S训练，用T测试。分割比例自己确定。需要注意</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-21&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/notes/">notes</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/machine-learning/">machine learning</a>&nbsp;
-          
-            <a href="/tags/model-evaluation/">model evaluation</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
